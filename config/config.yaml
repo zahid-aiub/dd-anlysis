@@ -1,0 +1,48 @@
+# Trace analyzer configuration.
+
+# Relative paths in `data` and `output` resolve against base_dir.
+# base_dir itself is relative to the directory of this file.
+base_dir: ..
+
+data:
+  pcapng: TDS_Task/TDS_Task/RealOCWorking_TDS_21026.pcapng
+  blf: TDS_Task/TDS_Task/RealOCWorking_TDS_21026.blf
+  report_pdf: TDS_Task/TDS_Task/Real_SCI-TDS_2026-10-02_12-24-11.pdf
+  canoe_log: TDS_Task/TDS_Task/TDS_Report_21026.txt
+  test_descriptions: TDS_Task/TDS_Task/Test_Description
+  telegram_spec: "TDS_Task/TDS_Task/Test_Description/SCI_TDS_Telegrams_3.4.6_to_3.4.16 1.xlsx"
+
+sources:
+  # false: use the BLF only for its CANoe objects (variables, panel, test structure), not its Ethernet frames.
+  # The synthetic scenarios set this when they edit the pcapng, so that the BLF frames do not undo the edit.
+  blf_ethernet: true
+
+protocol:
+  # BL5 matches the RealOC capture (47-byte "Meldung GFM-A Belegungszustand").
+  sci_tds_baseline: 5
+  rasta_udp_port: 24001
+
+wireshark:
+  # Only used by the test suite to cross-check the decoder against the NeuPro Lua dissectors.
+  tshark: tshark
+
+# The two communication partners. Direction TX = sent by test_system, RX = sent by dut.
+nodes:
+  test_system: {ip: 1.208.188.16, id: "DETHMM ZE 35##0001", name: ESTW-ZE (CANoe)}
+  dut: {ip: 10.129.15.2, id: "DETHMM AZA34##0001", name: Az-System (RealOC)}
+
+timing:
+  response_timeout_ms: 500      # "t - t1 < 500 ms" in Test_Description
+  precondition_timeout_s: 120   # manual/automatic GFM-A preparation limit in the PDF report
+  cleanup_timeout_ms: 6500      # cleanup wait in the PDF report
+
+rasta:
+  heartbeat_period_ms: 300      # observed: max interval between RaSTA messages 0.306 s
+  max_message_gap_ms: 750       # assumption until T_max of the RealOC is confirmed
+
+alignment:
+  max_spread_ms: 5                      # larger deviations between sources give a time_alignment finding
+  rasta_timestamp_resolution_s: 1.0e-6  # CANoe writes measurement time in µs into the test system's RaSTA timestamp
+
+output:
+  dir: output

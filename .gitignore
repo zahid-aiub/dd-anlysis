@@ -1,0 +1,27 @@
+# Python
+.venv/
+venv/
+.python-version
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Confidential DB InfraGO material: never commit (see docs/CONFIDENTIALITY.md)
+TDS_Task/
+*.pcap
+*.pcapng
+*.blf
+*.lua
+LUA.zip
+project-task.docx
+TDS_Task_Analysis_Checklist.pdf
+
+# Generated output
+output/*
+!output/.gitkeep
+
+.DS_Store
+
+# Personal Claude Code settings
+.claude/settings.local.json

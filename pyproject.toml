@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "trace-analyzer"
+version = "0.1.0"
+description = "Multi-source trace failure analysis for SCI-TDS test runs (PCAPNG, BLF, CANoe PDF report)"
+requires-python = ">=3.11"
+dependencies = [
+    "dpkt>=1.9",        # raw PCAPNG reading
+    "pymupdf>=1.24",    # CANoe PDF test report text extraction
+    "pandas>=2.2",
+    "openpyxl>=3.1",    # SCI-TDS telegram spec (.xlsx)
+    "pyyaml>=6.0",
+    "jinja2>=3.1",      # HTML/Markdown report templates
+    "plotly>=5.0",      # timeline charts in the report
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# PyMuPDF's SWIG bindings emit these on import; harmless.
+filterwarnings = ["ignore:builtin type .* has no __module__ attribute:DeprecationWarning"]

@@ -1,0 +1,111 @@
+# Facts established manually in Phase 1 (docs/data_understanding.md).
+# Later phases compare parser and analyzer output against these values.
+# Times are CANoe measurement time in seconds unless stated otherwise.
+
+run:
+  measurement_start: "2026-10-02T12:23:59.953+02:00"
+  measurement_end_s: 491.109
+  pcapng_to_canoe_offset_s: 3.4623      # t_canoe = t_pcapng_relative + offset
+  pcapng_vs_blf_abs_offset_s: 0.0008    # constant, no drift
+  sci_tds_baseline: 5
+
+counts:
+  pcapng_frames: 2159
+  blf_ethernet_frames: 2159
+  blf_do_member_events: 8915            # obj 130, each event logged twice (full path + IL alias)
+  blf_test_structure_events: 13         # obj 118
+  rasta:
+    connection_request: 5
+    connection_response: 5
+    disconnection_request: 5            # all reason 0 "User Request"
+    heartbeat: 2100
+    data: 35
+    sequence_gaps: 0
+    retransmissions: 0
+  sci_telegrams:
+    "0x0001": 2     # Kommando AZG
+    "0x0003": 6     # Kommando AZGH
+    "0x0007": 12    # Meldung GFM-A Belegungszustand
+    "0x0021": 5
+    "0x0022": 5
+    "0x0023": 5
+    "0x0024": 5
+    "0x0025": 5
+    "0x0006": 0     # Meldung Kommando abgewiesen
+    "0x0009": 0     # Meldung AZGH-Quittung
+
+# GFM-A 34W1 status reports: [t, belegung, grundstellbar, achszaehlfuellstand, pcapng frame]
+gfma_status:
+  - [4.253,   1, 0, 0x0000, 16]
+  - [53.133,  1, 0, 0x0000, 56]
+  - [64.545,  2, 0, 0x0001, 132]
+  - [75.755,  2, 1, 0x0001, 207]
+  - [84.845,  1, 0, 0x0000, 268]
+  - [132.314, 1, 0, 0x0000, 323]
+  - [180.287, 1, 0, 0x0000, 380]
+  - [186.851, 2, 0, 0x0000, 423]
+  - [186.953, 3, 0, 0x0000, 425]
+  - [198.870, 3, 1, 0x0000, 504]
+  - [248.862, 3, 0, 0x0000, 837]
+  - [354.303, 3, 0, 0x0000, 1276]
+
+# Commands sent by ZE: [t, code, origin]
+commands:
+  - [64.546,  "0x0003", test_preparation]
+  - [77.546,  "0x0003", test_step]
+  - [84.548,  "0x0001", test_cleanup]
+  - [132.315, "0x0003", test_step]
+  - [306.789, "0x0003", test_cleanup]
+  - [381.611, "0x0003", manual_panel]
+  - [391.386, "0x0001", manual_panel]
+  - [480.804, "0x0003", test_cleanup]
+
+sessions:
+  - {id: 1, up: 3.46,   down: 8.51,   test_case: null}
+  - {id: 2, up: 52.40,  down: 91.35,  test_case: TC_NPRO.295.02283.01}
+  - {id: 3, up: 131.55, down: 139.32, test_case: TC_NPRO.295.02284.01}
+  - {id: 4, up: 179.51, down: 313.29, test_case: TC_NPRO.295.02288.01}
+  - {id: 5, up: 353.49, down: 487.30, test_case: TC_NPRO.295.00525.01}
+
+test_cases:
+  - name: TC_NPRO.295.02283.01(O)
+    start: 12.402
+    end: 91.548
+    verdict: PASS
+  - name: TC_NPRO.295.02284.01(F)
+    start: 91.548
+    end: 139.515
+    verdict: PASS
+  - name: TC_NPRO.295.02288.01(O)
+    start: 139.515
+    end: 313.489
+    verdict: FAIL
+    expected_diagnosis:               # categories are trace_analyzer.model.FailureCategory values
+      symptom: {category: precondition_not_reached, time: 300.288}
+      cause: {category: device_disturbed, time: 186.953}
+      precursor: {time: 186.851, belegung: 2, achszaehlfuellstand: 0x0000}
+      contributing:
+        # decision 2026-10-06: spec layout (BL6/BL7, 48 bytes) vs RealOC BL5 (47 bytes) is a failure of its own;
+        # step 2 could not pass, but it does not explain the precondition timeout
+        - {category: incorrect_length, time: 180.287, spec_step: 2, expected: 48, actual: 47}
+      ruled_out: [connection_interruption, sequence_error, invalid_payload, timeout]
+      cleanup_failed: true
+  - name: TC_NPRO.295.00525.01(F-ReZE)
+    start: 313.489
+    end: 487.504
+    verdict: FAIL
+    expected_diagnosis:
+      symptom: {category: precondition_not_reached, time: 474.303}
+      cause: {category: cascade_failure, caused_by: TC_NPRO.295.02288.01(O)}
+      contributing:
+        - {category: device_disturbed, time: 354.303}
+        - {category: manual_intervention, times: [381.611, 391.386]}
+      ruled_out: [connection_interruption, sequence_error, incorrect_length, invalid_payload]
+      cleanup_failed: true
+  - name: TC_NPRO.295.00522.01(O-ReZE)
+    start: 487.504
+    end: 488.322
+    verdict: INCONCLUSIVE
+    expected_diagnosis:
+      symptom: {category: test_aborted, time: 488.322}
+      cause: {category: test_aborted, detail: test_unit_stopped_by_user}
