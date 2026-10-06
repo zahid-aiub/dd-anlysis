@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ report.title }}{% if report.cases | length == 1 %} · {{ report.cases[0].test_case.test_id }}{% endif %}</title>
+<style>
+:root { color-scheme: light; --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781;
+  --line:#e1e0d9; --ring:rgba(11,11,11,0.10); --good:#0ca30c; --good-text:#006300; --warning:#fab219;
+  --critical:#d03b3b; --code:#f0efec; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: dark; --page:#0d0d0d;
+  --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7; --line:#2c2c2a; --ring:rgba(255,255,255,0.10);
+  --good-text:#0ca30c; --code:#242422; } }
+:root[data-theme="dark"] { color-scheme: dark; --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7;
+  --line:#2c2c2a; --ring:rgba(255,255,255,0.10); --good-text:#0ca30c; --code:#242422; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--page); color: var(--ink); font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 1040px; margin: 0 auto; padding: 32px 20px 64px; }
+a { color: inherit; text-decoration-color: var(--muted); text-underline-offset: 2px; }
+h1 { font-size: 24px; margin: 0 0 4px; } h2 { font-size: 19px; margin: 40px 0 12px; } h3 { font-size: 15px; margin: 20px 0 8px; }
+.meta, .note { color: var(--ink-2); margin: 0; }
+.card { background: var(--surface); border: 1px solid var(--ring); border-radius: 10px; padding: 18px 20px; margin: 12px 0; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; vertical-align: top; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--line); }
+th { color: var(--ink-2); font-weight: 600; }
+.num, td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.badge { display: inline-flex; gap: 6px; align-items: center; font-weight: 600; white-space: nowrap; }
+.badge::before { display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%;
+  color: #fff; font-size: 11px; line-height: 1; }
+.badge.pass::before { content: "✓"; background: var(--good); }
+.badge.fail::before { content: "✕"; background: var(--critical); }
+.badge.inconclusive::before, .badge.error::before, .badge.none::before { content: "?"; background: var(--muted); }
+.result { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; margin: 0; }
+.result dt { color: var(--ink-2); } .result dd { margin: 0; }
+.sev { white-space: nowrap; } .sev::before { content: ""; display: inline-block; width: 8px; height: 8px;
+  border-radius: 50%; margin-right: 6px; vertical-align: 1px; background: var(--muted); }
+.sev.error::before { background: var(--critical); } .sev.warning::before { background: var(--warning); }
+code, .ev { font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.ev { color: var(--ink-2); }
+ul.evidence { margin: 4px 0 0; padding-left: 18px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 6px 0 0; list-style: none; }
+.chips li { background: var(--code); border-radius: 999px; padding: 2px 10px; font-size: 12px; color: var(--ink-2); }
+details summary { cursor: pointer; color: var(--ink-2); margin: 12px 0 6px; }
+.timeline { margin: 14px 0 4px; }
+.timeline svg { display: block; max-width: 100%; height: auto; }
+</style>
+</head>
+<body>
+<main>
+<h1>{{ report.title }}</h1>
+<p class="meta">{% if report.metadata.configuration %}CANoe configuration <code>{{ report.metadata.configuration }}</code>{% endif %}{% if report.metadata.canoe_version %} · {{ report.metadata.canoe_version }}{% endif %}</p>
+<p class="meta">{% if report.measurement_start %}Measurement start {{ report.measurement_start.strftime("%Y-%m-%d %H:%M:%S %z") }} · {% endif %}report generated {{ report.generated.strftime("%Y-%m-%d %H:%M") }}</p>
+<p class="note">All times are CANoe measurement time in seconds; wall-clock times are test bench local time.</p>
+
+<h2>Summary</h2>
+<div class="card scroll"><table>
+<thead><tr><th>Test case</th><th>Report</th><th>Analyzer</th><th>Detected failure</th><th>Root cause</th><th>Confidence</th></tr></thead>
+<tbody>
+{% for c in report.cases %}<tr>
+<td><a href="#{{ c.anchor }}">{{ c.name }}</a></td>
+<td><span class="badge {{ c.report_verdict.value }}">{{ c.report_verdict.value }}</span></td>
+<td><span class="badge {{ c.verdict.value }}">{{ c.verdict.value }}</span></td>
+<td>{{ c.symptom.finding.summary if c.symptom else "–" }}</td>
+<td>{{ c.cause.finding.summary if c.cause else "–" }}</td>
+<td>{{ c.cause.finding.confidence | confidence if c.cause else "–" }}</td>
+</tr>{% endfor %}
+</tbody></table></div>
+
+{% for c in report.cases %}
+<section id="{{ c.anchor }}">
+<h2>{{ c.name }}</h2>
+<div class="card">
+<dl class="result">
+<dt>Test result</dt><dd><span class="badge {{ c.verdict.value }}">{{ c.headline }}</span></dd>
+{% if c.symptom %}<dt>Detected failure</dt><dd><span class="num">{{ c.symptom.time | t }}</span> · {{ c.symptom.finding.summary }}</dd>{% endif %}
+{% if c.separate_cause %}<dt>Root cause</dt><dd>{% if c.cause.time is not none %}<span class="num">{{ c.cause.time | t }}</span> · {% endif %}{{ c.cause.finding.summary }}</dd>{% endif %}
+{% if c.cause %}<dt>Category</dt><dd>{{ c.cause.finding.category | area }} <span class="ev">({{ c.cause.category }})</span></dd>{% endif %}
+{% if c.consequence %}<dt>Consequence</dt><dd>{{ c.consequence }}</dd>{% endif %}
+{% if c.cause %}<dt>Confidence</dt><dd>{{ c.cause.finding.confidence | confidence }}{% if c.sources %}; evidence from {{ c.sources | join(", ") }}{% endif %}</dd>{% endif %}
+{% if not c.symptom and not c.cause %}<dt>Detected failure</dt><dd>none</dd>{% endif %}
+<dt>Test window</dt><dd>{{ c.test_case.start | t }} – {{ c.test_case.end | t }}</dd>
+{% if c.target_state %}<dt>Target state</dt><dd>{{ c.target_state }} (Belegung/Grundstellbarkeit){% if c.precondition %} · Test_Description: {{ c.precondition }}{% endif %}</dd>{% endif %}
+</dl>
+<div class="timeline scroll">{{ c.timeline_svg | safe }}{{ legend | safe }}</div>
+</div>
+
+{% for v in c.evidence_views %}
+<h3>Evidence for the {{ v.role }} <span class="ev">({{ v.category }})</span></h3>
+<ul class="evidence">{% for e in v.evidence %}<li class="ev">{{ e }}</li>{% else %}<li class="ev">no event reference</li>{% endfor %}</ul>
+{% endfor %}
+
+{% if c.contributing %}
+<h3>Further findings</h3>
+<div class="scroll"><table>
+<thead><tr><th>Severity</th><th>Time</th><th>Category</th><th>Finding</th><th>Evidence</th></tr></thead>
+<tbody>{% for v in c.contributing %}<tr>
+<td><span class="sev {{ v.finding.severity.value }}">{{ v.finding.severity.value }}</span></td>
+<td class="num">{{ v.time | t }}</td><td>{{ v.category }}</td><td>{{ v.finding.summary }}</td>
+<td class="ev">{{ v.evidence | map("string") | join("; ") }}</td></tr>{% endfor %}</tbody>
+</table></div>
+{% endif %}
+
+{% if c.ruled_out %}<h3>Checked and ruled out</h3>
+<ul class="chips">{% for r in c.ruled_out %}<li>{{ r }}</li>{% endfor %}</ul>{% endif %}
+
+<details><summary>Events in the test window ({{ c.events | length }})</summary>
+<div class="scroll"><table>
+<thead><tr><th>Time</th><th>Clock</th><th>Event</th><th>Evidence</th></tr></thead>
+<tbody>{% for e in c.events %}<tr>
+<td class="num">{{ e.time | t }}</td><td class="num">{{ e.time | clock }}</td>
+<td>{% if e.status %}<span class="badge {{ e.status }}">{{ e.status }}</span> {% endif %}{{ e.text }}</td>
+<td class="ev">{{ e.evidence }}</td></tr>{% endfor %}</tbody>
+</table></div>
+</details>
+</section>
+{% endfor %}
+
+{% if report.run_findings %}
+<h2>Findings outside the test cases</h2>
+<div class="card scroll"><table>
+<thead><tr><th>Severity</th><th>Time</th><th>Category</th><th>Finding</th></tr></thead>
+<tbody>{% for v in report.run_findings %}<tr>
+<td><span class="sev {{ v.finding.severity.value }}">{{ v.finding.severity.value }}</span></td>
+<td class="num">{{ v.time | t }}</td><td>{{ v.category }}</td><td>{{ v.finding.summary }}</td></tr>{% endfor %}</tbody>
+</table></div>
+{% endif %}
+
+<h2>Sources and alignment</h2>
+<div class="card scroll"><table>
+<thead><tr><th>Source</th><th>File</th><th>Time base</th></tr></thead>
+<tbody>{% for name, file, how in report.sources %}<tr><td>{{ name }}</td><td class="ev">{{ file }}</td><td>{{ how }}</td></tr>{% endfor %}</tbody>
+</table>
+<ul class="evidence">{% for check in report.checks %}<li>{{ check }}</li>{% endfor %}</ul>
+</div>
+</main>
+</body>
+</html>

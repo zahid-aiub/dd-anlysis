@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1260 560" width="1260" height="560" role="img" aria-label="Analyzer pipeline: five input files in three roles are read, put on CANoe measurement time and merged, checked by 16 rules, diagnosed per test case and reported; synthetic scenarios feed an edited pcapng into the same pipeline and check the diagnosis.">
+<style>
+  .bg { fill: #fcfcfb; }
+  .box { fill: #ffffff; stroke: #c3c2b7; stroke-width: 1; }
+  .stage { fill: #f4f4f1; stroke: #c3c2b7; stroke-width: 1; }
+  .t { fill: #0b0b0b; font: 600 13px system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .s { fill: #52514e; font: 11px system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .role { fill: #2a78d6; font: 600 11px system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .edge { stroke: #52514e; stroke-width: 1.2; fill: none; }
+  .head { fill: #52514e; }
+  .synth { stroke: #2a78d6; stroke-width: 1.4; fill: none; stroke-dasharray: 5 4; }
+  .synth-head { fill: #2a78d6; }
+  .synth-box { fill: #ffffff; stroke: #2a78d6; stroke-width: 1.2; stroke-dasharray: 5 4; }
+  @media (prefers-color-scheme: dark) {
+    .bg { fill: #1a1a19; }
+    .box, .synth-box { fill: #242422; }
+    .stage { fill: #20201f; stroke: #52514e; }
+    .box { stroke: #52514e; }
+    .t { fill: #ffffff; } .s { fill: #c3c2b7; }
+    .role { fill: #3987e5; } .synth { stroke: #3987e5; } .synth-head { fill: #3987e5; } .synth-box { stroke: #3987e5; }
+    .edge { stroke: #c3c2b7; } .head { fill: #c3c2b7; }
+  }
+</style>
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path class="head" d="M0,0 L10,5 L0,10 z"/>
+  </marker>
+  <marker id="arrow-synth" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path class="synth-head" d="M0,0 L10,5 L0,10 z"/>
+  </marker>
+</defs>
+<rect class="bg" x="0" y="0" width="1260" height="560"/>
+<g transform="translate(16,0)">
+
+<!-- column titles -->
+<text class="s" x="20" y="40">Inputs (one test run)</text>
+<text class="s" x="230" y="40">Readers</text>
+<text class="s" x="570" y="40">One timeline</text>
+<text class="s" x="820" y="40">Rules</text>
+<text class="s" x="1044" y="40">Explanation</text>
+
+<!-- inputs: role, file -->
+<text class="role" x="20" y="64">1 · what should happen</text>
+<rect class="box" x="20" y="70" width="170" height="50" rx="6"/>
+<text class="t" x="32" y="91">Test_Description</text><text class="s" x="32" y="108">TC_*.txt (no 00522)</text>
+
+<text class="role" x="20" y="142">2 · what CANoe did</text>
+<rect class="box" x="20" y="148" width="170" height="50" rx="6"/>
+<text class="t" x="32" y="169">PDF test report</text><text class="s" x="32" y="186">5 test cases</text>
+
+<text class="role" x="20" y="220">3 · why</text>
+<rect class="box" x="20" y="226" width="170" height="50" rx="6"/>
+<text class="t" x="32" y="247">PCAPNG</text><text class="s" x="32" y="264">2,159 frames</text>
+<rect class="box" x="20" y="288" width="170" height="50" rx="6"/>
+<text class="t" x="32" y="309">BLF</text><text class="s" x="32" y="326">same frames + CANoe objects</text>
+<rect class="box" x="20" y="350" width="170" height="50" rx="6"/>
+<text class="t" x="32" y="371">CANoe log</text><text class="s" x="32" y="388">write window .txt</text>
+
+<!-- readers -->
+<rect class="box" x="230" y="70" width="190" height="50" rx="6"/>
+<text class="t" x="242" y="91">Test spec reader</text><text class="s" x="242" y="108">precondition → target state</text>
+<rect class="box" x="230" y="148" width="190" height="50" rx="6"/>
+<text class="t" x="242" y="169">PDF report reader</text><text class="s" x="242" y="186">verdicts, steps, Sollzustand</text>
+<rect class="box" x="230" y="226" width="190" height="50" rx="6"/>
+<text class="t" x="242" y="247">PCAPNG + decoder</text><text class="s" x="242" y="264">RaSTA, SCI-TDS BL5</text>
+<rect class="box" x="230" y="288" width="190" height="50" rx="6"/>
+<text class="t" x="242" y="309">BLF reader + decoder</text><text class="s" x="242" y="326">frames, variables, panel</text>
+<rect class="box" x="230" y="350" width="190" height="50" rx="6"/>
+<text class="t" x="242" y="371">CANoe log reader</text><text class="s" x="242" y="388">GFM-A status, stop</text>
+
+<line class="edge" x1="190" y1="95" x2="228" y2="95" marker-end="url(#arrow)"/>
+<line class="edge" x1="190" y1="173" x2="228" y2="173" marker-end="url(#arrow)"/>
+<line class="edge" x1="190" y1="251" x2="228" y2="251" marker-end="url(#arrow)"/>
+<line class="edge" x1="190" y1="313" x2="228" y2="313" marker-end="url(#arrow)"/>
+<line class="edge" x1="190" y1="375" x2="228" y2="375" marker-end="url(#arrow)"/>
+
+<!-- reader → timeline, labeled with the native time base -->
+<line class="edge" x1="420" y1="95" x2="568" y2="95" marker-end="url(#arrow)"/>
+<text class="s" x="430" y="89">specs (relative to t1)</text>
+<line class="edge" x1="420" y1="173" x2="568" y2="173" marker-end="url(#arrow)"/>
+<text class="s" x="430" y="167">test cases (meas. time)</text>
+<line class="edge" x1="420" y1="251" x2="568" y2="251" marker-end="url(#arrow)"/>
+<text class="s" x="430" y="245">events (epoch time)</text>
+<line class="edge" x1="420" y1="313" x2="568" y2="313" marker-end="url(#arrow)"/>
+<text class="s" x="430" y="307">events (meas. time)</text>
+<line class="edge" x1="420" y1="375" x2="568" y2="375" marker-end="url(#arrow)"/>
+<text class="s" x="430" y="369">events (meas. time)</text>
+
+<!-- timeline stage -->
+<rect class="stage" x="570" y="62" width="200" height="346" rx="8"/>
+<text class="t" x="584" y="86">CANoe measurement time</text>
+<rect class="box" x="584" y="100" width="172" height="78" rx="6"/>
+<text class="t" x="594" y="119">Time alignment</text>
+<text class="s" x="594" y="137">pcapng offset from frames</text>
+<text class="s" x="594" y="152">identical in the BLF (µs);</text>
+<text class="s" x="594" y="167">fallback RaSTA timestamps</text>
+<rect class="box" x="584" y="190" width="172" height="78" rx="6"/>
+<text class="t" x="594" y="209">Network merge</text>
+<text class="s" x="594" y="227">identical frames: one kept;</text>
+<text class="s" x="594" y="242">same frame, other bytes:</text>
+<text class="s" x="594" y="257">sender ≠ receiver</text>
+<rect class="box" x="584" y="280" width="172" height="78" rx="6"/>
+<text class="t" x="594" y="299">Correlation</text>
+<text class="s" x="594" y="317">RaSTA sessions,</text>
+<text class="s" x="594" y="332">test-case windows,</text>
+<text class="s" x="594" y="347">events per test case</text>
+<line class="edge" x1="670" y1="178" x2="670" y2="188" marker-end="url(#arrow)"/>
+<line class="edge" x1="670" y1="268" x2="670" y2="278" marker-end="url(#arrow)"/>
+
+<!-- rules -->
+<line class="edge" x1="770" y1="235" x2="818" y2="235" marker-end="url(#arrow)"/>
+<text class="s" x="774" y="228">context</text>
+<rect class="box" x="820" y="130" width="160" height="210" rx="6"/>
+<text class="t" x="832" y="152">16 rules</text>
+<text class="s" x="832" y="176">protocol: timeout,</text>
+<text class="s" x="832" y="191">missing, unexpected,</text>
+<text class="s" x="832" y="206">order, payload,</text>
+<text class="s" x="832" y="221">length, rejected</text>
+<text class="s" x="832" y="245">connection: gap,</text>
+<text class="s" x="832" y="260">sequence</text>
+<text class="s" x="832" y="284">state: precondition,</text>
+<text class="s" x="832" y="299">disturbed, cascade,</text>
+<text class="s" x="832" y="314">abort, manual action</text>
+
+<!-- diagnosis and report -->
+<line class="edge" x1="980" y1="175" x2="1042" y2="175" marker-end="url(#arrow)"/>
+<text class="s" x="988" y="168">findings</text>
+<rect class="box" x="1044" y="110" width="180" height="120" rx="6"/>
+<text class="t" x="1056" y="132">Diagnosis per test case</text>
+<text class="s" x="1056" y="154">symptom: what the test</text>
+<text class="s" x="1056" y="169">reported; cause: earliest</text>
+<text class="s" x="1056" y="184">error that explains it</text>
+<text class="s" x="1056" y="204">contributing, ruled out,</text>
+<text class="s" x="1056" y="219">analyzer verdict</text>
+<line class="edge" x1="1134" y1="230" x2="1134" y2="266" marker-end="url(#arrow)"/>
+<rect class="box" x="1044" y="268" width="180" height="72" rx="6"/>
+<text class="t" x="1056" y="290">Report (analyze.py)</text>
+<text class="s" x="1056" y="310">Markdown / HTML, evidence,</text>
+<text class="s" x="1056" y="325">timeline per test case</text>
+
+<!-- synthetic loop -->
+<rect class="synth-box" x="20" y="462" width="400" height="74" rx="6"/>
+<text class="t" x="34" y="486">Synthetic scenarios</text>
+<text class="s" x="34" y="506">Capture editor: RealOC pcapng with one failure added,</text>
+<text class="s" x="34" y="521">replaces the PCAPNG input</text>
+<path class="synth" d="M20,499 H4 V251 H18" marker-end="url(#arrow-synth)"/>
+<rect class="synth-box" x="820" y="468" width="404" height="62" rx="6"/>
+<text class="t" x="834" y="492">Scenario check (21 checks)</text>
+<text class="s" x="834" y="512">expected cause, symptom and verdict per scenario</text>
+<path class="synth" d="M1134,340 L1134,466" marker-end="url(#arrow-synth)"/>
+<text class="s" x="1142" y="410">diagnoses</text>
+<path class="synth" d="M420,499 L818,499" marker-end="url(#arrow-synth)"/>
+<text class="s" x="560" y="491">15 scenarios, real and synthetic</text>
+</g>
+</svg>

@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Multi-Source Trace Failure Analysis</title>
+<style>
+:root { color-scheme: light; --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781;
+  --line:#e1e0d9; --accent:#2a78d6; --critical:#d03b3b; --good:#0ca30c; --code:#f0efec; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: dark; --page:#0d0d0d;
+  --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7; --line:#2c2c2a; --accent:#3987e5; --code:#242422; } }
+:root[data-theme="dark"] { color-scheme: dark; --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7;
+  --line:#2c2c2a; --accent:#3987e5; --code:#242422; }
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; background: var(--page); color: var(--ink);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+.deck { height: 100%; display: grid; place-items: center; padding: 16px; }
+.slide { display: none; width: min(100%, calc((100vh - 32px) * 16 / 9)); aspect-ratio: 16 / 9;
+  background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 4.2% 5%;
+  font-size: clamp(11px, 1.55vw, 22px); line-height: 1.45; position: relative; overflow: hidden; }
+.slide.active { display: flex; flex-direction: column; }
+h1 { font-size: 2.3em; line-height: 1.15; margin: 0 0 0.4em; }
+h2 { font-size: 1.6em; line-height: 1.2; margin: 0 0 0.7em; }
+p { margin: 0 0 0.6em; } ul { margin: 0 0 0.6em; padding-left: 1.2em; } li { margin: 0.2em 0; }
+.kicker { color: var(--accent); font-weight: 600; font-size: 0.8em; letter-spacing: 0.02em; margin-bottom: 0.6em; }
+.sub { color: var(--ink-2); }
+.small { font-size: 0.78em; color: var(--ink-2); }
+table { border-collapse: collapse; width: 100%; font-size: 0.82em; }
+th, td { text-align: left; padding: 0.35em 0.8em 0.35em 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--ink-2); font-weight: 600; }
+code, pre { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; }
+pre { background: var(--code); border-radius: 8px; padding: 0.8em 1em; font-size: 0.68em; line-height: 1.5;
+  white-space: pre-wrap; margin: 0 0 0.8em; }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 4%; flex: 1; min-height: 0; }
+.fig { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; }
+.fig img { max-width: 100%; max-height: 100%; }
+.big { font-size: 2.6em; font-weight: 700; line-height: 1; }
+.stat { display: flex; gap: 6%; margin: 0.4em 0 1em; }
+.stat div { flex: 1; } .stat .label { color: var(--ink-2); font-size: 0.8em; margin-top: 0.3em; }
+.step { display: grid; grid-template-columns: 2.2em 1fr; gap: 0.5em; margin: 0.45em 0; }
+.step b.n { color: var(--accent); }
+.fail { color: var(--critical); font-weight: 600; } .pass { color: var(--good); font-weight: 600; }
+.footer { position: absolute; left: 5%; right: 5%; bottom: 3%; display: flex; justify-content: space-between;
+  color: var(--muted); font-size: 0.62em; }
+.nav { position: fixed; right: 16px; bottom: 12px; color: var(--muted); font-size: 12px; }
+@media print {
+  @page { size: 297mm 167mm; margin: 0; }
+  body { background: #fff; } .deck { display: block; padding: 0; } .nav { display: none; }
+  .slide { display: flex !important; flex-direction: column; width: 297mm; height: 167mm; aspect-ratio: auto;
+    border: 0; border-radius: 0; page-break-after: always; font-size: 15px; }
+}
+</style>
+</head>
+<body>
+<div class="deck">
+
+<section class="slide">
+  <div class="kicker">Task #7 · Data Analysis</div>
+  <h1>Multi-Source Trace Failure Analysis</h1>
+  <p class="sub">Why did a CANoe SCI-TDS test case fail? An analyzer that correlates the test description,
+    the CANoe report and the traces, and names the root cause with evidence.</p>
+  <div class="stat" style="margin-top:auto">
+    <div><div class="big">5</div><div class="label">input files, one timeline</div></div>
+    <div><div class="big">16</div><div class="label">rules</div></div>
+    <div><div class="big">15</div><div class="label">scenarios, 21 checks</div></div>
+    <div><div class="big">168</div><div class="label">tests</div></div>
+  </div>
+  <div class="footer"><span>Zahidul Islam</span><span>October 2026 · internal</span></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">The problem</div>
+  <h2>One failure, five files, four clocks</h2>
+  <table>
+    <tr><th>File</th><th>Says</th><th>Time base</th></tr>
+    <tr><td>Test_Description (.txt)</td><td>what should happen: precondition, steps, 500 ms limit, bytes</td><td>relative to t1</td></tr>
+    <tr><td>CANoe PDF report</td><td>what CANoe did: verdicts, failed step, target state</td><td>measurement time</td></tr>
+    <tr><td>PCAPNG</td><td>RaSTA and SCI-TDS telegrams on the wire</td><td>epoch</td></tr>
+    <tr><td>BLF</td><td>the same frames, plus CANoe variables, panel actions, test windows</td><td>measurement time</td></tr>
+    <tr><td>CANoe log</td><td>decoded GFM-A status, stop messages</td><td>measurement time</td></tr>
+  </table>
+  <p style="margin-top:1em">The report for TC_NPRO.295.02288.01 says the <em>precondition</em> was not reached after
+    120 s. It does not say <em>why</em>.</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">Approach</div>
+  <h2>Expected → what happened → why, on one timeline</h2>
+  <div class="fig"><img src="architecture.svg" alt="Pipeline: inputs in three roles → readers → one timeline in CANoe measurement time → 16 rules → diagnosis per test case → report; synthetic scenarios feed an edited pcapng and check the diagnosis"></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">One timeline</div>
+  <h2>Every source on CANoe measurement time</h2>
+  <div class="stat">
+    <div><div class="big">2,159</div><div class="label">of 2,159 pcapng frames matched in the BLF</div></div>
+    <div><div class="big">&lt; 1 µs</div><div class="label">offset spread, drift ≈ 0</div></div>
+    <div><div class="big">5 µs</div><div class="label">largest difference between sources after alignment</div></div>
+  </div>
+  <ul>
+    <li>Own RaSTA / SCI-TDS BL5 decoder: it keeps malformed telegrams, checked frame by frame against the NeuPro dissector</li>
+    <li>Fallbacks without a BLF: RaSTA timestamps (within 1 ms), or the measurement start clock</li>
+    <li>Network merge: identical frames are kept once; the same frame with other bytes in the two captures is a sender ≠ receiver finding</li>
+  </ul>
+</section>
+
+<section class="slide">
+  <div class="kicker">Diagnosis</div>
+  <h2>Symptom is not cause</h2>
+  <div class="step"><b class="n">1</b><span><b>Symptom</b>: what the test reported (abort, precondition not reached, failed step)</span></div>
+  <div class="step"><b class="n">2</b><span><b>Cause</b>: the earliest error finding up to the symptom; an inherited state wins over its later symptoms</span></div>
+  <div class="step"><b class="n">3</b><span><b>Contributing</b>: other findings, e.g. a failure of its own that does not explain the symptom</span></div>
+  <div class="step"><b class="n">4</b><span><b>Ruled out</b>: categories a rule checked and found clean</span></div>
+  <div class="step"><b class="n">5</b><span><b>Verdict</b>: the analyzer can fail a test that CANoe passed</span></div>
+  <p class="small" style="margin-top:auto">16 rules. Protocol: timeout, missing, unexpected, order, payload, length,
+    rejected. Connection: gap, sequence. State: precondition, disturbed, cascade, abort, manual action.
+    Data: configuration, time alignment.</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">Result · TC_NPRO.295.02288.01</div>
+  <h2>A field element problem, not a protocol fault</h2>
+  <pre>Detected failure:  300.288 s  Precondition not reached: target 2/0 (Test_Description), actual 3/0
+Root cause:        186.953 s  34W1 became disturbed 102 ms after an occupied report with Achszählfüllstand
+                              0x0000; reset possible for 50 s but no AZG/AZGH sent
+Consequence:       cleanup failed → TC_NPRO.295.00525.01 started disturbed (cascade)
+Also:              step 2 expects a 48-byte status, the RealOC sends 47 (BL5): incorrect_length</pre>
+  <div class="fig"><img src="example_report/timeline_tc_npro-295-02288-01.svg" alt="Timeline of 02288: GFM-A frei → belegt → gestört at 186.953 s, resettable window 198.9–248.9 s without AZG/AZGH, precondition failure at 300.288 s"></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">The whole run</div>
+  <h2>Analyzer and CANoe agree on all five test cases</h2>
+  <table>
+    <tr><th>Test case</th><th>CANoe</th><th>Analyzer</th><th>Cause</th></tr>
+    <tr><td>02283 (O)</td><td class="pass">pass</td><td class="pass">pass</td><td>–</td></tr>
+    <tr><td>02284 (F)</td><td class="pass">pass</td><td class="pass">pass</td><td>–</td></tr>
+    <tr><td>02288 (O)</td><td class="fail">fail</td><td class="fail">fail</td><td>GFM-A disturbed during manual occupation, never reset</td></tr>
+    <tr><td>00525 (F-ReZE)</td><td class="fail">fail</td><td class="fail">fail</td><td>cascade from 02288; forbidden manual AZGH/AZG had no effect</td></tr>
+    <tr><td>00522 (O-ReZE)</td><td>inconclusive</td><td>inconclusive</td><td>test unit stopped by the user</td></tr>
+  </table>
+  <p class="small" style="margin-top:1em">Ruled out on the real run: connection interruption, sequence errors,
+    payload, timing. Every claim cites a frame, page or line.</p>
+</section>
+
+<section class="slide">
+  <div class="kicker">Scenarios</div>
+  <h2>Every failure type, real or synthetic</h2>
+  <div class="cols">
+    <div>
+      <p><b>Real run</b>: precondition, disturbed GFM-A, cascade, abort, configuration mismatch, spec length
+        (48 vs. 47 bytes), clock offset, plus the "ruled out" checks.</p>
+      <p><b>Synthetic</b>: a copy of the RealOC pcapng with one failure edited in at RaSTA level. Sequence
+        numbers are kept; lengths and checksums are recomputed.</p>
+      <p class="small">timeout · missing · unexpected · order · payload · length · sender ≠ receiver ·
+        connection · sequence gap · rejected · clock step</p>
+    </div>
+    <div>
+      <div class="big">21 / 21</div>
+      <p class="sub">checks give the expected cause and verdict</p>
+      <p class="small">Example: in an edited capture, a status telegram arrives 299 ms after the AZGH of
+        02284, which its NOT step forbids. Result: <span class="fail">FAILED</span> (report: passed).</p>
+    </div>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Limits and open questions</div>
+  <h2>What the team has to answer</h2>
+  <div class="cols">
+    <ul>
+      <li>Target baseline: BL5 (RealOC) or BL6/BL7 (Test_Description)?</li>
+      <li>Physical cause of the disturbance at 186.953 s</li>
+      <li>Is 11.2 s from AZGH to "resettable" expected (02288 requires 500 ms)?</li>
+      <li>AZGH in frei / not resettable: 0x0006 or no telegram?</li>
+      <li>RealOC RaSTA T_max (750 ms assumed)</li>
+    </ul>
+    <ul class="small">
+      <li>One baseline (BL5), one GFM-A per run</li>
+      <li>Confidence values are heuristic</li>
+      <li>Synthetic edits touch only the pcapng; the safety code is kept</li>
+      <li>Only one real run: more runs with real faults would test the rules further</li>
+    </ul>
+  </div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Try it</div>
+  <h2>Run it</h2>
+  <pre>.venv/bin/python analyze.py                       # report of the whole run → output/report.{md,html}
+.venv/bin/python analyze.py --test-case 02288     # one test case
+.venv/bin/python -m trace_analyzer.synthetic      # the 15 scenarios
+scripts/demo.sh                                   # everything, about 15 s</pre>
+  <p>Read first: <code>README.md</code> · <code>IMPORTANT_TO_KNOW.md</code> · <code>docs/review.md</code> (decisions to confirm, feedback)</p>
+  <div class="footer"><span>Internal: DB InfraGO data</span><span>Questions?</span></div>
+</section>
+
+</div>
+<div class="nav" aria-live="polite"></div>
+<script>
+(() => {
+  const slides = [...document.querySelectorAll(".slide")];
+  const nav = document.querySelector(".nav");
+  let i = Math.max(0, Math.min(slides.length - 1, (parseInt(location.hash.slice(1), 10) || 1) - 1));
+  const show = n => {
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, k) => s.classList.toggle("active", k === i));
+    nav.textContent = `${i + 1} / ${slides.length} · ← → to navigate`;
+    history.replaceState(null, "", `#${i + 1}`);
+  };
+  document.addEventListener("keydown", e => {
+    if (["ArrowRight", "PageDown", " "].includes(e.key)) { e.preventDefault(); show(i + 1); }
+    if (["ArrowLeft", "PageUp"].includes(e.key)) { e.preventDefault(); show(i - 1); }
+    if (e.key === "Home") show(0);
+    if (e.key === "End") show(slides.length - 1);
+  });
+  document.addEventListener("click", e => { if (!e.target.closest("a")) show(i + (e.clientX > innerWidth / 3 ? 1 : -1)); });
+  show(i);
+})();
+</script>
+</body>
+</html>

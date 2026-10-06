@@ -1,0 +1,79 @@
+# {{ report.title }}
+
+{% if report.metadata.configuration %}CANoe configuration `{{ report.metadata.configuration }}`{% endif %}{% if report.metadata.canoe_version %} · {{ report.metadata.canoe_version }}{% endif %}
+{% if report.measurement_start %}Measurement start {{ report.measurement_start.strftime("%Y-%m-%d %H:%M:%S %z") }} · {% endif %}report generated {{ report.generated.strftime("%Y-%m-%d %H:%M") }}
+
+All times are CANoe measurement time in seconds; wall-clock times are test bench local time.
+
+## Summary
+
+| Test case | Report | Analyzer | Detected failure | Root cause | Confidence |
+|---|---|---|---|---|---|
+{% for c in report.cases -%}
+| [{{ c.name }}](#{{ c.anchor }}) | {{ c.report_verdict.value }} | **{{ c.verdict.value }}** | {{ (c.symptom.finding.summary if c.symptom else "-") | cell }} | {{ (c.cause.finding.summary if c.cause else "-") | cell }} | {{ c.cause.finding.confidence | confidence if c.cause else "-" }} |
+{% endfor %}
+{% for c in report.cases %}
+<a id="{{ c.anchor }}"></a>
+
+## {{ c.name }}
+
+```
+Test Result:       {{ c.headline }} ({{ c.test_case.test_id }})
+{% if c.symptom %}Detected failure:  {{ c.symptom.time | t }}  {{ c.symptom.finding.summary }}
+{% endif %}{% if c.separate_cause %}Root cause:        {% if c.cause.time is not none %}{{ c.cause.time | t }}  {% endif %}{{ c.cause.finding.summary }}
+{% endif %}{% if c.cause %}Category:          {{ c.cause.finding.category | area }} ({{ c.cause.category }})
+{% endif %}{% if c.consequence %}Consequence:       {{ c.consequence }}
+{% endif %}{% if c.cause %}Confidence:        {{ c.cause.finding.confidence | confidence }}{% if c.sources %}; evidence from {{ c.sources | join(", ") }}{% endif %}
+{% endif %}{% if not c.symptom and not c.cause %}Detected failure:  none
+{% endif %}```
+
+Test window {{ c.test_case.start | t }} – {{ c.test_case.end | t }}{% if c.target_state %} · target GFM-A state {{ c.target_state }} (Belegung/Grundstellbarkeit){% endif %}{% if c.precondition %} · Test_Description precondition: {{ c.precondition }}{% endif %}
+
+![Timeline of {{ c.name }}]({{ c.timeline_file }})
+![Legend](timeline_legend.svg)
+
+{% for v in c.evidence_views %}
+**Evidence for the {{ v.role }}** ({{ v.category }})
+
+{% for e in v.evidence %}- {{ e }}
+{% else %}- (no event reference)
+{% endfor %}
+{% endfor %}
+{% if c.contributing %}
+**Further findings**
+
+| Severity | Time | Category | Finding | Evidence |
+|---|---|---|---|---|
+{% for v in c.contributing -%}
+| {{ v.finding.severity.value }} | {{ v.time | t }} | {{ v.category }} | {{ v.finding.summary | cell }} | {{ v.evidence | map("string") | join("; ") | cell }} |
+{% endfor %}
+{% endif %}
+{% if c.ruled_out %}**Checked and ruled out:** {{ c.ruled_out | join(", ") }}
+{% endif %}
+<details><summary>Events in the test window ({{ c.events | length }})</summary>
+
+| Time | Clock | Event | Evidence |
+|---|---|---|---|
+{% for e in c.events -%}
+| {{ e.time | t }} | {{ e.time | clock }} | {% if e.status %}[{{ e.status }}] {% endif %}{{ e.text | cell }} | {{ e.evidence | cell }} |
+{% endfor %}
+</details>
+{% endfor %}
+{% if report.run_findings %}
+## Findings outside the test cases
+
+| Severity | Time | Category | Finding |
+|---|---|---|---|
+{% for v in report.run_findings -%}
+| {{ v.finding.severity.value }} | {{ v.time | t }} | {{ v.category }} | {{ v.finding.summary | cell }} |
+{% endfor %}
+{% endif %}
+## Sources and alignment
+
+| Source | File | Time base |
+|---|---|---|
+{% for name, file, how in report.sources -%}
+| {{ name }} | {{ file | cell }} | {{ how }} |
+{% endfor %}
+{% for check in report.checks %}- {{ check }}
+{% endfor %}

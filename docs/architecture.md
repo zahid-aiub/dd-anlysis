@@ -6,34 +6,12 @@ with the test cases and lets a set of rules explain each failed test case. Facts
 
 ## 1. Pipeline
 
-```mermaid
-flowchart LR
-  subgraph Inputs
-    P[PCAPNG]
-    B[BLF]
-    R[CANoe PDF report]
-    L[CANoe log .txt]
-    S[Test_Description .txt]
-  end
-  P --> PN[PCAPNG reader]
-  PN --> NR["Network decoder<br/>(RaSTA + SCI-TDS BL5)"]
-  BR --> NR
-  B --> BR["BLF object reader<br/>(variables, panel, test structure)"]
-  R --> PR[PDF report reader]
-  L --> LR[CANoe log reader]
-  S --> SR[Test spec reader]
-  NR --> SD[(SourceData per file)]
-  BR --> SD
-  PR --> SD
-  LR --> SD
-  SR --> SD
-  SD --> TA[Time aligner]
-  TA --> CO["Correlator<br/>(dedupe, sessions, test-case windows)"]
-  CO --> CTX[(AnalysisContext)]
-  CTX --> RE[Rule engine]
-  RE --> DG[(Diagnosis per test case)]
-  DG --> RP["Reporter<br/>(Markdown / HTML)"]
-```
+![Pipeline](architecture.svg)
+
+The input files have three roles: the Test_Description says what should happen, the PDF report what CANoe
+did, the traces why. Readers keep each source's native time base; the time aligner puts everything on CANoe
+measurement time before the network merge and correlation. Synthetic scenarios replace the pcapng with an
+edited copy and check the diagnosis.
 
 | Stage | Module | Input | Output | Phase |
 |---|---|---|---|---|
@@ -235,6 +213,26 @@ in the report although an `error` finding belongs to it:
 Ethernet frames, or only its CANoe objects), SCI-TDS baseline and RaSTA port (`protocol`), the two `nodes` (IP and
 ID of test system and device under test), timing limits from the test spec and report, RaSTA limits, alignment
 tolerance, output directory.
+
+## 7b. Report and command line
+
+`python analyze.py --config … [--out DIR] [--format md html] [--test-case ID]` (`cli.py`) runs the pipeline,
+prints a verdict table and writes the reports (`report/`):
+
+- `build.py` turns the result into one section per test case: analyzer and report verdict, detected failure
+  (symptom), root cause with category (field element / test bench, test sequence, communication, SCI-TDS
+  protocol, configuration, data quality), consequence (cascade into the next test case), confidence and the
+  sources behind the cause, evidence lines (file, frame/page/line, measurement and wall-clock time), further
+  findings, ruled-out categories and the events of the test window (telegrams, connection, steps, panel
+  actions, CANoe log messages).
+- `timeline.py` draws the timeline of each test case as a self-contained SVG: lanes for findings, test steps,
+  manual panel actions, telegrams per direction, the RaSTA connection and the GFM-A state (step line, reset
+  windows as a wash), with cause and symptom as labeled vertical rules and a tooltip on every mark. The colors
+  are a validated two-slot categorical palette plus fixed status colors, with light and dark variants.
+- `templates/report.md.j2` (with the SVG files next to it) and `templates/report.html.j2` (SVG inline, no
+  external resources, light/dark).
+
+Example: [example_report/TC_NPRO.295.02288.01.md](example_report/TC_NPRO.295.02288.01.md).
 
 ## 7a. Synthetic scenarios
 

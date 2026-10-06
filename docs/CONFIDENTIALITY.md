@@ -11,4 +11,5 @@ Rules for this project:
   `*.lua`, `LUA.zip` and generated `output/`.
 - Synthetic test data in `data/synthetic/` is derived from the real capture and contains real element IDs
   (e.g. `34W1`, `DETHMM ZE 35##0001`), so it is treated as confidential as well.
-- Reports generated in `output/` quote real telegrams and are for internal use only.
+- Reports generated in `output/`, and the example report in `docs/example_report/`, quote real telegrams and
+  are for internal use only. Keep this repository private.
