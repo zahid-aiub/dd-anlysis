@@ -45,7 +45,7 @@ is still open. Updated at the end of every phase. Details are in [README.md](REA
 .venv/bin/python analyze.py --config config/config.yaml   # report of all test cases → output/report.{md,html}
 .venv/bin/python analyze.py --test-case 02288              # only test cases whose name contains 02288
 .venv/bin/python -m trace_analyzer.synthetic              # synthetic scenarios → data/synthetic/S*.pcapng
-scripts/demo.sh                                           # demo: tests, analysis, scenarios, synthetic report
+scripts/demo.sh                                           # demo; output/demo/report.json = all data for the frontend
 .venv/bin/pytest                                          # 168 tests
 ```
 
@@ -97,6 +97,7 @@ There are no connection, sequence, payload or timing faults in the real data.
 | 2026-10-06 | report timeline as own SVG instead of plotly (dependency removed) | self-contained, offline, small, prints; tooltips via SVG titles, event table as table view |
 | 2026-10-06 | report leaves out user and computer names from the CANoe metadata | not needed for the analysis |
 | 2026-10-06 | presentation as a local HTML file, not published online | the slides quote confidential test data |
+| 2026-10-06 | JSON export (`report.json`, schema v1, docs/report_json.md) for a frontend developer | data visualization outside the analyzer |
 
 ## 7. Open questions for the team
 

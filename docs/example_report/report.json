@@ -1,0 +1,5141 @@
+{
+  "schema": "trace-analyzer.report",
+  "schema_version": 1,
+  "generator": "trace-analyzer 0.1.0",
+  "generated": "2026-10-06T17:05:18+02:00",
+  "run": {
+    "configuration": "ZE_RealOC_Stimulation.cfg",
+    "canoe_version": "CANoe.CAN.Ethernet.BasicEthernet 20.0.195 /pro",
+    "measurement_start": "2026-10-02T12:23:59.953+02:00",
+    "time_base": "CANoe measurement time in seconds since the measurement start",
+    "duration": 491.109,
+    "sources": [
+      {
+        "source": "pcapng",
+        "name": "pcapng",
+        "file": "RealOCWorking_TDS_21026.pcapng",
+        "alignment": {
+          "method": "frame_match",
+          "offset_s": -1790936639.953799,
+          "spread_ms": 0.001,
+          "drift_ppm": 0.0,
+          "samples": 2159,
+          "note": "matched against blf"
+        }
+      },
+      {
+        "source": "blf",
+        "name": "BLF",
+        "file": "RealOCWorking_TDS_21026.blf",
+        "alignment": {
+          "method": "native",
+          "offset_s": 0.0,
+          "spread_ms": 0.0,
+          "drift_ppm": 0.0,
+          "samples": 0,
+          "note": ""
+        }
+      },
+      {
+        "source": "pdf_report",
+        "name": "PDF report",
+        "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+        "alignment": {
+          "method": "native",
+          "offset_s": 0.0,
+          "spread_ms": 0.0,
+          "drift_ppm": 0.0,
+          "samples": 0,
+          "note": ""
+        }
+      },
+      {
+        "source": "canoe_log",
+        "name": "CANoe log",
+        "file": "TDS_Report_21026.txt",
+        "alignment": {
+          "method": "native",
+          "offset_s": 0.0,
+          "spread_ms": 0.0,
+          "drift_ppm": 0.0,
+          "samples": 0,
+          "note": ""
+        }
+      },
+      {
+        "source": "test_spec",
+        "name": "Test_Description",
+        "file": null,
+        "alignment": {
+          "method": "native",
+          "offset_s": 0.0,
+          "spread_ms": 0.0,
+          "drift_ppm": 0.0,
+          "samples": 0,
+          "note": ""
+        }
+      }
+    ],
+    "consistency_checks": [
+      {
+        "name": "gfma_status",
+        "sources": [
+          "pcapng",
+          "canoe_log"
+        ],
+        "matched": 12,
+        "max_difference_ms": 0.005,
+        "unmatched": 0
+      },
+      {
+        "name": "gfma_status",
+        "sources": [
+          "pcapng",
+          "blf"
+        ],
+        "matched": 12,
+        "max_difference_ms": 0.001,
+        "unmatched": 0
+      },
+      {
+        "name": "test_case_start",
+        "sources": [
+          "pdf_report",
+          "blf"
+        ],
+        "matched": 5,
+        "max_difference_ms": 0.0,
+        "unmatched": 0
+      }
+    ],
+    "network_merge": {
+      "primary": "pcapng",
+      "secondary": "blf",
+      "identical_frames": 2159,
+      "differing_frames": 0,
+      "only_in_primary": 0,
+      "only_in_secondary": 0
+    }
+  },
+  "summary": {
+    "test_cases": 5,
+    "verdicts": {
+      "pass": 2,
+      "fail": 2,
+      "inconclusive": 1
+    },
+    "verdict_differs_from_report": 0,
+    "findings": {
+      "error": 7,
+      "warning": 6,
+      "info": 2
+    },
+    "scenarios": {
+      "total": 21,
+      "as_expected": 21,
+      "outcome": {
+        "failure": 15,
+        "warning": 3,
+        "ruled_out": 2,
+        "check": 1
+      }
+    }
+  },
+  "findings": [
+    {
+      "id": "F001",
+      "t": 3.460779,
+      "clock": "2026-10-02T12:24:03.414+02:00",
+      "test_case": null,
+      "category": "manual_intervention",
+      "area": "Test execution: operator",
+      "severity": "info",
+      "confidence": 1.0,
+      "role": "run",
+      "summary": "Manual connectButton from the CANoe panel",
+      "evidence": [
+        {
+          "source": "blf",
+          "file": "RealOCWorking_TDS_21026.blf",
+          "locator": "object 16",
+          "t": 3.460779,
+          "clock": "2026-10-02T12:24:03.414+02:00"
+        }
+      ],
+      "details": {
+        "action": "connectButton",
+        "command": null,
+        "forbidden": false,
+        "effect": true
+      }
+    },
+    {
+      "id": "F002",
+      "t": 8.51006,
+      "clock": "2026-10-02T12:24:08.463+02:00",
+      "test_case": null,
+      "category": "manual_intervention",
+      "area": "Test execution: operator",
+      "severity": "info",
+      "confidence": 1.0,
+      "role": "run",
+      "summary": "Manual disconnectButton from the CANoe panel",
+      "evidence": [
+        {
+          "source": "blf",
+          "file": "RealOCWorking_TDS_21026.blf",
+          "locator": "object 245",
+          "t": 8.51006,
+          "clock": "2026-10-02T12:24:08.463+02:00"
+        }
+      ],
+      "details": {
+        "action": "disconnectButton",
+        "command": null,
+        "forbidden": false,
+        "effect": false
+      }
+    },
+    {
+      "id": "F003",
+      "t": 180.287372,
+      "clock": "2026-10-02T12:27:00.241+02:00",
+      "test_case": "TC_NPRO.295.02288.01",
+      "category": "incorrect_length",
+      "area": "SCI-TDS protocol",
+      "severity": "error",
+      "confidence": 0.9,
+      "role": "contributing",
+      "summary": "Test_Description step 2 expects a 48-byte MELDUNG_GFMA_BELEGUNGSZUSTAND, the device sends 47 bytes: the step cannot pass",
+      "evidence": [
+        {
+          "source": "test_spec",
+          "file": "TC_NPRO.295.02288.01_xcel.txt",
+          "locator": "row 1",
+          "t": 180.287372,
+          "clock": "2026-10-02T12:27:00.241+02:00"
+        },
+        {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 380 telegram 2",
+          "t": 180.287372,
+          "clock": "2026-10-02T12:27:00.241+02:00"
+        }
+      ],
+      "details": {
+        "spec_step": 2,
+        "expected": 48,
+        "actual": 47,
+        "bytes_beyond": [
+          "47"
+        ]
+      }
+    },
+    {
+      "id": "F004",
+      "t": 186.953046,
+      "clock": "2026-10-02T12:27:06.906+02:00",
+      "test_case": "TC_NPRO.295.02288.01",
+      "category": "device_disturbed",
+      "area": "Field element / test bench state",
+      "severity": "error",
+      "confidence": 0.95,
+      "role": "cause",
+      "summary": "34W1 became disturbed (Belegungszustand 3) 102 ms after an occupied report with Achszählfüllstand 0x0000; reset possible for 50 s but no AZG/AZGH sent",
+      "evidence": [
+        {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 423 telegram 1",
+          "t": 186.850936,
+          "clock": "2026-10-02T12:27:06.804+02:00"
+        },
+        {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 425 telegram 1",
+          "t": 186.953046,
+          "clock": "2026-10-02T12:27:06.906+02:00"
+        }
+      ],
+      "details": {
+        "element": "34W1",
+        "inherited": false,
+        "precursor": {
+          "time": 186.850936,
+          "state": [
+            2,
+            0,
+            0
+          ]
+        },
+        "reset_windows": [
+          [
+            198.86993,
+            248.861888
+          ]
+        ],
+        "resets_in_window": []
+      }
+    },
+    {
+      "id": "F005",
+      "t": 300.287888,
+      "clock": "2026-10-02T12:29:00.241+02:00",
+      "test_case": "TC_NPRO.295.02288.01",
+      "category": "precondition_not_reached",
+      "area": "Field element / test bench state",
+      "severity": "error",
+      "confidence": 1.0,
+      "role": "symptom",
+      "summary": "Precondition not reached: target Belegung/Grundstellbarkeit 2/0 (Test_Description), actual 3/0",
+      "evidence": [
+        {
+          "source": "pdf_report",
+          "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+          "locator": "page 56",
+          "t": 300.287888,
+          "clock": "2026-10-02T12:29:00.241+02:00"
+        },
+        {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 837 telegram 1",
+          "t": 248.861888,
+          "clock": "2026-10-02T12:28:08.815+02:00"
+        }
+      ],
+      "details": {
+        "target": [
+          2,
+          0
+        ],
+        "target_source": "Test_Description",
+        "actual": [
+          3,
+          0,
+          0
+        ],
+        "step": "Vorbereitung frei -> belegt nicht abgeschlossen: stabilen Sollzustand und BTP-Verbindung innerhalb von 120000 ms erforderlich.",
+        "cleanup_failed": true
+      }
+    },
+    {
+      "id": "F006",
+      "t": 313.488888,
+      "clock": "2026-10-02T12:29:13.442+02:00",
+      "test_case": "TC_NPRO.295.00525.01",
+      "category": "cascade_failure",
+      "area": "Test sequence: state left by the previous test case",
+      "severity": "error",
+      "confidence": 0.9,
+      "role": "cause",
+      "summary": "Started in state 3/0 left by TC_NPRO.295.02288.01(O) (its cleanup failed)",
+      "evidence": [
+        {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 1276 telegram 2",
+          "t": 354.302648,
+          "clock": "2026-10-02T12:29:54.256+02:00"
+        },
+        {
+          "source": "pdf_report",
+          "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+          "locator": "page 58",
+          "t": 313.488888,
+          "clock": "2026-10-02T12:29:13.442+02:00"
+        }
+      ],
+      "details": {
+        "caused_by": "TC_NPRO.295.02288.01(O)",
+        "cleanup_failed": true,
+        "state_at_start": [
+          3,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "id": "F007",
+      "t": 354.302648,
+      "clock": "2026-10-02T12:29:54.256+02:00",
+      "test_case": "TC_NPRO.295.00525.01",
+      "category": "device_disturbed",
+      "area": "Field element / test bench state",
+      "severity": "error",
+      "confidence": 0.95,
+      "role": "contributing",
+      "summary": "34W1 still disturbed (Belegungszustand 3) at 354.303 s, inherited from earlier",
+      "evidence": [
+        {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 1276 telegram 2",
+          "t": 354.302648,
+          "clock": "2026-10-02T12:29:54.256+02:00"
+        }
+      ],
+      "details": {
+        "element": "34W1",
+        "inherited": true,
+        "reset_windows": [],
+        "resets_in_window": []
+      }
+    },
+    {
+      "id": "F008",
+      "t": 381.611442,
+      "clock": "2026-10-02T12:30:21.565+02:00",
+      "test_case": "TC_NPRO.295.00525.01",
+      "category": "manual_intervention",
+      "area": "Test execution: operator",
+      "severity": "warning",
+      "confidence": 1.0,
+      "role": "contributing",
+      "summary": "Manual KOMMANDO_AZGH from the CANoe panel although the test instruction says not to use the panel; no GFM-A status change followed",
+      "evidence": [
+        {
+          "source": "blf",
+          "file": "RealOCWorking_TDS_21026.blf",
+          "locator": "object 7550",
+          "t": 381.611442,
+          "clock": "2026-10-02T12:30:21.565+02:00"
+        },
+        {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 1458 telegram 1",
+          "t": 381.612761,
+          "clock": "2026-10-02T12:30:21.566+02:00"
+        }
+      ],
+      "details": {
+        "action": "kdSelection",
+        "command": "KOMMANDO_AZGH",
+        "forbidden": true,
+        "effect": false
+      }
+    },
+    {
+      "id": "F009",
+      "t": 391.385999,
+      "clock": "2026-10-02T12:30:31.339+02:00",
+      "test_case": "TC_NPRO.295.00525.01",
+      "category": "manual_intervention",
+      "area": "Test execution: operator",
+      "severity": "warning",
+      "confidence": 1.0,
+      "role": "contributing",
+      "summary": "Manual KOMMANDO_AZG from the CANoe panel although the test instruction says not to use the panel; no GFM-A status change followed",
+      "evidence": [
+        {
+          "source": "blf",
+          "file": "RealOCWorking_TDS_21026.blf",
+          "locator": "object 7879",
+          "t": 391.385999,
+          "clock": "2026-10-02T12:30:31.339+02:00"
+        },
+        {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 1523 telegram 1",
+          "t": 391.387864,
+          "clock": "2026-10-02T12:30:31.341+02:00"
+        }
+      ],
+      "details": {
+        "action": "kdSelection",
+        "command": "KOMMANDO_AZG",
+        "forbidden": true,
+        "effect": false
+      }
+    },
+    {
+      "id": "F010",
+      "t": 474.302648,
+      "clock": "2026-10-02T12:31:54.256+02:00",
+      "test_case": "TC_NPRO.295.00525.01",
+      "category": "precondition_not_reached",
+      "area": "Field element / test bench state",
+      "severity": "error",
+      "confidence": 1.0,
+      "role": "symptom",
+      "summary": "Precondition not reached: target Belegung/Grundstellbarkeit 1/0 (Test_Description), actual 3/0",
+      "evidence": [
+        {
+          "source": "pdf_report",
+          "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+          "locator": "page 63",
+          "t": 474.302648,
+          "clock": "2026-10-02T12:31:54.256+02:00"
+        },
+        {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 1276 telegram 2",
+          "t": 354.302648,
+          "clock": "2026-10-02T12:29:54.256+02:00"
+        }
+      ],
+      "details": {
+        "target": [
+          1,
+          0
+        ],
+        "target_source": "Test_Description",
+        "actual": [
+          3,
+          0,
+          0
+        ],
+        "step": "Zeitlimit 120000 ms fuer manuelle Vorbereitung abgelaufen: Belegungszustand=3, Grundstellungsfaehigkeit=0.",
+        "cleanup_failed": true
+      }
+    },
+    {
+      "id": "F011",
+      "t": 487.503648,
+      "clock": "2026-10-02T12:32:07.457+02:00",
+      "test_case": "TC_NPRO.295.00522.01",
+      "category": "cascade_failure",
+      "area": "Test sequence: state left by the previous test case",
+      "severity": "warning",
+      "confidence": 0.5,
+      "role": "contributing",
+      "summary": "Started in state unknown left by TC_NPRO.295.00525.01(F-ReZE) (its cleanup failed)",
+      "evidence": [
+        {
+          "source": "pdf_report",
+          "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+          "locator": "page 64",
+          "t": 487.503648,
+          "clock": "2026-10-02T12:32:07.457+02:00"
+        }
+      ],
+      "details": {
+        "caused_by": "TC_NPRO.295.00525.01(F-ReZE)",
+        "cleanup_failed": true,
+        "state_at_start": null
+      }
+    },
+    {
+      "id": "F012",
+      "t": 488.321,
+      "clock": "2026-10-02T12:32:08.274+02:00",
+      "test_case": "TC_NPRO.295.00522.01",
+      "category": "test_aborted",
+      "area": "Test execution",
+      "severity": "error",
+      "confidence": 1.0,
+      "role": "cause_and_symptom",
+      "summary": "Test execution stopped: test unit stopped by the user",
+      "evidence": [
+        {
+          "source": "canoe_log",
+          "file": "TDS_Report_21026.txt",
+          "locator": "line 38",
+          "t": 488.321,
+          "clock": "2026-10-02T12:32:08.274+02:00"
+        },
+        {
+          "source": "pdf_report",
+          "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+          "locator": "page 65",
+          "t": 488.321,
+          "clock": "2026-10-02T12:32:08.274+02:00"
+        },
+        {
+          "source": "blf",
+          "file": "RealOCWorking_TDS_21026.blf",
+          "locator": "object 11095",
+          "t": 488.321814,
+          "clock": "2026-10-02T12:32:08.275+02:00"
+        },
+        {
+          "source": "pdf_report",
+          "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+          "locator": "page 65",
+          "t": 488.321,
+          "clock": "2026-10-02T12:32:08.274+02:00"
+        }
+      ],
+      "details": {
+        "detail": "test_unit_stopped_by_user"
+      }
+    },
+    {
+      "id": "F013",
+      "t": null,
+      "clock": null,
+      "test_case": "TC_NPRO.295.02283.01",
+      "category": "configuration_mismatch",
+      "area": "Configuration / test specification",
+      "severity": "warning",
+      "confidence": 0.6,
+      "role": "contributing",
+      "summary": "Test case version 5 in the report, 7 in the Test_Description",
+      "evidence": [
+        {
+          "source": "pdf_report",
+          "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+          "locator": "page 2",
+          "t": null,
+          "clock": null
+        },
+        {
+          "source": "test_spec",
+          "file": "TC_NPRO.295.02283.01_xcel.txt",
+          "locator": "row 1",
+          "t": null,
+          "clock": null
+        }
+      ],
+      "details": {
+        "report_version": "5",
+        "spec_version": "7"
+      }
+    },
+    {
+      "id": "F014",
+      "t": null,
+      "clock": null,
+      "test_case": "TC_NPRO.295.02288.01",
+      "category": "configuration_mismatch",
+      "area": "Configuration / test specification",
+      "severity": "warning",
+      "confidence": 0.8,
+      "role": "contributing",
+      "summary": "Test_Description step 2 does not match SCI-TDS BL5: BTP[44] = 0x02 is not a valid BL5 grundstellbar",
+      "evidence": [
+        {
+          "source": "test_spec",
+          "file": "TC_NPRO.295.02288.01_xcel.txt",
+          "locator": "row 1",
+          "t": null,
+          "clock": null
+        }
+      ],
+      "details": {
+        "spec_step": 2,
+        "problems": [
+          "BTP[44] = 0x02 is not a valid BL5 grundstellbar"
+        ]
+      }
+    },
+    {
+      "id": "F015",
+      "t": null,
+      "clock": null,
+      "test_case": "TC_NPRO.295.02288.01",
+      "category": "configuration_mismatch",
+      "area": "Configuration / test specification",
+      "severity": "warning",
+      "confidence": 0.6,
+      "role": "contributing",
+      "summary": "Test case version 5 in the report, 4 in the Test_Description",
+      "evidence": [
+        {
+          "source": "pdf_report",
+          "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+          "locator": "page 11",
+          "t": null,
+          "clock": null
+        },
+        {
+          "source": "test_spec",
+          "file": "TC_NPRO.295.02288.01_xcel.txt",
+          "locator": "row 1",
+          "t": null,
+          "clock": null
+        }
+      ],
+      "details": {
+        "report_version": "5",
+        "spec_version": "4"
+      }
+    }
+  ],
+  "timeline": {
+    "gfma_states": [
+      {
+        "t": 4.253421,
+        "clock": "2026-10-02T12:24:04.207+02:00",
+        "test_case": null,
+        "element": "34W1",
+        "belegung": 1,
+        "belegung_name": "frei",
+        "grundstellbar": 0,
+        "achszaehlfuellstand": 0,
+        "source": "pcapng",
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 16 telegram 2",
+          "t": 4.253421,
+          "clock": "2026-10-02T12:24:04.207+02:00"
+        }
+      },
+      {
+        "t": 53.132877,
+        "clock": "2026-10-02T12:24:53.086+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "element": "34W1",
+        "belegung": 1,
+        "belegung_name": "frei",
+        "grundstellbar": 0,
+        "achszaehlfuellstand": 0,
+        "source": "pcapng",
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 56 telegram 2",
+          "t": 53.132877,
+          "clock": "2026-10-02T12:24:53.086+02:00"
+        }
+      },
+      {
+        "t": 64.54497,
+        "clock": "2026-10-02T12:25:04.498+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "element": "34W1",
+        "belegung": 2,
+        "belegung_name": "belegt",
+        "grundstellbar": 0,
+        "achszaehlfuellstand": 1,
+        "source": "pcapng",
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 132 telegram 1",
+          "t": 64.54497,
+          "clock": "2026-10-02T12:25:04.498+02:00"
+        }
+      },
+      {
+        "t": 75.755435,
+        "clock": "2026-10-02T12:25:15.709+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "element": "34W1",
+        "belegung": 2,
+        "belegung_name": "belegt",
+        "grundstellbar": 1,
+        "achszaehlfuellstand": 1,
+        "source": "pcapng",
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 207 telegram 1",
+          "t": 75.755435,
+          "clock": "2026-10-02T12:25:15.709+02:00"
+        }
+      },
+      {
+        "t": 84.84456,
+        "clock": "2026-10-02T12:25:24.798+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "element": "34W1",
+        "belegung": 1,
+        "belegung_name": "frei",
+        "grundstellbar": 0,
+        "achszaehlfuellstand": 0,
+        "source": "pcapng",
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 268 telegram 1",
+          "t": 84.84456,
+          "clock": "2026-10-02T12:25:24.798+02:00"
+        }
+      },
+      {
+        "t": 132.313876,
+        "clock": "2026-10-02T12:26:12.267+02:00",
+        "test_case": "TC_NPRO.295.02284.01",
+        "element": "34W1",
+        "belegung": 1,
+        "belegung_name": "frei",
+        "grundstellbar": 0,
+        "achszaehlfuellstand": 0,
+        "source": "pcapng",
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 323 telegram 2",
+          "t": 132.313876,
+          "clock": "2026-10-02T12:26:12.267+02:00"
+        }
+      },
+      {
+        "t": 180.287372,
+        "clock": "2026-10-02T12:27:00.241+02:00",
+        "test_case": "TC_NPRO.295.02288.01",
+        "element": "34W1",
+        "belegung": 1,
+        "belegung_name": "frei",
+        "grundstellbar": 0,
+        "achszaehlfuellstand": 0,
+        "source": "pcapng",
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 380 telegram 2",
+          "t": 180.287372,
+          "clock": "2026-10-02T12:27:00.241+02:00"
+        }
+      },
+      {
+        "t": 186.850936,
+        "clock": "2026-10-02T12:27:06.804+02:00",
+        "test_case": "TC_NPRO.295.02288.01",
+        "element": "34W1",
+        "belegung": 2,
+        "belegung_name": "belegt",
+        "grundstellbar": 0,
+        "achszaehlfuellstand": 0,
+        "source": "pcapng",
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 423 telegram 1",
+          "t": 186.850936,
+          "clock": "2026-10-02T12:27:06.804+02:00"
+        }
+      },
+      {
+        "t": 186.953046,
+        "clock": "2026-10-02T12:27:06.906+02:00",
+        "test_case": "TC_NPRO.295.02288.01",
+        "element": "34W1",
+        "belegung": 3,
+        "belegung_name": "gestoert",
+        "grundstellbar": 0,
+        "achszaehlfuellstand": 0,
+        "source": "pcapng",
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 425 telegram 1",
+          "t": 186.953046,
+          "clock": "2026-10-02T12:27:06.906+02:00"
+        }
+      },
+      {
+        "t": 198.86993,
+        "clock": "2026-10-02T12:27:18.823+02:00",
+        "test_case": "TC_NPRO.295.02288.01",
+        "element": "34W1",
+        "belegung": 3,
+        "belegung_name": "gestoert",
+        "grundstellbar": 1,
+        "achszaehlfuellstand": 0,
+        "source": "pcapng",
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 504 telegram 1",
+          "t": 198.86993,
+          "clock": "2026-10-02T12:27:18.823+02:00"
+        }
+      },
+      {
+        "t": 248.861888,
+        "clock": "2026-10-02T12:28:08.815+02:00",
+        "test_case": "TC_NPRO.295.02288.01",
+        "element": "34W1",
+        "belegung": 3,
+        "belegung_name": "gestoert",
+        "grundstellbar": 0,
+        "achszaehlfuellstand": 0,
+        "source": "pcapng",
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 837 telegram 1",
+          "t": 248.861888,
+          "clock": "2026-10-02T12:28:08.815+02:00"
+        }
+      },
+      {
+        "t": 354.302648,
+        "clock": "2026-10-02T12:29:54.256+02:00",
+        "test_case": "TC_NPRO.295.00525.01",
+        "element": "34W1",
+        "belegung": 3,
+        "belegung_name": "gestoert",
+        "grundstellbar": 0,
+        "achszaehlfuellstand": 0,
+        "source": "pcapng",
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 1276 telegram 2",
+          "t": 354.302648,
+          "clock": "2026-10-02T12:29:54.256+02:00"
+        }
+      }
+    ],
+    "telegrams": [
+      {
+        "t": 3.648055,
+        "clock": "2026-10-02T12:24:03.601+02:00",
+        "test_case": null,
+        "direction": "tx",
+        "from": "DETHMM ZE 35##0001",
+        "to": "DETHMM AZA34##0001",
+        "message": "KOMMANDO_BTP_VERSIONSABGLEICH",
+        "code": "0x0024",
+        "command": true,
+        "length": 44,
+        "fields": {
+          "btp_version": 1
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 11 telegram 1",
+          "t": 3.648055,
+          "clock": "2026-10-02T12:24:03.601+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 56 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 3.95014,
+        "clock": "2026-10-02T12:24:03.903+02:00",
+        "test_case": null,
+        "direction": "rx",
+        "from": "DETHMM AZA34##0001",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_BTP_VERSIONSABGLEICH",
+        "code": "0x0025",
+        "command": false,
+        "length": 62,
+        "fields": {
+          "ergebnis": 2,
+          "btp_version": 1,
+          "checksum_length": 16
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 13 telegram 1",
+          "t": 3.95014,
+          "clock": "2026-10-02T12:24:03.903+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 62 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 3.95138,
+        "clock": "2026-10-02T12:24:03.905+02:00",
+        "test_case": null,
+        "direction": "tx",
+        "from": "DETHMM ZE 35##0001",
+        "to": "DETHMM AZA34##0001",
+        "message": "KOMMANDO_AUFRUESTANFORDERUNG",
+        "code": "0x0021",
+        "command": true,
+        "length": 43,
+        "fields": {},
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 14 telegram 1",
+          "t": 3.95138,
+          "clock": "2026-10-02T12:24:03.905+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 78 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 4.253421,
+        "clock": "2026-10-02T12:24:04.207+02:00",
+        "test_case": null,
+        "direction": "rx",
+        "from": "DETHMM AZA34##0001",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_AUFRUESTBEGINN",
+        "code": "0x0022",
+        "command": false,
+        "length": 43,
+        "fields": {},
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 16 telegram 1",
+          "t": 4.253421,
+          "clock": "2026-10-02T12:24:04.207+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 84 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 4.253421,
+        "clock": "2026-10-02T12:24:04.207+02:00",
+        "test_case": null,
+        "direction": "rx",
+        "from": "34W1",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_GFMA_BELEGUNGSZUSTAND",
+        "code": "0x0007",
+        "command": false,
+        "length": 47,
+        "fields": {
+          "belegung": 1,
+          "grundstellbar": 0,
+          "achszaehlfuellstand": 0
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 16 telegram 2",
+          "t": 4.253421,
+          "clock": "2026-10-02T12:24:04.207+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 84 telegram 2",
+        "differs_from": null
+      },
+      {
+        "t": 4.253421,
+        "clock": "2026-10-02T12:24:04.207+02:00",
+        "test_case": null,
+        "direction": "rx",
+        "from": "DETHMM AZA34##0001",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_AUFRUESTENDE",
+        "code": "0x0023",
+        "command": false,
+        "length": 43,
+        "fields": {},
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 16 telegram 3",
+          "t": 4.253421,
+          "clock": "2026-10-02T12:24:04.207+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 84 telegram 3",
+        "differs_from": null
+      },
+      {
+        "t": 52.530012,
+        "clock": "2026-10-02T12:24:52.483+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "direction": "tx",
+        "from": "DETHMM ZE 35##0001",
+        "to": "DETHMM AZA34##0001",
+        "message": "KOMMANDO_BTP_VERSIONSABGLEICH",
+        "code": "0x0024",
+        "command": true,
+        "length": 44,
+        "fields": {
+          "btp_version": 1
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 51 telegram 1",
+          "t": 52.530012,
+          "clock": "2026-10-02T12:24:52.483+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 306 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 52.830855,
+        "clock": "2026-10-02T12:24:52.784+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "direction": "rx",
+        "from": "DETHMM AZA34##0001",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_BTP_VERSIONSABGLEICH",
+        "code": "0x0025",
+        "command": false,
+        "length": 62,
+        "fields": {
+          "ergebnis": 2,
+          "btp_version": 1,
+          "checksum_length": 16
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 53 telegram 1",
+          "t": 52.830855,
+          "clock": "2026-10-02T12:24:52.784+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 312 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 52.831638,
+        "clock": "2026-10-02T12:24:52.785+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "direction": "tx",
+        "from": "DETHMM ZE 35##0001",
+        "to": "DETHMM AZA34##0001",
+        "message": "KOMMANDO_AUFRUESTANFORDERUNG",
+        "code": "0x0021",
+        "command": true,
+        "length": 43,
+        "fields": {},
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 54 telegram 1",
+          "t": 52.831638,
+          "clock": "2026-10-02T12:24:52.785+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 328 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 53.132877,
+        "clock": "2026-10-02T12:24:53.086+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "direction": "rx",
+        "from": "DETHMM AZA34##0001",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_AUFRUESTBEGINN",
+        "code": "0x0022",
+        "command": false,
+        "length": 43,
+        "fields": {},
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 56 telegram 1",
+          "t": 53.132877,
+          "clock": "2026-10-02T12:24:53.086+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 334 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 53.132877,
+        "clock": "2026-10-02T12:24:53.086+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "direction": "rx",
+        "from": "34W1",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_GFMA_BELEGUNGSZUSTAND",
+        "code": "0x0007",
+        "command": false,
+        "length": 47,
+        "fields": {
+          "belegung": 1,
+          "grundstellbar": 0,
+          "achszaehlfuellstand": 0
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 56 telegram 2",
+          "t": 53.132877,
+          "clock": "2026-10-02T12:24:53.086+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 334 telegram 2",
+        "differs_from": null
+      },
+      {
+        "t": 53.132877,
+        "clock": "2026-10-02T12:24:53.086+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "direction": "rx",
+        "from": "DETHMM AZA34##0001",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_AUFRUESTENDE",
+        "code": "0x0023",
+        "command": false,
+        "length": 43,
+        "fields": {},
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 56 telegram 3",
+          "t": 53.132877,
+          "clock": "2026-10-02T12:24:53.086+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 334 telegram 3",
+        "differs_from": null
+      },
+      {
+        "t": 64.54497,
+        "clock": "2026-10-02T12:25:04.498+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "direction": "rx",
+        "from": "34W1",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_GFMA_BELEGUNGSZUSTAND",
+        "code": "0x0007",
+        "command": false,
+        "length": 47,
+        "fields": {
+          "belegung": 2,
+          "grundstellbar": 0,
+          "achszaehlfuellstand": 1
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 132 telegram 1",
+          "t": 64.54497,
+          "clock": "2026-10-02T12:25:04.498+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 730 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 64.548566,
+        "clock": "2026-10-02T12:25:04.502+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "direction": "tx",
+        "from": "DETHMM ZE 35##0001",
+        "to": "34W1",
+        "message": "KOMMANDO_AZGH",
+        "code": "0x0003",
+        "command": true,
+        "length": 43,
+        "fields": {},
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 133 telegram 1",
+          "t": 64.548566,
+          "clock": "2026-10-02T12:25:04.502+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 746 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 75.755435,
+        "clock": "2026-10-02T12:25:15.709+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "direction": "rx",
+        "from": "34W1",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_GFMA_BELEGUNGSZUSTAND",
+        "code": "0x0007",
+        "command": false,
+        "length": 47,
+        "fields": {
+          "belegung": 2,
+          "grundstellbar": 1,
+          "achszaehlfuellstand": 1
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 207 telegram 1",
+          "t": 75.755435,
+          "clock": "2026-10-02T12:25:15.709+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 1112 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 77.548223,
+        "clock": "2026-10-02T12:25:17.502+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "direction": "tx",
+        "from": "DETHMM ZE 35##0001",
+        "to": "34W1",
+        "message": "KOMMANDO_AZGH",
+        "code": "0x0003",
+        "command": true,
+        "length": 43,
+        "fields": {},
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 219 telegram 1",
+          "t": 77.548223,
+          "clock": "2026-10-02T12:25:17.502+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 1183 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 84.549483,
+        "clock": "2026-10-02T12:25:24.503+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "direction": "tx",
+        "from": "DETHMM ZE 35##0001",
+        "to": "34W1",
+        "message": "KOMMANDO_AZG",
+        "code": "0x0001",
+        "command": true,
+        "length": 44,
+        "fields": {
+          "grundstellungsart": 2
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 267 telegram 1",
+          "t": 84.549483,
+          "clock": "2026-10-02T12:25:24.503+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 1425 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 84.84456,
+        "clock": "2026-10-02T12:25:24.798+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "direction": "rx",
+        "from": "34W1",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_GFMA_BELEGUNGSZUSTAND",
+        "code": "0x0007",
+        "command": false,
+        "length": 47,
+        "fields": {
+          "belegung": 1,
+          "grundstellbar": 0,
+          "achszaehlfuellstand": 0
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 268 telegram 1",
+          "t": 84.84456,
+          "clock": "2026-10-02T12:25:24.798+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 1426 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 131.7094,
+        "clock": "2026-10-02T12:26:11.663+02:00",
+        "test_case": "TC_NPRO.295.02284.01",
+        "direction": "tx",
+        "from": "DETHMM ZE 35##0001",
+        "to": "DETHMM AZA34##0001",
+        "message": "KOMMANDO_BTP_VERSIONSABGLEICH",
+        "code": "0x0024",
+        "command": true,
+        "length": 44,
+        "fields": {
+          "btp_version": 1
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 318 telegram 1",
+          "t": 131.7094,
+          "clock": "2026-10-02T12:26:11.663+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 1707 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 132.011423,
+        "clock": "2026-10-02T12:26:11.965+02:00",
+        "test_case": "TC_NPRO.295.02284.01",
+        "direction": "rx",
+        "from": "DETHMM AZA34##0001",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_BTP_VERSIONSABGLEICH",
+        "code": "0x0025",
+        "command": false,
+        "length": 62,
+        "fields": {
+          "ergebnis": 2,
+          "btp_version": 1,
+          "checksum_length": 16
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 320 telegram 1",
+          "t": 132.011423,
+          "clock": "2026-10-02T12:26:11.965+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 1713 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 132.012154,
+        "clock": "2026-10-02T12:26:11.965+02:00",
+        "test_case": "TC_NPRO.295.02284.01",
+        "direction": "tx",
+        "from": "DETHMM ZE 35##0001",
+        "to": "DETHMM AZA34##0001",
+        "message": "KOMMANDO_AUFRUESTANFORDERUNG",
+        "code": "0x0021",
+        "command": true,
+        "length": 43,
+        "fields": {},
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 321 telegram 1",
+          "t": 132.012154,
+          "clock": "2026-10-02T12:26:11.965+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 1729 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 132.313876,
+        "clock": "2026-10-02T12:26:12.267+02:00",
+        "test_case": "TC_NPRO.295.02284.01",
+        "direction": "rx",
+        "from": "DETHMM AZA34##0001",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_AUFRUESTBEGINN",
+        "code": "0x0022",
+        "command": false,
+        "length": 43,
+        "fields": {},
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 323 telegram 1",
+          "t": 132.313876,
+          "clock": "2026-10-02T12:26:12.267+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 1735 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 132.313876,
+        "clock": "2026-10-02T12:26:12.267+02:00",
+        "test_case": "TC_NPRO.295.02284.01",
+        "direction": "rx",
+        "from": "34W1",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_GFMA_BELEGUNGSZUSTAND",
+        "code": "0x0007",
+        "command": false,
+        "length": 47,
+        "fields": {
+          "belegung": 1,
+          "grundstellbar": 0,
+          "achszaehlfuellstand": 0
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 323 telegram 2",
+          "t": 132.313876,
+          "clock": "2026-10-02T12:26:12.267+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 1735 telegram 2",
+        "differs_from": null
+      },
+      {
+        "t": 132.313876,
+        "clock": "2026-10-02T12:26:12.267+02:00",
+        "test_case": "TC_NPRO.295.02284.01",
+        "direction": "rx",
+        "from": "DETHMM AZA34##0001",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_AUFRUESTENDE",
+        "code": "0x0023",
+        "command": false,
+        "length": 43,
+        "fields": {},
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 323 telegram 3",
+          "t": 132.313876,
+          "clock": "2026-10-02T12:26:12.267+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 1735 telegram 3",
+        "differs_from": null
+      },
+      {
+        "t": 132.317212,
+        "clock": "2026-10-02T12:26:12.271+02:00",
+        "test_case": "TC_NPRO.295.02284.01",
+        "direction": "tx",
+        "from": "DETHMM ZE 35##0001",
+        "to": "34W1",
+        "message": "KOMMANDO_AZGH",
+        "code": "0x0003",
+        "command": true,
+        "length": 43,
+        "fields": {},
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 324 telegram 1",
+          "t": 132.317212,
+          "clock": "2026-10-02T12:26:12.271+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 1762 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 179.681098,
+        "clock": "2026-10-02T12:26:59.634+02:00",
+        "test_case": "TC_NPRO.295.02288.01",
+        "direction": "tx",
+        "from": "DETHMM ZE 35##0001",
+        "to": "DETHMM AZA34##0001",
+        "message": "KOMMANDO_BTP_VERSIONSABGLEICH",
+        "code": "0x0024",
+        "command": true,
+        "length": 44,
+        "fields": {
+          "btp_version": 1
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 375 telegram 1",
+          "t": 179.681098,
+          "clock": "2026-10-02T12:26:59.634+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 2047 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 179.984128,
+        "clock": "2026-10-02T12:26:59.937+02:00",
+        "test_case": "TC_NPRO.295.02288.01",
+        "direction": "rx",
+        "from": "DETHMM AZA34##0001",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_BTP_VERSIONSABGLEICH",
+        "code": "0x0025",
+        "command": false,
+        "length": 62,
+        "fields": {
+          "ergebnis": 2,
+          "btp_version": 1,
+          "checksum_length": 16
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 377 telegram 1",
+          "t": 179.984128,
+          "clock": "2026-10-02T12:26:59.937+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 2053 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 179.98472,
+        "clock": "2026-10-02T12:26:59.938+02:00",
+        "test_case": "TC_NPRO.295.02288.01",
+        "direction": "tx",
+        "from": "DETHMM ZE 35##0001",
+        "to": "DETHMM AZA34##0001",
+        "message": "KOMMANDO_AUFRUESTANFORDERUNG",
+        "code": "0x0021",
+        "command": true,
+        "length": 43,
+        "fields": {},
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 378 telegram 1",
+          "t": 179.98472,
+          "clock": "2026-10-02T12:26:59.938+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 2069 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 180.287372,
+        "clock": "2026-10-02T12:27:00.241+02:00",
+        "test_case": "TC_NPRO.295.02288.01",
+        "direction": "rx",
+        "from": "DETHMM AZA34##0001",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_AUFRUESTBEGINN",
+        "code": "0x0022",
+        "command": false,
+        "length": 43,
+        "fields": {},
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 380 telegram 1",
+          "t": 180.287372,
+          "clock": "2026-10-02T12:27:00.241+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 2075 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 180.287372,
+        "clock": "2026-10-02T12:27:00.241+02:00",
+        "test_case": "TC_NPRO.295.02288.01",
+        "direction": "rx",
+        "from": "34W1",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_GFMA_BELEGUNGSZUSTAND",
+        "code": "0x0007",
+        "command": false,
+        "length": 47,
+        "fields": {
+          "belegung": 1,
+          "grundstellbar": 0,
+          "achszaehlfuellstand": 0
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 380 telegram 2",
+          "t": 180.287372,
+          "clock": "2026-10-02T12:27:00.241+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 2075 telegram 2",
+        "differs_from": null
+      },
+      {
+        "t": 180.287372,
+        "clock": "2026-10-02T12:27:00.241+02:00",
+        "test_case": "TC_NPRO.295.02288.01",
+        "direction": "rx",
+        "from": "DETHMM AZA34##0001",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_AUFRUESTENDE",
+        "code": "0x0023",
+        "command": false,
+        "length": 43,
+        "fields": {},
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 380 telegram 3",
+          "t": 180.287372,
+          "clock": "2026-10-02T12:27:00.241+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 2075 telegram 3",
+        "differs_from": null
+      },
+      {
+        "t": 186.850936,
+        "clock": "2026-10-02T12:27:06.804+02:00",
+        "test_case": "TC_NPRO.295.02288.01",
+        "direction": "rx",
+        "from": "34W1",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_GFMA_BELEGUNGSZUSTAND",
+        "code": "0x0007",
+        "command": false,
+        "length": 47,
+        "fields": {
+          "belegung": 2,
+          "grundstellbar": 0,
+          "achszaehlfuellstand": 0
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 423 telegram 1",
+          "t": 186.850936,
+          "clock": "2026-10-02T12:27:06.804+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 2306 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 186.953046,
+        "clock": "2026-10-02T12:27:06.906+02:00",
+        "test_case": "TC_NPRO.295.02288.01",
+        "direction": "rx",
+        "from": "34W1",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_GFMA_BELEGUNGSZUSTAND",
+        "code": "0x0007",
+        "command": false,
+        "length": 47,
+        "fields": {
+          "belegung": 3,
+          "grundstellbar": 0,
+          "achszaehlfuellstand": 0
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 425 telegram 1",
+          "t": 186.953046,
+          "clock": "2026-10-02T12:27:06.906+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 2321 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 198.86993,
+        "clock": "2026-10-02T12:27:18.823+02:00",
+        "test_case": "TC_NPRO.295.02288.01",
+        "direction": "rx",
+        "from": "34W1",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_GFMA_BELEGUNGSZUSTAND",
+        "code": "0x0007",
+        "command": false,
+        "length": 47,
+        "fields": {
+          "belegung": 3,
+          "grundstellbar": 1,
+          "achszaehlfuellstand": 0
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 504 telegram 1",
+          "t": 198.86993,
+          "clock": "2026-10-02T12:27:18.823+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 2721 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 248.861888,
+        "clock": "2026-10-02T12:28:08.815+02:00",
+        "test_case": "TC_NPRO.295.02288.01",
+        "direction": "rx",
+        "from": "34W1",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_GFMA_BELEGUNGSZUSTAND",
+        "code": "0x0007",
+        "command": false,
+        "length": 47,
+        "fields": {
+          "belegung": 3,
+          "grundstellbar": 0,
+          "achszaehlfuellstand": 0
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 837 telegram 1",
+          "t": 248.861888,
+          "clock": "2026-10-02T12:28:08.815+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 4391 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 306.789942,
+        "clock": "2026-10-02T12:29:06.743+02:00",
+        "test_case": "TC_NPRO.295.02288.01",
+        "direction": "tx",
+        "from": "DETHMM ZE 35##0001",
+        "to": "34W1",
+        "message": "KOMMANDO_AZGH",
+        "code": "0x0003",
+        "command": true,
+        "length": 43,
+        "fields": {},
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 1222 telegram 1",
+          "t": 306.789942,
+          "clock": "2026-10-02T12:29:06.743+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 6327 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 353.696945,
+        "clock": "2026-10-02T12:29:53.650+02:00",
+        "test_case": "TC_NPRO.295.00525.01",
+        "direction": "tx",
+        "from": "DETHMM ZE 35##0001",
+        "to": "DETHMM AZA34##0001",
+        "message": "KOMMANDO_BTP_VERSIONSABGLEICH",
+        "code": "0x0024",
+        "command": true,
+        "length": 44,
+        "fields": {
+          "btp_version": 1
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 1271 telegram 1",
+          "t": 353.696945,
+          "clock": "2026-10-02T12:29:53.650+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 6596 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 353.999231,
+        "clock": "2026-10-02T12:29:53.953+02:00",
+        "test_case": "TC_NPRO.295.00525.01",
+        "direction": "rx",
+        "from": "DETHMM AZA34##0001",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_BTP_VERSIONSABGLEICH",
+        "code": "0x0025",
+        "command": false,
+        "length": 62,
+        "fields": {
+          "ergebnis": 2,
+          "btp_version": 1,
+          "checksum_length": 16
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 1273 telegram 1",
+          "t": 353.999231,
+          "clock": "2026-10-02T12:29:53.953+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 6602 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 354.000409,
+        "clock": "2026-10-02T12:29:53.954+02:00",
+        "test_case": "TC_NPRO.295.00525.01",
+        "direction": "tx",
+        "from": "DETHMM ZE 35##0001",
+        "to": "DETHMM AZA34##0001",
+        "message": "KOMMANDO_AUFRUESTANFORDERUNG",
+        "code": "0x0021",
+        "command": true,
+        "length": 43,
+        "fields": {},
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 1274 telegram 1",
+          "t": 354.000409,
+          "clock": "2026-10-02T12:29:53.954+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 6618 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 354.302648,
+        "clock": "2026-10-02T12:29:54.256+02:00",
+        "test_case": "TC_NPRO.295.00525.01",
+        "direction": "rx",
+        "from": "DETHMM AZA34##0001",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_AUFRUESTBEGINN",
+        "code": "0x0022",
+        "command": false,
+        "length": 43,
+        "fields": {},
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 1276 telegram 1",
+          "t": 354.302648,
+          "clock": "2026-10-02T12:29:54.256+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 6624 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 354.302648,
+        "clock": "2026-10-02T12:29:54.256+02:00",
+        "test_case": "TC_NPRO.295.00525.01",
+        "direction": "rx",
+        "from": "34W1",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_GFMA_BELEGUNGSZUSTAND",
+        "code": "0x0007",
+        "command": false,
+        "length": 47,
+        "fields": {
+          "belegung": 3,
+          "grundstellbar": 0,
+          "achszaehlfuellstand": 0
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 1276 telegram 2",
+          "t": 354.302648,
+          "clock": "2026-10-02T12:29:54.256+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 6624 telegram 2",
+        "differs_from": null
+      },
+      {
+        "t": 354.302648,
+        "clock": "2026-10-02T12:29:54.256+02:00",
+        "test_case": "TC_NPRO.295.00525.01",
+        "direction": "rx",
+        "from": "DETHMM AZA34##0001",
+        "to": "DETHMM ZE 35##0001",
+        "message": "MELDUNG_AUFRUESTENDE",
+        "code": "0x0023",
+        "command": false,
+        "length": 43,
+        "fields": {},
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 1276 telegram 3",
+          "t": 354.302648,
+          "clock": "2026-10-02T12:29:54.256+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 6624 telegram 3",
+        "differs_from": null
+      },
+      {
+        "t": 381.612761,
+        "clock": "2026-10-02T12:30:21.566+02:00",
+        "test_case": "TC_NPRO.295.00525.01",
+        "direction": "tx",
+        "from": "DETHMM ZE 35##0001",
+        "to": "34W1",
+        "message": "KOMMANDO_AZGH",
+        "code": "0x0003",
+        "command": true,
+        "length": 43,
+        "fields": {},
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 1458 telegram 1",
+          "t": 381.612761,
+          "clock": "2026-10-02T12:30:21.566+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 7558 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 391.387864,
+        "clock": "2026-10-02T12:30:31.341+02:00",
+        "test_case": "TC_NPRO.295.00525.01",
+        "direction": "tx",
+        "from": "DETHMM ZE 35##0001",
+        "to": "34W1",
+        "message": "KOMMANDO_AZG",
+        "code": "0x0001",
+        "command": true,
+        "length": 44,
+        "fields": {
+          "grundstellungsart": 2
+        },
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 1523 telegram 1",
+          "t": 391.387864,
+          "clock": "2026-10-02T12:30:31.341+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 7888 telegram 1",
+        "differs_from": null
+      },
+      {
+        "t": 480.804718,
+        "clock": "2026-10-02T12:32:00.758+02:00",
+        "test_case": "TC_NPRO.295.00525.01",
+        "direction": "tx",
+        "from": "DETHMM ZE 35##0001",
+        "to": "34W1",
+        "message": "KOMMANDO_AZGH",
+        "code": "0x0003",
+        "command": true,
+        "length": 43,
+        "fields": {},
+        "evidence": {
+          "source": "pcapng",
+          "file": "RealOCWorking_TDS_21026.pcapng",
+          "locator": "frame 2117 telegram 1",
+          "t": 480.804718,
+          "clock": "2026-10-02T12:32:00.758+02:00"
+        },
+        "duplicate": "RealOCWorking_TDS_21026.blf object 10860 telegram 1",
+        "differs_from": null
+      }
+    ],
+    "sessions": [
+      {
+        "index": 1,
+        "start": 3.462782,
+        "end": 8.511326,
+        "test_case": null,
+        "established": true,
+        "closed_by": "tx",
+        "disconnect_reason": 0,
+        "messages": {
+          "tx": 21,
+          "rx": 17
+        },
+        "heartbeats": 31
+      },
+      {
+        "index": 2,
+        "start": 52.403913,
+        "end": 91.349632,
+        "test_case": "TC_NPRO.295.02283.01",
+        "established": true,
+        "closed_by": "tx",
+        "disconnect_reason": 0,
+        "messages": {
+          "tx": 136,
+          "rx": 129
+        },
+        "heartbeats": 252
+      },
+      {
+        "index": 3,
+        "start": 131.549479,
+        "end": 139.317036,
+        "test_case": "TC_NPRO.295.02284.01",
+        "established": true,
+        "closed_by": "tx",
+        "disconnect_reason": 0,
+        "messages": {
+          "tx": 31,
+          "rx": 26
+        },
+        "heartbeats": 49
+      },
+      {
+        "index": 4,
+        "start": 179.516629,
+        "end": 313.290079,
+        "test_case": "TC_NPRO.295.02288.01",
+        "established": true,
+        "closed_by": "tx",
+        "disconnect_reason": 0,
+        "messages": {
+          "tx": 450,
+          "rx": 444
+        },
+        "heartbeats": 882
+      },
+      {
+        "index": 5,
+        "start": 353.490685,
+        "end": 487.304926,
+        "test_case": "TC_NPRO.295.00525.01",
+        "established": true,
+        "closed_by": "tx",
+        "disconnect_reason": 0,
+        "messages": {
+          "tx": 452,
+          "rx": 441
+        },
+        "heartbeats": 883
+      }
+    ],
+    "operator_actions": [
+      {
+        "t": 3.460779,
+        "clock": "2026-10-02T12:24:03.414+02:00",
+        "test_case": null,
+        "name": "connectButton",
+        "command": null,
+        "value": 1,
+        "evidence": {
+          "source": "blf",
+          "file": "RealOCWorking_TDS_21026.blf",
+          "locator": "object 16",
+          "t": 3.460779,
+          "clock": "2026-10-02T12:24:03.414+02:00"
+        }
+      },
+      {
+        "t": 3.51928,
+        "clock": "2026-10-02T12:24:03.473+02:00",
+        "test_case": null,
+        "name": "connectButton",
+        "command": null,
+        "value": 0,
+        "evidence": {
+          "source": "blf",
+          "file": "RealOCWorking_TDS_21026.blf",
+          "locator": "object 30",
+          "t": 3.51928,
+          "clock": "2026-10-02T12:24:03.473+02:00"
+        }
+      },
+      {
+        "t": 8.51006,
+        "clock": "2026-10-02T12:24:08.463+02:00",
+        "test_case": null,
+        "name": "disconnectButton",
+        "command": null,
+        "value": 1,
+        "evidence": {
+          "source": "blf",
+          "file": "RealOCWorking_TDS_21026.blf",
+          "locator": "object 245",
+          "t": 8.51006,
+          "clock": "2026-10-02T12:24:08.463+02:00"
+        }
+      },
+      {
+        "t": 8.59906,
+        "clock": "2026-10-02T12:24:08.552+02:00",
+        "test_case": null,
+        "name": "disconnectButton",
+        "command": null,
+        "value": 0,
+        "evidence": {
+          "source": "blf",
+          "file": "RealOCWorking_TDS_21026.blf",
+          "locator": "object 262",
+          "t": 8.59906,
+          "clock": "2026-10-02T12:24:08.552+02:00"
+        }
+      },
+      {
+        "t": 381.611442,
+        "clock": "2026-10-02T12:30:21.565+02:00",
+        "test_case": "TC_NPRO.295.00525.01",
+        "name": "kdSelection",
+        "command": "KOMMANDO_AZGH",
+        "value": 3,
+        "evidence": {
+          "source": "blf",
+          "file": "RealOCWorking_TDS_21026.blf",
+          "locator": "object 7550",
+          "t": 381.611442,
+          "clock": "2026-10-02T12:30:21.565+02:00"
+        }
+      },
+      {
+        "t": 391.385999,
+        "clock": "2026-10-02T12:30:31.339+02:00",
+        "test_case": "TC_NPRO.295.00525.01",
+        "name": "kdSelection",
+        "command": "KOMMANDO_AZG",
+        "value": 1,
+        "evidence": {
+          "source": "blf",
+          "file": "RealOCWorking_TDS_21026.blf",
+          "locator": "object 7879",
+          "t": 391.385999,
+          "clock": "2026-10-02T12:30:31.339+02:00"
+        }
+      }
+    ],
+    "log": [
+      {
+        "t": 0.0,
+        "clock": "2026-10-02T12:23:59.953+02:00",
+        "test_case": null,
+        "level": "info",
+        "text": "Start of measurement 12:23:59.953",
+        "evidence": {
+          "source": "canoe_log",
+          "file": "TDS_Report_21026.txt",
+          "locator": "line 1",
+          "t": 0.0,
+          "clock": "2026-10-02T12:23:59.953+02:00"
+        }
+      },
+      {
+        "t": 488.321,
+        "clock": "2026-10-02T12:32:08.274+02:00",
+        "test_case": "TC_NPRO.295.00522.01",
+        "level": "error",
+        "text": "[Help 09-0013] Test unit 'SCI-TDS': Execution stop forced. Test is incomplete!",
+        "evidence": {
+          "source": "canoe_log",
+          "file": "TDS_Report_21026.txt",
+          "locator": "line 38",
+          "t": 488.321,
+          "clock": "2026-10-02T12:32:08.274+02:00"
+        }
+      },
+      {
+        "t": 491.109,
+        "clock": "2026-10-02T12:32:11.062+02:00",
+        "test_case": null,
+        "level": "info",
+        "text": "End of measurement 12:32:11.212",
+        "evidence": {
+          "source": "canoe_log",
+          "file": "TDS_Report_21026.txt",
+          "locator": "line 39",
+          "t": 491.109,
+          "clock": "2026-10-02T12:32:11.062+02:00"
+        }
+      }
+    ]
+  },
+  "vocabulary": {
+    "belegung": {
+      "0": "ungueltig",
+      "1": "frei",
+      "2": "belegt",
+      "3": "gestoert",
+      "4": "warten_auf_zugfahrt",
+      "5": "warten_auf_quittung"
+    },
+    "grundstellbar": {
+      "0": "nicht grundstellbar",
+      "1": "grundstellbar"
+    },
+    "severity": [
+      "error",
+      "warning",
+      "info"
+    ],
+    "categories": {
+      "missing_message": "SCI-TDS protocol",
+      "wrong_order": "SCI-TDS protocol",
+      "invalid_payload": "SCI-TDS protocol",
+      "incorrect_length": "SCI-TDS protocol",
+      "timeout": "SCI-TDS protocol",
+      "connection_interruption": "Communication: RaSTA connection",
+      "unexpected_response": "SCI-TDS protocol",
+      "configuration_mismatch": "Configuration / test specification",
+      "sequence_error": "Communication: RaSTA connection",
+      "command_rejected": "SCI-TDS protocol",
+      "precondition_not_reached": "Field element / test bench state",
+      "test_step_failed": "Test step (no explanation found)",
+      "device_disturbed": "Field element / test bench state",
+      "cascade_failure": "Test sequence: state left by the previous test case",
+      "test_aborted": "Test execution",
+      "manual_intervention": "Test execution: operator",
+      "time_alignment": "Data quality: source alignment"
+    },
+    "areas": [
+      "Communication: RaSTA connection",
+      "Configuration / test specification",
+      "Data quality: source alignment",
+      "Field element / test bench state",
+      "SCI-TDS protocol",
+      "Test execution",
+      "Test execution: operator",
+      "Test sequence: state left by the previous test case",
+      "Test step (no explanation found)"
+    ],
+    "roles": [
+      "cause",
+      "symptom",
+      "cause_and_symptom",
+      "contributing",
+      "run"
+    ],
+    "scenario_outcomes": {
+      "failure": "the scenario's failure was found as an error",
+      "warning": "reported, but not a failure",
+      "ruled_out": "checked on the real run: the failure is not there",
+      "check": "run-level check without a finding"
+    }
+  },
+  "scenarios": [
+    {
+      "number": "1",
+      "key": "response_timeout",
+      "title": "TDS response timeout",
+      "detection": "Response later than 500 ms after the request (start-up: Aufrüstanforderung → Aufrüstbeginn)",
+      "sources": "pcapng, Test_Description",
+      "data": "synthetic",
+      "capture": "S01_response_timeout.pcapng",
+      "edit": [
+        "frame 56: Aufrüstbeginn/status/Aufrüstende sent 0.607 s later, in frame 60"
+      ],
+      "outcome": "failure",
+      "failure": {
+        "category": "timeout",
+        "area": "SCI-TDS protocol",
+        "severity": "error",
+        "t": 52.830813,
+        "clock": "2026-10-02T12:24:52.785+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "summary": "MELDUNG_AUFRUESTBEGINN after 908 ms (limit 500 ms)",
+        "evidence": [
+          {
+            "source": "pcapng",
+            "file": "S01_response_timeout.pcapng",
+            "locator": "frame 54 telegram 1",
+            "t": 52.830813,
+            "clock": "2026-10-02T12:24:52.785+02:00"
+          },
+          {
+            "source": "pcapng",
+            "file": "S01_response_timeout.pcapng",
+            "locator": "frame 60 telegram 1",
+            "t": 53.739273,
+            "clock": "2026-10-02T12:24:53.693+02:00"
+          }
+        ]
+      },
+      "results": [
+        {
+          "test_case": "TC_NPRO.295.02283.01",
+          "report_verdict": "pass",
+          "verdict": "fail",
+          "verdict_differs": true,
+          "symptom": {
+            "category": "timeout",
+            "t": 52.830813,
+            "summary": "MELDUNG_AUFRUESTBEGINN after 908 ms (limit 500 ms)"
+          },
+          "cause": {
+            "category": "timeout",
+            "t": 52.830813,
+            "summary": "MELDUNG_AUFRUESTBEGINN after 908 ms (limit 500 ms)"
+          },
+          "findings": [
+            {
+              "category": "timeout",
+              "area": "SCI-TDS protocol",
+              "severity": "error",
+              "t": 52.830813,
+              "clock": "2026-10-02T12:24:52.785+02:00",
+              "test_case": "TC_NPRO.295.02283.01",
+              "summary": "MELDUNG_AUFRUESTBEGINN after 908 ms (limit 500 ms)",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "S01_response_timeout.pcapng",
+                  "locator": "frame 54 telegram 1",
+                  "t": 52.830813,
+                  "clock": "2026-10-02T12:24:52.785+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "S01_response_timeout.pcapng",
+                  "locator": "frame 60 telegram 1",
+                  "t": 53.739273,
+                  "clock": "2026-10-02T12:24:53.693+02:00"
+                }
+              ],
+              "introduced": true
+            }
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "test_case": "TC_NPRO.295.02283.01",
+          "category": "timeout",
+          "role": "cause",
+          "verdict": "fail",
+          "contains": "MELDUNG_AUFRUESTBEGINN after"
+        }
+      ],
+      "check": {
+        "as_expected": true,
+        "problems": []
+      }
+    },
+    {
+      "number": "2",
+      "key": "missing_message",
+      "title": "Missing message",
+      "detection": "Expected response never arrives (Aufrüstende after Aufrüstbeginn)",
+      "sources": "pcapng",
+      "data": "synthetic",
+      "capture": "S02_missing_message.pcapng",
+      "edit": [
+        "frame 56: Meldung Aufrüstende removed"
+      ],
+      "outcome": "failure",
+      "failure": {
+        "category": "missing_message",
+        "area": "SCI-TDS protocol",
+        "severity": "error",
+        "t": 53.132052,
+        "clock": "2026-10-02T12:24:53.086+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "summary": "No MELDUNG_AUFRUESTENDE after MELDUNG_AUFRUESTBEGINN",
+        "evidence": [
+          {
+            "source": "pcapng",
+            "file": "S02_missing_message.pcapng",
+            "locator": "frame 56 telegram 1",
+            "t": 53.132052,
+            "clock": "2026-10-02T12:24:53.086+02:00"
+          }
+        ]
+      },
+      "results": [
+        {
+          "test_case": "TC_NPRO.295.02283.01",
+          "report_verdict": "pass",
+          "verdict": "fail",
+          "verdict_differs": true,
+          "symptom": {
+            "category": "missing_message",
+            "t": 53.132052,
+            "summary": "No MELDUNG_AUFRUESTENDE after MELDUNG_AUFRUESTBEGINN"
+          },
+          "cause": {
+            "category": "missing_message",
+            "t": 53.132052,
+            "summary": "No MELDUNG_AUFRUESTENDE after MELDUNG_AUFRUESTBEGINN"
+          },
+          "findings": [
+            {
+              "category": "missing_message",
+              "area": "SCI-TDS protocol",
+              "severity": "error",
+              "t": 53.132052,
+              "clock": "2026-10-02T12:24:53.086+02:00",
+              "test_case": "TC_NPRO.295.02283.01",
+              "summary": "No MELDUNG_AUFRUESTENDE after MELDUNG_AUFRUESTBEGINN",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "S02_missing_message.pcapng",
+                  "locator": "frame 56 telegram 1",
+                  "t": 53.132052,
+                  "clock": "2026-10-02T12:24:53.086+02:00"
+                }
+              ],
+              "introduced": true
+            },
+            {
+              "category": "wrong_order",
+              "area": "SCI-TDS protocol",
+              "severity": "error",
+              "t": 64.547741,
+              "clock": "2026-10-02T12:25:04.502+02:00",
+              "test_case": "TC_NPRO.295.02283.01",
+              "summary": "KOMMANDO_AZGH sent before MELDUNG_AUFRUESTENDE",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "S02_missing_message.pcapng",
+                  "locator": "frame 133 telegram 1",
+                  "t": 64.547741,
+                  "clock": "2026-10-02T12:25:04.502+02:00"
+                }
+              ],
+              "introduced": true
+            }
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "test_case": "TC_NPRO.295.02283.01",
+          "category": "missing_message",
+          "role": "cause",
+          "verdict": "fail",
+          "contains": "No MELDUNG_AUFRUESTENDE"
+        },
+        {
+          "test_case": "TC_NPRO.295.02283.01",
+          "category": "wrong_order",
+          "role": "finding",
+          "verdict": null,
+          "contains": null
+        }
+      ],
+      "check": {
+        "as_expected": true,
+        "problems": []
+      }
+    },
+    {
+      "number": "3",
+      "key": "unexpected_response_real",
+      "title": "Unexpected response (real check)",
+      "detection": "NOT step of the Test_Description: no Meldung GFM-A Belegungszustand within 500 ms after the AZGH",
+      "sources": "pcapng, Test_Description",
+      "data": "real",
+      "capture": null,
+      "edit": [],
+      "outcome": "ruled_out",
+      "failure": null,
+      "results": [
+        {
+          "test_case": "TC_NPRO.295.02283.01",
+          "report_verdict": "pass",
+          "verdict": "pass",
+          "verdict_differs": false,
+          "symptom": null,
+          "cause": null,
+          "findings": [
+            {
+              "category": "configuration_mismatch",
+              "area": "Configuration / test specification",
+              "severity": "warning",
+              "t": null,
+              "clock": null,
+              "test_case": "TC_NPRO.295.02283.01",
+              "summary": "Test case version 5 in the report, 7 in the Test_Description",
+              "evidence": [
+                {
+                  "source": "pdf_report",
+                  "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+                  "locator": "page 2",
+                  "t": null,
+                  "clock": null
+                },
+                {
+                  "source": "test_spec",
+                  "file": "TC_NPRO.295.02283.01_xcel.txt",
+                  "locator": "row 1",
+                  "t": null,
+                  "clock": null
+                }
+              ],
+              "introduced": false
+            }
+          ]
+        },
+        {
+          "test_case": "TC_NPRO.295.02284.01",
+          "report_verdict": "pass",
+          "verdict": "pass",
+          "verdict_differs": false,
+          "symptom": null,
+          "cause": null,
+          "findings": []
+        }
+      ],
+      "expected": [
+        {
+          "test_case": "TC_NPRO.295.02283.01",
+          "category": "unexpected_response",
+          "role": "ruled_out",
+          "verdict": "pass",
+          "contains": null
+        },
+        {
+          "test_case": "TC_NPRO.295.02284.01",
+          "category": "unexpected_response",
+          "role": "ruled_out",
+          "verdict": "pass",
+          "contains": null
+        }
+      ],
+      "check": {
+        "as_expected": true,
+        "problems": []
+      }
+    },
+    {
+      "number": "3s",
+      "key": "unexpected_response",
+      "title": "Unexpected response",
+      "detection": "A status telegram arrives within the 500 ms the NOT step forbids",
+      "sources": "pcapng, Test_Description",
+      "data": "synthetic",
+      "capture": "S03s_unexpected_response.pcapng",
+      "edit": [
+        "frame 326: heartbeat replaced by Meldung GFM-A Belegungszustand 1/1, 299 ms after the AZGH"
+      ],
+      "outcome": "failure",
+      "failure": {
+        "category": "unexpected_response",
+        "area": "SCI-TDS protocol",
+        "severity": "error",
+        "t": 132.615594,
+        "clock": "2026-10-02T12:26:12.570+02:00",
+        "test_case": "TC_NPRO.295.02284.01",
+        "summary": "MELDUNG_GFMA_BELEGUNGSZUSTAND received 299 ms after KOMMANDO_AZGH; step 2 requires it NOT to be sent",
+        "evidence": [
+          {
+            "source": "pcapng",
+            "file": "S03s_unexpected_response.pcapng",
+            "locator": "frame 324 telegram 1",
+            "t": 132.316387,
+            "clock": "2026-10-02T12:26:12.271+02:00"
+          },
+          {
+            "source": "pcapng",
+            "file": "S03s_unexpected_response.pcapng",
+            "locator": "frame 326 telegram 1",
+            "t": 132.615594,
+            "clock": "2026-10-02T12:26:12.570+02:00"
+          }
+        ]
+      },
+      "results": [
+        {
+          "test_case": "TC_NPRO.295.02284.01",
+          "report_verdict": "pass",
+          "verdict": "fail",
+          "verdict_differs": true,
+          "symptom": {
+            "category": "unexpected_response",
+            "t": 132.615594,
+            "summary": "MELDUNG_GFMA_BELEGUNGSZUSTAND received 299 ms after KOMMANDO_AZGH; step 2 requires it NOT to be sent"
+          },
+          "cause": {
+            "category": "unexpected_response",
+            "t": 132.615594,
+            "summary": "MELDUNG_GFMA_BELEGUNGSZUSTAND received 299 ms after KOMMANDO_AZGH; step 2 requires it NOT to be sent"
+          },
+          "findings": [
+            {
+              "category": "unexpected_response",
+              "area": "SCI-TDS protocol",
+              "severity": "error",
+              "t": 132.615594,
+              "clock": "2026-10-02T12:26:12.570+02:00",
+              "test_case": "TC_NPRO.295.02284.01",
+              "summary": "MELDUNG_GFMA_BELEGUNGSZUSTAND received 299 ms after KOMMANDO_AZGH; step 2 requires it NOT to be sent",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "S03s_unexpected_response.pcapng",
+                  "locator": "frame 324 telegram 1",
+                  "t": 132.316387,
+                  "clock": "2026-10-02T12:26:12.271+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "S03s_unexpected_response.pcapng",
+                  "locator": "frame 326 telegram 1",
+                  "t": 132.615594,
+                  "clock": "2026-10-02T12:26:12.570+02:00"
+                }
+              ],
+              "introduced": true
+            }
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "test_case": "TC_NPRO.295.02284.01",
+          "category": "unexpected_response",
+          "role": "cause",
+          "verdict": "fail",
+          "contains": "requires it NOT to be sent"
+        }
+      ],
+      "check": {
+        "as_expected": true,
+        "problems": []
+      }
+    },
+    {
+      "number": "4",
+      "key": "wrong_order",
+      "title": "Wrong message order",
+      "detection": "Start-up order: version check → Aufrüstanforderung → Aufrüstbeginn → reports → Aufrüstende",
+      "sources": "pcapng",
+      "data": "synthetic",
+      "capture": "S04_wrong_order.pcapng",
+      "edit": [
+        "frames 51/54: Aufrüstanforderung sent before the BTP version check"
+      ],
+      "outcome": "failure",
+      "failure": {
+        "category": "wrong_order",
+        "area": "SCI-TDS protocol",
+        "severity": "error",
+        "t": 52.529187,
+        "clock": "2026-10-02T12:24:52.483+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "summary": "KOMMANDO_AUFRUESTANFORDERUNG before KOMMANDO_BTP_VERSIONSABGLEICH",
+        "evidence": [
+          {
+            "source": "pcapng",
+            "file": "S04_wrong_order.pcapng",
+            "locator": "frame 51 telegram 1",
+            "t": 52.529187,
+            "clock": "2026-10-02T12:24:52.483+02:00"
+          }
+        ]
+      },
+      "results": [
+        {
+          "test_case": "TC_NPRO.295.02283.01",
+          "report_verdict": "pass",
+          "verdict": "fail",
+          "verdict_differs": true,
+          "symptom": {
+            "category": "timeout",
+            "t": 52.529187,
+            "summary": "MELDUNG_AUFRUESTBEGINN after 603 ms (limit 500 ms)"
+          },
+          "cause": {
+            "category": "wrong_order",
+            "t": 52.529187,
+            "summary": "KOMMANDO_AUFRUESTANFORDERUNG before KOMMANDO_BTP_VERSIONSABGLEICH"
+          },
+          "findings": [
+            {
+              "category": "timeout",
+              "area": "SCI-TDS protocol",
+              "severity": "error",
+              "t": 52.529187,
+              "clock": "2026-10-02T12:24:52.483+02:00",
+              "test_case": "TC_NPRO.295.02283.01",
+              "summary": "MELDUNG_AUFRUESTBEGINN after 603 ms (limit 500 ms)",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "S04_wrong_order.pcapng",
+                  "locator": "frame 51 telegram 1",
+                  "t": 52.529187,
+                  "clock": "2026-10-02T12:24:52.483+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "S04_wrong_order.pcapng",
+                  "locator": "frame 56 telegram 1",
+                  "t": 53.132052,
+                  "clock": "2026-10-02T12:24:53.086+02:00"
+                }
+              ],
+              "introduced": true
+            },
+            {
+              "category": "wrong_order",
+              "area": "SCI-TDS protocol",
+              "severity": "error",
+              "t": 52.529187,
+              "clock": "2026-10-02T12:24:52.483+02:00",
+              "test_case": "TC_NPRO.295.02283.01",
+              "summary": "KOMMANDO_AUFRUESTANFORDERUNG before KOMMANDO_BTP_VERSIONSABGLEICH",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "S04_wrong_order.pcapng",
+                  "locator": "frame 51 telegram 1",
+                  "t": 52.529187,
+                  "clock": "2026-10-02T12:24:52.483+02:00"
+                }
+              ],
+              "introduced": true
+            },
+            {
+              "category": "missing_message",
+              "area": "SCI-TDS protocol",
+              "severity": "error",
+              "t": 52.830813,
+              "clock": "2026-10-02T12:24:52.785+02:00",
+              "test_case": "TC_NPRO.295.02283.01",
+              "summary": "No MELDUNG_BTP_VERSIONSABGLEICH after KOMMANDO_BTP_VERSIONSABGLEICH",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "S04_wrong_order.pcapng",
+                  "locator": "frame 54 telegram 1",
+                  "t": 52.830813,
+                  "clock": "2026-10-02T12:24:52.785+02:00"
+                }
+              ],
+              "introduced": true
+            }
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "test_case": "TC_NPRO.295.02283.01",
+          "category": "wrong_order",
+          "role": "cause",
+          "verdict": "fail",
+          "contains": "KOMMANDO_AUFRUESTANFORDERUNG before KOMMANDO_BTP_VERSIONSABGLEICH"
+        }
+      ],
+      "check": {
+        "as_expected": true,
+        "problems": []
+      }
+    },
+    {
+      "number": "5",
+      "key": "invalid_payload",
+      "title": "Invalid payload",
+      "detection": "Field value outside its BL5 range (Belegungszustand 1-5), wrong identifiers",
+      "sources": "pcapng, PDF",
+      "data": "synthetic",
+      "capture": "S05_invalid_payload.pcapng",
+      "edit": [
+        "frame 132: Belegungszustand 0x09 (valid: 1-5)"
+      ],
+      "outcome": "failure",
+      "failure": {
+        "category": "invalid_payload",
+        "area": "SCI-TDS protocol",
+        "severity": "error",
+        "t": 64.544145,
+        "clock": "2026-10-02T12:25:04.498+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "summary": "MELDUNG_GFMA_BELEGUNGSZUSTAND: belegung=9 outside [1, 2, 3, 4, 5]",
+        "evidence": [
+          {
+            "source": "pcapng",
+            "file": "S05_invalid_payload.pcapng",
+            "locator": "frame 132 telegram 1",
+            "t": 64.544145,
+            "clock": "2026-10-02T12:25:04.498+02:00"
+          }
+        ]
+      },
+      "results": [
+        {
+          "test_case": "TC_NPRO.295.02283.01",
+          "report_verdict": "pass",
+          "verdict": "fail",
+          "verdict_differs": true,
+          "symptom": {
+            "category": "invalid_payload",
+            "t": 64.544145,
+            "summary": "MELDUNG_GFMA_BELEGUNGSZUSTAND: belegung=9 outside [1, 2, 3, 4, 5]"
+          },
+          "cause": {
+            "category": "invalid_payload",
+            "t": 64.544145,
+            "summary": "MELDUNG_GFMA_BELEGUNGSZUSTAND: belegung=9 outside [1, 2, 3, 4, 5]"
+          },
+          "findings": [
+            {
+              "category": "invalid_payload",
+              "area": "SCI-TDS protocol",
+              "severity": "error",
+              "t": 64.544145,
+              "clock": "2026-10-02T12:25:04.498+02:00",
+              "test_case": "TC_NPRO.295.02283.01",
+              "summary": "MELDUNG_GFMA_BELEGUNGSZUSTAND: belegung=9 outside [1, 2, 3, 4, 5]",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "S05_invalid_payload.pcapng",
+                  "locator": "frame 132 telegram 1",
+                  "t": 64.544145,
+                  "clock": "2026-10-02T12:25:04.498+02:00"
+                }
+              ],
+              "introduced": true
+            }
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "test_case": "TC_NPRO.295.02283.01",
+          "category": "invalid_payload",
+          "role": "cause",
+          "verdict": "fail",
+          "contains": "belegung=9"
+        }
+      ],
+      "check": {
+        "as_expected": true,
+        "problems": []
+      }
+    },
+    {
+      "number": "6",
+      "key": "incorrect_length_spec",
+      "title": "Incorrect length: Test_Description vs. device (real)",
+      "detection": "Test_Description expects a 48-byte BL6/BL7 status, the RealOC sends 47 bytes (BL5)",
+      "sources": "Test_Description, pcapng",
+      "data": "real",
+      "capture": null,
+      "edit": [],
+      "outcome": "failure",
+      "failure": {
+        "category": "incorrect_length",
+        "area": "SCI-TDS protocol",
+        "severity": "error",
+        "t": 180.287372,
+        "clock": "2026-10-02T12:27:00.241+02:00",
+        "test_case": "TC_NPRO.295.02288.01",
+        "summary": "Test_Description step 2 expects a 48-byte MELDUNG_GFMA_BELEGUNGSZUSTAND, the device sends 47 bytes: the step cannot pass",
+        "evidence": [
+          {
+            "source": "test_spec",
+            "file": "TC_NPRO.295.02288.01_xcel.txt",
+            "locator": "row 1",
+            "t": 180.287372,
+            "clock": "2026-10-02T12:27:00.241+02:00"
+          },
+          {
+            "source": "pcapng",
+            "file": "RealOCWorking_TDS_21026.pcapng",
+            "locator": "frame 380 telegram 2",
+            "t": 180.287372,
+            "clock": "2026-10-02T12:27:00.241+02:00"
+          }
+        ]
+      },
+      "results": [
+        {
+          "test_case": "TC_NPRO.295.02288.01",
+          "report_verdict": "fail",
+          "verdict": "fail",
+          "verdict_differs": false,
+          "symptom": {
+            "category": "precondition_not_reached",
+            "t": 300.287888,
+            "summary": "Precondition not reached: target Belegung/Grundstellbarkeit 2/0 (Test_Description), actual 3/0"
+          },
+          "cause": {
+            "category": "device_disturbed",
+            "t": 186.953046,
+            "summary": "34W1 became disturbed (Belegungszustand 3) 102 ms after an occupied report with Achszählfüllstand 0x0000; reset possible for 50 s but no AZG/AZGH sent"
+          },
+          "findings": [
+            {
+              "category": "incorrect_length",
+              "area": "SCI-TDS protocol",
+              "severity": "error",
+              "t": 180.287372,
+              "clock": "2026-10-02T12:27:00.241+02:00",
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "Test_Description step 2 expects a 48-byte MELDUNG_GFMA_BELEGUNGSZUSTAND, the device sends 47 bytes: the step cannot pass",
+              "evidence": [
+                {
+                  "source": "test_spec",
+                  "file": "TC_NPRO.295.02288.01_xcel.txt",
+                  "locator": "row 1",
+                  "t": 180.287372,
+                  "clock": "2026-10-02T12:27:00.241+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 380 telegram 2",
+                  "t": 180.287372,
+                  "clock": "2026-10-02T12:27:00.241+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "device_disturbed",
+              "area": "Field element / test bench state",
+              "severity": "error",
+              "t": 186.953046,
+              "clock": "2026-10-02T12:27:06.906+02:00",
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "34W1 became disturbed (Belegungszustand 3) 102 ms after an occupied report with Achszählfüllstand 0x0000; reset possible for 50 s but no AZG/AZGH sent",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 423 telegram 1",
+                  "t": 186.850936,
+                  "clock": "2026-10-02T12:27:06.804+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 425 telegram 1",
+                  "t": 186.953046,
+                  "clock": "2026-10-02T12:27:06.906+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "precondition_not_reached",
+              "area": "Field element / test bench state",
+              "severity": "error",
+              "t": 300.287888,
+              "clock": "2026-10-02T12:29:00.241+02:00",
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "Precondition not reached: target Belegung/Grundstellbarkeit 2/0 (Test_Description), actual 3/0",
+              "evidence": [
+                {
+                  "source": "pdf_report",
+                  "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+                  "locator": "page 56",
+                  "t": 300.287888,
+                  "clock": "2026-10-02T12:29:00.241+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 837 telegram 1",
+                  "t": 248.861888,
+                  "clock": "2026-10-02T12:28:08.815+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "configuration_mismatch",
+              "area": "Configuration / test specification",
+              "severity": "warning",
+              "t": null,
+              "clock": null,
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "Test_Description step 2 does not match SCI-TDS BL5: BTP[44] = 0x02 is not a valid BL5 grundstellbar",
+              "evidence": [
+                {
+                  "source": "test_spec",
+                  "file": "TC_NPRO.295.02288.01_xcel.txt",
+                  "locator": "row 1",
+                  "t": null,
+                  "clock": null
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "configuration_mismatch",
+              "area": "Configuration / test specification",
+              "severity": "warning",
+              "t": null,
+              "clock": null,
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "Test case version 5 in the report, 4 in the Test_Description",
+              "evidence": [
+                {
+                  "source": "pdf_report",
+                  "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+                  "locator": "page 11",
+                  "t": null,
+                  "clock": null
+                },
+                {
+                  "source": "test_spec",
+                  "file": "TC_NPRO.295.02288.01_xcel.txt",
+                  "locator": "row 1",
+                  "t": null,
+                  "clock": null
+                }
+              ],
+              "introduced": false
+            }
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "test_case": "TC_NPRO.295.02288.01",
+          "category": "incorrect_length",
+          "role": "finding",
+          "verdict": "fail",
+          "contains": "expects a 48-byte"
+        },
+        {
+          "test_case": "TC_NPRO.295.02288.01",
+          "category": "device_disturbed",
+          "role": "cause",
+          "verdict": null,
+          "contains": null
+        }
+      ],
+      "check": {
+        "as_expected": true,
+        "problems": []
+      }
+    },
+    {
+      "number": "6s",
+      "key": "incorrect_length",
+      "title": "Incorrect length",
+      "detection": "Telegram shorter than its BL5 layout",
+      "sources": "pcapng, PDF",
+      "data": "synthetic",
+      "capture": "S06s_incorrect_length.pcapng",
+      "edit": [
+        "frame 132: GFM-A status telegram 46 bytes instead of 47"
+      ],
+      "outcome": "failure",
+      "failure": {
+        "category": "incorrect_length",
+        "area": "SCI-TDS protocol",
+        "severity": "error",
+        "t": 64.544145,
+        "clock": "2026-10-02T12:25:04.498+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "summary": "MELDUNG_GFMA_BELEGUNGSZUSTAND: 46 bytes, BL5 layout has 47",
+        "evidence": [
+          {
+            "source": "pcapng",
+            "file": "S06s_incorrect_length.pcapng",
+            "locator": "frame 132 telegram 1",
+            "t": 64.544145,
+            "clock": "2026-10-02T12:25:04.498+02:00"
+          }
+        ]
+      },
+      "results": [
+        {
+          "test_case": "TC_NPRO.295.02283.01",
+          "report_verdict": "pass",
+          "verdict": "fail",
+          "verdict_differs": true,
+          "symptom": {
+            "category": "incorrect_length",
+            "t": 64.544145,
+            "summary": "MELDUNG_GFMA_BELEGUNGSZUSTAND: 46 bytes, BL5 layout has 47"
+          },
+          "cause": {
+            "category": "incorrect_length",
+            "t": 64.544145,
+            "summary": "MELDUNG_GFMA_BELEGUNGSZUSTAND: 46 bytes, BL5 layout has 47"
+          },
+          "findings": [
+            {
+              "category": "incorrect_length",
+              "area": "SCI-TDS protocol",
+              "severity": "error",
+              "t": 64.544145,
+              "clock": "2026-10-02T12:25:04.498+02:00",
+              "test_case": "TC_NPRO.295.02283.01",
+              "summary": "MELDUNG_GFMA_BELEGUNGSZUSTAND: 46 bytes, BL5 layout has 47",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "S06s_incorrect_length.pcapng",
+                  "locator": "frame 132 telegram 1",
+                  "t": 64.544145,
+                  "clock": "2026-10-02T12:25:04.498+02:00"
+                }
+              ],
+              "introduced": true
+            }
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "test_case": "TC_NPRO.295.02283.01",
+          "category": "incorrect_length",
+          "role": "cause",
+          "verdict": "fail",
+          "contains": "46 bytes, BL5 layout has 47"
+        }
+      ],
+      "check": {
+        "as_expected": true,
+        "problems": []
+      }
+    },
+    {
+      "number": "6c",
+      "key": "length_sender_receiver",
+      "title": "Incorrect length: sender vs. receiver side",
+      "detection": "Same frame with different length in the two captures (BLF at the sender, pcapng on the wire)",
+      "sources": "pcapng, BLF",
+      "data": "synthetic",
+      "capture": "S06c_length_sender_receiver.pcapng",
+      "edit": [
+        "frame 219: AZGH 42 bytes on the wire; the BLF (sender side) keeps 43"
+      ],
+      "outcome": "failure",
+      "failure": {
+        "category": "incorrect_length",
+        "area": "SCI-TDS protocol",
+        "severity": "error",
+        "t": 77.548223,
+        "clock": "2026-10-02T12:25:17.502+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "summary": "DATA recorded with 88 bytes in S06c_length_sender_receiver.pcapng frame 219, 89 bytes in RealOCWorking_TDS_21026.blf object 1183",
+        "evidence": [
+          {
+            "source": "pcapng",
+            "file": "S06c_length_sender_receiver.pcapng",
+            "locator": "frame 219",
+            "t": 77.548223,
+            "clock": "2026-10-02T12:25:17.502+02:00"
+          },
+          {
+            "source": "blf",
+            "file": "RealOCWorking_TDS_21026.blf",
+            "locator": "object 1183",
+            "t": 77.548223,
+            "clock": "2026-10-02T12:25:17.502+02:00"
+          }
+        ]
+      },
+      "results": [
+        {
+          "test_case": "TC_NPRO.295.02283.01",
+          "report_verdict": "pass",
+          "verdict": "fail",
+          "verdict_differs": true,
+          "symptom": {
+            "category": "incorrect_length",
+            "t": 77.548223,
+            "summary": "KOMMANDO_AZGH: 42 bytes, BL5 layout has 43"
+          },
+          "cause": {
+            "category": "incorrect_length",
+            "t": 77.548223,
+            "summary": "DATA recorded with 88 bytes in S06c_length_sender_receiver.pcapng frame 219, 89 bytes in RealOCWorking_TDS_21026.blf object 1183"
+          },
+          "findings": [
+            {
+              "category": "incorrect_length",
+              "area": "SCI-TDS protocol",
+              "severity": "error",
+              "t": 77.548223,
+              "clock": "2026-10-02T12:25:17.502+02:00",
+              "test_case": "TC_NPRO.295.02283.01",
+              "summary": "KOMMANDO_AZGH: 42 bytes, BL5 layout has 43",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "S06c_length_sender_receiver.pcapng",
+                  "locator": "frame 219 telegram 1",
+                  "t": 77.548223,
+                  "clock": "2026-10-02T12:25:17.502+02:00"
+                }
+              ],
+              "introduced": true
+            },
+            {
+              "category": "incorrect_length",
+              "area": "SCI-TDS protocol",
+              "severity": "error",
+              "t": 77.548223,
+              "clock": "2026-10-02T12:25:17.502+02:00",
+              "test_case": "TC_NPRO.295.02283.01",
+              "summary": "DATA recorded with 88 bytes in S06c_length_sender_receiver.pcapng frame 219, 89 bytes in RealOCWorking_TDS_21026.blf object 1183",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "S06c_length_sender_receiver.pcapng",
+                  "locator": "frame 219",
+                  "t": 77.548223,
+                  "clock": "2026-10-02T12:25:17.502+02:00"
+                },
+                {
+                  "source": "blf",
+                  "file": "RealOCWorking_TDS_21026.blf",
+                  "locator": "object 1183",
+                  "t": 77.548223,
+                  "clock": "2026-10-02T12:25:17.502+02:00"
+                }
+              ],
+              "introduced": true
+            }
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "test_case": "TC_NPRO.295.02283.01",
+          "category": "incorrect_length",
+          "role": "finding",
+          "verdict": "fail",
+          "contains": "bytes in RealOCWorking_TDS_21026.blf"
+        }
+      ],
+      "check": {
+        "as_expected": true,
+        "problems": []
+      }
+    },
+    {
+      "number": "7",
+      "key": "connection_interruption_real",
+      "title": "Connection interruption (real check)",
+      "detection": "RaSTA gap above the limit, disconnect reason other than user request, disconnect by the device",
+      "sources": "pcapng, BLF",
+      "data": "real",
+      "capture": null,
+      "edit": [],
+      "outcome": "ruled_out",
+      "failure": null,
+      "results": [
+        {
+          "test_case": "TC_NPRO.295.02288.01",
+          "report_verdict": "fail",
+          "verdict": "fail",
+          "verdict_differs": false,
+          "symptom": {
+            "category": "precondition_not_reached",
+            "t": 300.287888,
+            "summary": "Precondition not reached: target Belegung/Grundstellbarkeit 2/0 (Test_Description), actual 3/0"
+          },
+          "cause": {
+            "category": "device_disturbed",
+            "t": 186.953046,
+            "summary": "34W1 became disturbed (Belegungszustand 3) 102 ms after an occupied report with Achszählfüllstand 0x0000; reset possible for 50 s but no AZG/AZGH sent"
+          },
+          "findings": [
+            {
+              "category": "incorrect_length",
+              "area": "SCI-TDS protocol",
+              "severity": "error",
+              "t": 180.287372,
+              "clock": "2026-10-02T12:27:00.241+02:00",
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "Test_Description step 2 expects a 48-byte MELDUNG_GFMA_BELEGUNGSZUSTAND, the device sends 47 bytes: the step cannot pass",
+              "evidence": [
+                {
+                  "source": "test_spec",
+                  "file": "TC_NPRO.295.02288.01_xcel.txt",
+                  "locator": "row 1",
+                  "t": 180.287372,
+                  "clock": "2026-10-02T12:27:00.241+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 380 telegram 2",
+                  "t": 180.287372,
+                  "clock": "2026-10-02T12:27:00.241+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "device_disturbed",
+              "area": "Field element / test bench state",
+              "severity": "error",
+              "t": 186.953046,
+              "clock": "2026-10-02T12:27:06.906+02:00",
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "34W1 became disturbed (Belegungszustand 3) 102 ms after an occupied report with Achszählfüllstand 0x0000; reset possible for 50 s but no AZG/AZGH sent",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 423 telegram 1",
+                  "t": 186.850936,
+                  "clock": "2026-10-02T12:27:06.804+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 425 telegram 1",
+                  "t": 186.953046,
+                  "clock": "2026-10-02T12:27:06.906+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "precondition_not_reached",
+              "area": "Field element / test bench state",
+              "severity": "error",
+              "t": 300.287888,
+              "clock": "2026-10-02T12:29:00.241+02:00",
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "Precondition not reached: target Belegung/Grundstellbarkeit 2/0 (Test_Description), actual 3/0",
+              "evidence": [
+                {
+                  "source": "pdf_report",
+                  "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+                  "locator": "page 56",
+                  "t": 300.287888,
+                  "clock": "2026-10-02T12:29:00.241+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 837 telegram 1",
+                  "t": 248.861888,
+                  "clock": "2026-10-02T12:28:08.815+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "configuration_mismatch",
+              "area": "Configuration / test specification",
+              "severity": "warning",
+              "t": null,
+              "clock": null,
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "Test_Description step 2 does not match SCI-TDS BL5: BTP[44] = 0x02 is not a valid BL5 grundstellbar",
+              "evidence": [
+                {
+                  "source": "test_spec",
+                  "file": "TC_NPRO.295.02288.01_xcel.txt",
+                  "locator": "row 1",
+                  "t": null,
+                  "clock": null
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "configuration_mismatch",
+              "area": "Configuration / test specification",
+              "severity": "warning",
+              "t": null,
+              "clock": null,
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "Test case version 5 in the report, 4 in the Test_Description",
+              "evidence": [
+                {
+                  "source": "pdf_report",
+                  "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+                  "locator": "page 11",
+                  "t": null,
+                  "clock": null
+                },
+                {
+                  "source": "test_spec",
+                  "file": "TC_NPRO.295.02288.01_xcel.txt",
+                  "locator": "row 1",
+                  "t": null,
+                  "clock": null
+                }
+              ],
+              "introduced": false
+            }
+          ]
+        },
+        {
+          "test_case": "TC_NPRO.295.00525.01",
+          "report_verdict": "fail",
+          "verdict": "fail",
+          "verdict_differs": false,
+          "symptom": {
+            "category": "precondition_not_reached",
+            "t": 474.302648,
+            "summary": "Precondition not reached: target Belegung/Grundstellbarkeit 1/0 (Test_Description), actual 3/0"
+          },
+          "cause": {
+            "category": "cascade_failure",
+            "t": 313.488888,
+            "summary": "Started in state 3/0 left by TC_NPRO.295.02288.01(O) (its cleanup failed)"
+          },
+          "findings": [
+            {
+              "category": "cascade_failure",
+              "area": "Test sequence: state left by the previous test case",
+              "severity": "error",
+              "t": 313.488888,
+              "clock": "2026-10-02T12:29:13.442+02:00",
+              "test_case": "TC_NPRO.295.00525.01",
+              "summary": "Started in state 3/0 left by TC_NPRO.295.02288.01(O) (its cleanup failed)",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 1276 telegram 2",
+                  "t": 354.302648,
+                  "clock": "2026-10-02T12:29:54.256+02:00"
+                },
+                {
+                  "source": "pdf_report",
+                  "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+                  "locator": "page 58",
+                  "t": 313.488888,
+                  "clock": "2026-10-02T12:29:13.442+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "device_disturbed",
+              "area": "Field element / test bench state",
+              "severity": "error",
+              "t": 354.302648,
+              "clock": "2026-10-02T12:29:54.256+02:00",
+              "test_case": "TC_NPRO.295.00525.01",
+              "summary": "34W1 still disturbed (Belegungszustand 3) at 354.303 s, inherited from earlier",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 1276 telegram 2",
+                  "t": 354.302648,
+                  "clock": "2026-10-02T12:29:54.256+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "manual_intervention",
+              "area": "Test execution: operator",
+              "severity": "warning",
+              "t": 381.611442,
+              "clock": "2026-10-02T12:30:21.565+02:00",
+              "test_case": "TC_NPRO.295.00525.01",
+              "summary": "Manual KOMMANDO_AZGH from the CANoe panel although the test instruction says not to use the panel; no GFM-A status change followed",
+              "evidence": [
+                {
+                  "source": "blf",
+                  "file": "RealOCWorking_TDS_21026.blf",
+                  "locator": "object 7550",
+                  "t": 381.611442,
+                  "clock": "2026-10-02T12:30:21.565+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 1458 telegram 1",
+                  "t": 381.612761,
+                  "clock": "2026-10-02T12:30:21.566+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "manual_intervention",
+              "area": "Test execution: operator",
+              "severity": "warning",
+              "t": 391.385999,
+              "clock": "2026-10-02T12:30:31.339+02:00",
+              "test_case": "TC_NPRO.295.00525.01",
+              "summary": "Manual KOMMANDO_AZG from the CANoe panel although the test instruction says not to use the panel; no GFM-A status change followed",
+              "evidence": [
+                {
+                  "source": "blf",
+                  "file": "RealOCWorking_TDS_21026.blf",
+                  "locator": "object 7879",
+                  "t": 391.385999,
+                  "clock": "2026-10-02T12:30:31.339+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 1523 telegram 1",
+                  "t": 391.387864,
+                  "clock": "2026-10-02T12:30:31.341+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "precondition_not_reached",
+              "area": "Field element / test bench state",
+              "severity": "error",
+              "t": 474.302648,
+              "clock": "2026-10-02T12:31:54.256+02:00",
+              "test_case": "TC_NPRO.295.00525.01",
+              "summary": "Precondition not reached: target Belegung/Grundstellbarkeit 1/0 (Test_Description), actual 3/0",
+              "evidence": [
+                {
+                  "source": "pdf_report",
+                  "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+                  "locator": "page 63",
+                  "t": 474.302648,
+                  "clock": "2026-10-02T12:31:54.256+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 1276 telegram 2",
+                  "t": 354.302648,
+                  "clock": "2026-10-02T12:29:54.256+02:00"
+                }
+              ],
+              "introduced": false
+            }
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "test_case": "TC_NPRO.295.02288.01",
+          "category": "connection_interruption",
+          "role": "ruled_out",
+          "verdict": null,
+          "contains": null
+        },
+        {
+          "test_case": "TC_NPRO.295.00525.01",
+          "category": "connection_interruption",
+          "role": "ruled_out",
+          "verdict": null,
+          "contains": null
+        }
+      ],
+      "check": {
+        "as_expected": true,
+        "problems": []
+      }
+    },
+    {
+      "number": "7s",
+      "key": "connection_interruption",
+      "title": "Connection interruption",
+      "detection": "No RaSTA message for 2 s (limit 750 ms)",
+      "sources": "pcapng",
+      "data": "synthetic",
+      "capture": "S07s_connection_interruption.pcapng",
+      "edit": [
+        "12 frames between 70.0 s and 72.0 s removed (both directions)"
+      ],
+      "outcome": "failure",
+      "failure": {
+        "category": "connection_interruption",
+        "area": "Communication: RaSTA connection",
+        "severity": "error",
+        "t": 69.946434,
+        "clock": "2026-10-02T12:25:09.901+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "summary": "No RaSTA message from TX side for 2100 ms (limit 750 ms)",
+        "evidence": [
+          {
+            "source": "pcapng",
+            "file": "S07s_connection_interruption.pcapng",
+            "locator": "frame 168",
+            "t": 69.946434,
+            "clock": "2026-10-02T12:25:09.901+02:00"
+          },
+          {
+            "source": "pcapng",
+            "file": "S07s_connection_interruption.pcapng",
+            "locator": "frame 170",
+            "t": 72.046038,
+            "clock": "2026-10-02T12:25:12.000+02:00"
+          }
+        ]
+      },
+      "results": [
+        {
+          "test_case": "TC_NPRO.295.02283.01",
+          "report_verdict": "pass",
+          "verdict": "fail",
+          "verdict_differs": true,
+          "symptom": {
+            "category": "connection_interruption",
+            "t": 69.946434,
+            "summary": "No RaSTA message from TX side for 2100 ms (limit 750 ms)"
+          },
+          "cause": {
+            "category": "connection_interruption",
+            "t": 69.946434,
+            "summary": "No RaSTA message from TX side for 2100 ms (limit 750 ms)"
+          },
+          "findings": [
+            {
+              "category": "connection_interruption",
+              "area": "Communication: RaSTA connection",
+              "severity": "error",
+              "t": 69.946434,
+              "clock": "2026-10-02T12:25:09.901+02:00",
+              "test_case": "TC_NPRO.295.02283.01",
+              "summary": "No RaSTA message from TX side for 2100 ms (limit 750 ms)",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "S07s_connection_interruption.pcapng",
+                  "locator": "frame 168",
+                  "t": 69.946434,
+                  "clock": "2026-10-02T12:25:09.901+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "S07s_connection_interruption.pcapng",
+                  "locator": "frame 170",
+                  "t": 72.046038,
+                  "clock": "2026-10-02T12:25:12.000+02:00"
+                }
+              ],
+              "introduced": true
+            },
+            {
+              "category": "connection_interruption",
+              "area": "Communication: RaSTA connection",
+              "severity": "error",
+              "t": 69.997835,
+              "clock": "2026-10-02T12:25:09.952+02:00",
+              "test_case": "TC_NPRO.295.02283.01",
+              "summary": "No RaSTA message from RX side for 2120 ms (limit 750 ms)",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "S07s_connection_interruption.pcapng",
+                  "locator": "frame 169",
+                  "t": 69.997835,
+                  "clock": "2026-10-02T12:25:09.952+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "S07s_connection_interruption.pcapng",
+                  "locator": "frame 171",
+                  "t": 72.118321,
+                  "clock": "2026-10-02T12:25:12.072+02:00"
+                }
+              ],
+              "introduced": true
+            },
+            {
+              "category": "sequence_error",
+              "area": "Communication: RaSTA connection",
+              "severity": "error",
+              "t": 72.046038,
+              "clock": "2026-10-02T12:25:12.000+02:00",
+              "test_case": "TC_NPRO.295.02283.01",
+              "summary": "RaSTA sequence number jumped from 3685408653 to 3685408660 (TX)",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "S07s_connection_interruption.pcapng",
+                  "locator": "frame 168",
+                  "t": 69.946434,
+                  "clock": "2026-10-02T12:25:09.901+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "S07s_connection_interruption.pcapng",
+                  "locator": "frame 170",
+                  "t": 72.046038,
+                  "clock": "2026-10-02T12:25:12.000+02:00"
+                }
+              ],
+              "introduced": true
+            },
+            {
+              "category": "sequence_error",
+              "area": "Communication: RaSTA connection",
+              "severity": "error",
+              "t": 72.118321,
+              "clock": "2026-10-02T12:25:12.072+02:00",
+              "test_case": "TC_NPRO.295.02283.01",
+              "summary": "RaSTA sequence number jumped from 2147439811 to 2147439818 (RX)",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "S07s_connection_interruption.pcapng",
+                  "locator": "frame 169",
+                  "t": 69.997835,
+                  "clock": "2026-10-02T12:25:09.952+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "S07s_connection_interruption.pcapng",
+                  "locator": "frame 171",
+                  "t": 72.118321,
+                  "clock": "2026-10-02T12:25:12.072+02:00"
+                }
+              ],
+              "introduced": true
+            }
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "test_case": "TC_NPRO.295.02283.01",
+          "category": "connection_interruption",
+          "role": "cause",
+          "verdict": "fail",
+          "contains": "No RaSTA message"
+        }
+      ],
+      "check": {
+        "as_expected": true,
+        "problems": []
+      }
+    },
+    {
+      "number": "8",
+      "key": "sequence_gap",
+      "title": "RaSTA sequence gap / retransmission",
+      "detection": "Sequence number skipped or repeated",
+      "sources": "pcapng",
+      "data": "synthetic",
+      "capture": "S08_sequence_gap.pcapng",
+      "edit": [
+        "frame 102: one RX heartbeat (seq 2147439778) removed"
+      ],
+      "outcome": "failure",
+      "failure": {
+        "category": "sequence_error",
+        "area": "Communication: RaSTA connection",
+        "severity": "error",
+        "t": 60.403005,
+        "clock": "2026-10-02T12:25:00.357+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "summary": "RaSTA sequence number jumped from 2147439777 to 2147439779 (RX)",
+        "evidence": [
+          {
+            "source": "pcapng",
+            "file": "S08_sequence_gap.pcapng",
+            "locator": "frame 100",
+            "t": 59.797925,
+            "clock": "2026-10-02T12:24:59.752+02:00"
+          },
+          {
+            "source": "pcapng",
+            "file": "S08_sequence_gap.pcapng",
+            "locator": "frame 103",
+            "t": 60.403005,
+            "clock": "2026-10-02T12:25:00.357+02:00"
+          }
+        ]
+      },
+      "results": [
+        {
+          "test_case": "TC_NPRO.295.02283.01",
+          "report_verdict": "pass",
+          "verdict": "fail",
+          "verdict_differs": true,
+          "symptom": {
+            "category": "sequence_error",
+            "t": 60.403005,
+            "summary": "RaSTA sequence number jumped from 2147439777 to 2147439779 (RX)"
+          },
+          "cause": {
+            "category": "sequence_error",
+            "t": 60.403005,
+            "summary": "RaSTA sequence number jumped from 2147439777 to 2147439779 (RX)"
+          },
+          "findings": [
+            {
+              "category": "sequence_error",
+              "area": "Communication: RaSTA connection",
+              "severity": "error",
+              "t": 60.403005,
+              "clock": "2026-10-02T12:25:00.357+02:00",
+              "test_case": "TC_NPRO.295.02283.01",
+              "summary": "RaSTA sequence number jumped from 2147439777 to 2147439779 (RX)",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "S08_sequence_gap.pcapng",
+                  "locator": "frame 100",
+                  "t": 59.797925,
+                  "clock": "2026-10-02T12:24:59.752+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "S08_sequence_gap.pcapng",
+                  "locator": "frame 103",
+                  "t": 60.403005,
+                  "clock": "2026-10-02T12:25:00.357+02:00"
+                }
+              ],
+              "introduced": true
+            }
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "test_case": "TC_NPRO.295.02283.01",
+          "category": "sequence_error",
+          "role": "cause",
+          "verdict": "fail",
+          "contains": null
+        }
+      ],
+      "check": {
+        "as_expected": true,
+        "problems": []
+      }
+    },
+    {
+      "number": "9",
+      "key": "precondition_not_reached",
+      "title": "Precondition not reached (real)",
+      "detection": "GFM-A not in the Test_Description target state within 120 s",
+      "sources": "PDF, Test_Description, BLF, pcapng",
+      "data": "real",
+      "capture": null,
+      "edit": [],
+      "outcome": "failure",
+      "failure": {
+        "category": "precondition_not_reached",
+        "area": "Field element / test bench state",
+        "severity": "error",
+        "t": 300.287888,
+        "clock": "2026-10-02T12:29:00.241+02:00",
+        "test_case": "TC_NPRO.295.02288.01",
+        "summary": "Precondition not reached: target Belegung/Grundstellbarkeit 2/0 (Test_Description), actual 3/0",
+        "evidence": [
+          {
+            "source": "pdf_report",
+            "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+            "locator": "page 56",
+            "t": 300.287888,
+            "clock": "2026-10-02T12:29:00.241+02:00"
+          },
+          {
+            "source": "pcapng",
+            "file": "RealOCWorking_TDS_21026.pcapng",
+            "locator": "frame 837 telegram 1",
+            "t": 248.861888,
+            "clock": "2026-10-02T12:28:08.815+02:00"
+          }
+        ]
+      },
+      "results": [
+        {
+          "test_case": "TC_NPRO.295.02288.01",
+          "report_verdict": "fail",
+          "verdict": "fail",
+          "verdict_differs": false,
+          "symptom": {
+            "category": "precondition_not_reached",
+            "t": 300.287888,
+            "summary": "Precondition not reached: target Belegung/Grundstellbarkeit 2/0 (Test_Description), actual 3/0"
+          },
+          "cause": {
+            "category": "device_disturbed",
+            "t": 186.953046,
+            "summary": "34W1 became disturbed (Belegungszustand 3) 102 ms after an occupied report with Achszählfüllstand 0x0000; reset possible for 50 s but no AZG/AZGH sent"
+          },
+          "findings": [
+            {
+              "category": "incorrect_length",
+              "area": "SCI-TDS protocol",
+              "severity": "error",
+              "t": 180.287372,
+              "clock": "2026-10-02T12:27:00.241+02:00",
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "Test_Description step 2 expects a 48-byte MELDUNG_GFMA_BELEGUNGSZUSTAND, the device sends 47 bytes: the step cannot pass",
+              "evidence": [
+                {
+                  "source": "test_spec",
+                  "file": "TC_NPRO.295.02288.01_xcel.txt",
+                  "locator": "row 1",
+                  "t": 180.287372,
+                  "clock": "2026-10-02T12:27:00.241+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 380 telegram 2",
+                  "t": 180.287372,
+                  "clock": "2026-10-02T12:27:00.241+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "device_disturbed",
+              "area": "Field element / test bench state",
+              "severity": "error",
+              "t": 186.953046,
+              "clock": "2026-10-02T12:27:06.906+02:00",
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "34W1 became disturbed (Belegungszustand 3) 102 ms after an occupied report with Achszählfüllstand 0x0000; reset possible for 50 s but no AZG/AZGH sent",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 423 telegram 1",
+                  "t": 186.850936,
+                  "clock": "2026-10-02T12:27:06.804+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 425 telegram 1",
+                  "t": 186.953046,
+                  "clock": "2026-10-02T12:27:06.906+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "precondition_not_reached",
+              "area": "Field element / test bench state",
+              "severity": "error",
+              "t": 300.287888,
+              "clock": "2026-10-02T12:29:00.241+02:00",
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "Precondition not reached: target Belegung/Grundstellbarkeit 2/0 (Test_Description), actual 3/0",
+              "evidence": [
+                {
+                  "source": "pdf_report",
+                  "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+                  "locator": "page 56",
+                  "t": 300.287888,
+                  "clock": "2026-10-02T12:29:00.241+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 837 telegram 1",
+                  "t": 248.861888,
+                  "clock": "2026-10-02T12:28:08.815+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "configuration_mismatch",
+              "area": "Configuration / test specification",
+              "severity": "warning",
+              "t": null,
+              "clock": null,
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "Test_Description step 2 does not match SCI-TDS BL5: BTP[44] = 0x02 is not a valid BL5 grundstellbar",
+              "evidence": [
+                {
+                  "source": "test_spec",
+                  "file": "TC_NPRO.295.02288.01_xcel.txt",
+                  "locator": "row 1",
+                  "t": null,
+                  "clock": null
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "configuration_mismatch",
+              "area": "Configuration / test specification",
+              "severity": "warning",
+              "t": null,
+              "clock": null,
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "Test case version 5 in the report, 4 in the Test_Description",
+              "evidence": [
+                {
+                  "source": "pdf_report",
+                  "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+                  "locator": "page 11",
+                  "t": null,
+                  "clock": null
+                },
+                {
+                  "source": "test_spec",
+                  "file": "TC_NPRO.295.02288.01_xcel.txt",
+                  "locator": "row 1",
+                  "t": null,
+                  "clock": null
+                }
+              ],
+              "introduced": false
+            }
+          ]
+        },
+        {
+          "test_case": "TC_NPRO.295.00525.01",
+          "report_verdict": "fail",
+          "verdict": "fail",
+          "verdict_differs": false,
+          "symptom": {
+            "category": "precondition_not_reached",
+            "t": 474.302648,
+            "summary": "Precondition not reached: target Belegung/Grundstellbarkeit 1/0 (Test_Description), actual 3/0"
+          },
+          "cause": {
+            "category": "cascade_failure",
+            "t": 313.488888,
+            "summary": "Started in state 3/0 left by TC_NPRO.295.02288.01(O) (its cleanup failed)"
+          },
+          "findings": [
+            {
+              "category": "cascade_failure",
+              "area": "Test sequence: state left by the previous test case",
+              "severity": "error",
+              "t": 313.488888,
+              "clock": "2026-10-02T12:29:13.442+02:00",
+              "test_case": "TC_NPRO.295.00525.01",
+              "summary": "Started in state 3/0 left by TC_NPRO.295.02288.01(O) (its cleanup failed)",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 1276 telegram 2",
+                  "t": 354.302648,
+                  "clock": "2026-10-02T12:29:54.256+02:00"
+                },
+                {
+                  "source": "pdf_report",
+                  "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+                  "locator": "page 58",
+                  "t": 313.488888,
+                  "clock": "2026-10-02T12:29:13.442+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "device_disturbed",
+              "area": "Field element / test bench state",
+              "severity": "error",
+              "t": 354.302648,
+              "clock": "2026-10-02T12:29:54.256+02:00",
+              "test_case": "TC_NPRO.295.00525.01",
+              "summary": "34W1 still disturbed (Belegungszustand 3) at 354.303 s, inherited from earlier",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 1276 telegram 2",
+                  "t": 354.302648,
+                  "clock": "2026-10-02T12:29:54.256+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "manual_intervention",
+              "area": "Test execution: operator",
+              "severity": "warning",
+              "t": 381.611442,
+              "clock": "2026-10-02T12:30:21.565+02:00",
+              "test_case": "TC_NPRO.295.00525.01",
+              "summary": "Manual KOMMANDO_AZGH from the CANoe panel although the test instruction says not to use the panel; no GFM-A status change followed",
+              "evidence": [
+                {
+                  "source": "blf",
+                  "file": "RealOCWorking_TDS_21026.blf",
+                  "locator": "object 7550",
+                  "t": 381.611442,
+                  "clock": "2026-10-02T12:30:21.565+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 1458 telegram 1",
+                  "t": 381.612761,
+                  "clock": "2026-10-02T12:30:21.566+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "manual_intervention",
+              "area": "Test execution: operator",
+              "severity": "warning",
+              "t": 391.385999,
+              "clock": "2026-10-02T12:30:31.339+02:00",
+              "test_case": "TC_NPRO.295.00525.01",
+              "summary": "Manual KOMMANDO_AZG from the CANoe panel although the test instruction says not to use the panel; no GFM-A status change followed",
+              "evidence": [
+                {
+                  "source": "blf",
+                  "file": "RealOCWorking_TDS_21026.blf",
+                  "locator": "object 7879",
+                  "t": 391.385999,
+                  "clock": "2026-10-02T12:30:31.339+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 1523 telegram 1",
+                  "t": 391.387864,
+                  "clock": "2026-10-02T12:30:31.341+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "precondition_not_reached",
+              "area": "Field element / test bench state",
+              "severity": "error",
+              "t": 474.302648,
+              "clock": "2026-10-02T12:31:54.256+02:00",
+              "test_case": "TC_NPRO.295.00525.01",
+              "summary": "Precondition not reached: target Belegung/Grundstellbarkeit 1/0 (Test_Description), actual 3/0",
+              "evidence": [
+                {
+                  "source": "pdf_report",
+                  "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+                  "locator": "page 63",
+                  "t": 474.302648,
+                  "clock": "2026-10-02T12:31:54.256+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 1276 telegram 2",
+                  "t": 354.302648,
+                  "clock": "2026-10-02T12:29:54.256+02:00"
+                }
+              ],
+              "introduced": false
+            }
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "test_case": "TC_NPRO.295.02288.01",
+          "category": "precondition_not_reached",
+          "role": "symptom",
+          "verdict": "fail",
+          "contains": "target Belegung/Grundstellbarkeit 2/0"
+        },
+        {
+          "test_case": "TC_NPRO.295.00525.01",
+          "category": "precondition_not_reached",
+          "role": "symptom",
+          "verdict": "fail",
+          "contains": "1/0 (Test_Description)"
+        }
+      ],
+      "check": {
+        "as_expected": true,
+        "problems": []
+      }
+    },
+    {
+      "number": "10",
+      "key": "device_disturbed",
+      "title": "GFM-A disturbed (real)",
+      "detection": "Belegungszustand 3; precursor: occupied with Achszählfüllstand 0x0000",
+      "sources": "pcapng, BLF, CANoe log",
+      "data": "real",
+      "capture": null,
+      "edit": [],
+      "outcome": "failure",
+      "failure": {
+        "category": "device_disturbed",
+        "area": "Field element / test bench state",
+        "severity": "error",
+        "t": 186.953046,
+        "clock": "2026-10-02T12:27:06.906+02:00",
+        "test_case": "TC_NPRO.295.02288.01",
+        "summary": "34W1 became disturbed (Belegungszustand 3) 102 ms after an occupied report with Achszählfüllstand 0x0000; reset possible for 50 s but no AZG/AZGH sent",
+        "evidence": [
+          {
+            "source": "pcapng",
+            "file": "RealOCWorking_TDS_21026.pcapng",
+            "locator": "frame 423 telegram 1",
+            "t": 186.850936,
+            "clock": "2026-10-02T12:27:06.804+02:00"
+          },
+          {
+            "source": "pcapng",
+            "file": "RealOCWorking_TDS_21026.pcapng",
+            "locator": "frame 425 telegram 1",
+            "t": 186.953046,
+            "clock": "2026-10-02T12:27:06.906+02:00"
+          }
+        ]
+      },
+      "results": [
+        {
+          "test_case": "TC_NPRO.295.02288.01",
+          "report_verdict": "fail",
+          "verdict": "fail",
+          "verdict_differs": false,
+          "symptom": {
+            "category": "precondition_not_reached",
+            "t": 300.287888,
+            "summary": "Precondition not reached: target Belegung/Grundstellbarkeit 2/0 (Test_Description), actual 3/0"
+          },
+          "cause": {
+            "category": "device_disturbed",
+            "t": 186.953046,
+            "summary": "34W1 became disturbed (Belegungszustand 3) 102 ms after an occupied report with Achszählfüllstand 0x0000; reset possible for 50 s but no AZG/AZGH sent"
+          },
+          "findings": [
+            {
+              "category": "incorrect_length",
+              "area": "SCI-TDS protocol",
+              "severity": "error",
+              "t": 180.287372,
+              "clock": "2026-10-02T12:27:00.241+02:00",
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "Test_Description step 2 expects a 48-byte MELDUNG_GFMA_BELEGUNGSZUSTAND, the device sends 47 bytes: the step cannot pass",
+              "evidence": [
+                {
+                  "source": "test_spec",
+                  "file": "TC_NPRO.295.02288.01_xcel.txt",
+                  "locator": "row 1",
+                  "t": 180.287372,
+                  "clock": "2026-10-02T12:27:00.241+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 380 telegram 2",
+                  "t": 180.287372,
+                  "clock": "2026-10-02T12:27:00.241+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "device_disturbed",
+              "area": "Field element / test bench state",
+              "severity": "error",
+              "t": 186.953046,
+              "clock": "2026-10-02T12:27:06.906+02:00",
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "34W1 became disturbed (Belegungszustand 3) 102 ms after an occupied report with Achszählfüllstand 0x0000; reset possible for 50 s but no AZG/AZGH sent",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 423 telegram 1",
+                  "t": 186.850936,
+                  "clock": "2026-10-02T12:27:06.804+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 425 telegram 1",
+                  "t": 186.953046,
+                  "clock": "2026-10-02T12:27:06.906+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "precondition_not_reached",
+              "area": "Field element / test bench state",
+              "severity": "error",
+              "t": 300.287888,
+              "clock": "2026-10-02T12:29:00.241+02:00",
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "Precondition not reached: target Belegung/Grundstellbarkeit 2/0 (Test_Description), actual 3/0",
+              "evidence": [
+                {
+                  "source": "pdf_report",
+                  "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+                  "locator": "page 56",
+                  "t": 300.287888,
+                  "clock": "2026-10-02T12:29:00.241+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 837 telegram 1",
+                  "t": 248.861888,
+                  "clock": "2026-10-02T12:28:08.815+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "configuration_mismatch",
+              "area": "Configuration / test specification",
+              "severity": "warning",
+              "t": null,
+              "clock": null,
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "Test_Description step 2 does not match SCI-TDS BL5: BTP[44] = 0x02 is not a valid BL5 grundstellbar",
+              "evidence": [
+                {
+                  "source": "test_spec",
+                  "file": "TC_NPRO.295.02288.01_xcel.txt",
+                  "locator": "row 1",
+                  "t": null,
+                  "clock": null
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "configuration_mismatch",
+              "area": "Configuration / test specification",
+              "severity": "warning",
+              "t": null,
+              "clock": null,
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "Test case version 5 in the report, 4 in the Test_Description",
+              "evidence": [
+                {
+                  "source": "pdf_report",
+                  "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+                  "locator": "page 11",
+                  "t": null,
+                  "clock": null
+                },
+                {
+                  "source": "test_spec",
+                  "file": "TC_NPRO.295.02288.01_xcel.txt",
+                  "locator": "row 1",
+                  "t": null,
+                  "clock": null
+                }
+              ],
+              "introduced": false
+            }
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "test_case": "TC_NPRO.295.02288.01",
+          "category": "device_disturbed",
+          "role": "cause",
+          "verdict": "fail",
+          "contains": "102 ms after an occupied report"
+        }
+      ],
+      "check": {
+        "as_expected": true,
+        "problems": []
+      }
+    },
+    {
+      "number": "11",
+      "key": "cleanup_cascade",
+      "title": "Cleanup failure cascade (real)",
+      "detection": "Cleanup of test N failed, test N+1 starts in the disturbed state",
+      "sources": "PDF, pcapng",
+      "data": "real",
+      "capture": null,
+      "edit": [],
+      "outcome": "failure",
+      "failure": {
+        "category": "cascade_failure",
+        "area": "Test sequence: state left by the previous test case",
+        "severity": "error",
+        "t": 313.488888,
+        "clock": "2026-10-02T12:29:13.442+02:00",
+        "test_case": "TC_NPRO.295.00525.01",
+        "summary": "Started in state 3/0 left by TC_NPRO.295.02288.01(O) (its cleanup failed)",
+        "evidence": [
+          {
+            "source": "pcapng",
+            "file": "RealOCWorking_TDS_21026.pcapng",
+            "locator": "frame 1276 telegram 2",
+            "t": 354.302648,
+            "clock": "2026-10-02T12:29:54.256+02:00"
+          },
+          {
+            "source": "pdf_report",
+            "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+            "locator": "page 58",
+            "t": 313.488888,
+            "clock": "2026-10-02T12:29:13.442+02:00"
+          }
+        ]
+      },
+      "results": [
+        {
+          "test_case": "TC_NPRO.295.00525.01",
+          "report_verdict": "fail",
+          "verdict": "fail",
+          "verdict_differs": false,
+          "symptom": {
+            "category": "precondition_not_reached",
+            "t": 474.302648,
+            "summary": "Precondition not reached: target Belegung/Grundstellbarkeit 1/0 (Test_Description), actual 3/0"
+          },
+          "cause": {
+            "category": "cascade_failure",
+            "t": 313.488888,
+            "summary": "Started in state 3/0 left by TC_NPRO.295.02288.01(O) (its cleanup failed)"
+          },
+          "findings": [
+            {
+              "category": "cascade_failure",
+              "area": "Test sequence: state left by the previous test case",
+              "severity": "error",
+              "t": 313.488888,
+              "clock": "2026-10-02T12:29:13.442+02:00",
+              "test_case": "TC_NPRO.295.00525.01",
+              "summary": "Started in state 3/0 left by TC_NPRO.295.02288.01(O) (its cleanup failed)",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 1276 telegram 2",
+                  "t": 354.302648,
+                  "clock": "2026-10-02T12:29:54.256+02:00"
+                },
+                {
+                  "source": "pdf_report",
+                  "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+                  "locator": "page 58",
+                  "t": 313.488888,
+                  "clock": "2026-10-02T12:29:13.442+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "device_disturbed",
+              "area": "Field element / test bench state",
+              "severity": "error",
+              "t": 354.302648,
+              "clock": "2026-10-02T12:29:54.256+02:00",
+              "test_case": "TC_NPRO.295.00525.01",
+              "summary": "34W1 still disturbed (Belegungszustand 3) at 354.303 s, inherited from earlier",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 1276 telegram 2",
+                  "t": 354.302648,
+                  "clock": "2026-10-02T12:29:54.256+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "manual_intervention",
+              "area": "Test execution: operator",
+              "severity": "warning",
+              "t": 381.611442,
+              "clock": "2026-10-02T12:30:21.565+02:00",
+              "test_case": "TC_NPRO.295.00525.01",
+              "summary": "Manual KOMMANDO_AZGH from the CANoe panel although the test instruction says not to use the panel; no GFM-A status change followed",
+              "evidence": [
+                {
+                  "source": "blf",
+                  "file": "RealOCWorking_TDS_21026.blf",
+                  "locator": "object 7550",
+                  "t": 381.611442,
+                  "clock": "2026-10-02T12:30:21.565+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 1458 telegram 1",
+                  "t": 381.612761,
+                  "clock": "2026-10-02T12:30:21.566+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "manual_intervention",
+              "area": "Test execution: operator",
+              "severity": "warning",
+              "t": 391.385999,
+              "clock": "2026-10-02T12:30:31.339+02:00",
+              "test_case": "TC_NPRO.295.00525.01",
+              "summary": "Manual KOMMANDO_AZG from the CANoe panel although the test instruction says not to use the panel; no GFM-A status change followed",
+              "evidence": [
+                {
+                  "source": "blf",
+                  "file": "RealOCWorking_TDS_21026.blf",
+                  "locator": "object 7879",
+                  "t": 391.385999,
+                  "clock": "2026-10-02T12:30:31.339+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 1523 telegram 1",
+                  "t": 391.387864,
+                  "clock": "2026-10-02T12:30:31.341+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "precondition_not_reached",
+              "area": "Field element / test bench state",
+              "severity": "error",
+              "t": 474.302648,
+              "clock": "2026-10-02T12:31:54.256+02:00",
+              "test_case": "TC_NPRO.295.00525.01",
+              "summary": "Precondition not reached: target Belegung/Grundstellbarkeit 1/0 (Test_Description), actual 3/0",
+              "evidence": [
+                {
+                  "source": "pdf_report",
+                  "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+                  "locator": "page 63",
+                  "t": 474.302648,
+                  "clock": "2026-10-02T12:31:54.256+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 1276 telegram 2",
+                  "t": 354.302648,
+                  "clock": "2026-10-02T12:29:54.256+02:00"
+                }
+              ],
+              "introduced": false
+            }
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "test_case": "TC_NPRO.295.00525.01",
+          "category": "cascade_failure",
+          "role": "cause",
+          "verdict": "fail",
+          "contains": "left by TC_NPRO.295.02288.01(O)"
+        }
+      ],
+      "check": {
+        "as_expected": true,
+        "problems": []
+      }
+    },
+    {
+      "number": "12",
+      "key": "test_aborted",
+      "title": "Test aborted / inconclusive (real)",
+      "detection": "Test unit stopped by the user",
+      "sources": "PDF, BLF, CANoe log",
+      "data": "real",
+      "capture": null,
+      "edit": [],
+      "outcome": "failure",
+      "failure": {
+        "category": "test_aborted",
+        "area": "Test execution",
+        "severity": "error",
+        "t": 488.321,
+        "clock": "2026-10-02T12:32:08.274+02:00",
+        "test_case": "TC_NPRO.295.00522.01",
+        "summary": "Test execution stopped: test unit stopped by the user",
+        "evidence": [
+          {
+            "source": "canoe_log",
+            "file": "TDS_Report_21026.txt",
+            "locator": "line 38",
+            "t": 488.321,
+            "clock": "2026-10-02T12:32:08.274+02:00"
+          },
+          {
+            "source": "pdf_report",
+            "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+            "locator": "page 65",
+            "t": 488.321,
+            "clock": "2026-10-02T12:32:08.274+02:00"
+          },
+          {
+            "source": "blf",
+            "file": "RealOCWorking_TDS_21026.blf",
+            "locator": "object 11095",
+            "t": 488.321814,
+            "clock": "2026-10-02T12:32:08.275+02:00"
+          },
+          {
+            "source": "pdf_report",
+            "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+            "locator": "page 65",
+            "t": 488.321,
+            "clock": "2026-10-02T12:32:08.274+02:00"
+          }
+        ]
+      },
+      "results": [
+        {
+          "test_case": "TC_NPRO.295.00522.01",
+          "report_verdict": "inconclusive",
+          "verdict": "inconclusive",
+          "verdict_differs": false,
+          "symptom": {
+            "category": "test_aborted",
+            "t": 488.321,
+            "summary": "Test execution stopped: test unit stopped by the user"
+          },
+          "cause": {
+            "category": "test_aborted",
+            "t": 488.321,
+            "summary": "Test execution stopped: test unit stopped by the user"
+          },
+          "findings": [
+            {
+              "category": "cascade_failure",
+              "area": "Test sequence: state left by the previous test case",
+              "severity": "warning",
+              "t": 487.503648,
+              "clock": "2026-10-02T12:32:07.457+02:00",
+              "test_case": "TC_NPRO.295.00522.01",
+              "summary": "Started in state unknown left by TC_NPRO.295.00525.01(F-ReZE) (its cleanup failed)",
+              "evidence": [
+                {
+                  "source": "pdf_report",
+                  "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+                  "locator": "page 64",
+                  "t": 487.503648,
+                  "clock": "2026-10-02T12:32:07.457+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "test_aborted",
+              "area": "Test execution",
+              "severity": "error",
+              "t": 488.321,
+              "clock": "2026-10-02T12:32:08.274+02:00",
+              "test_case": "TC_NPRO.295.00522.01",
+              "summary": "Test execution stopped: test unit stopped by the user",
+              "evidence": [
+                {
+                  "source": "canoe_log",
+                  "file": "TDS_Report_21026.txt",
+                  "locator": "line 38",
+                  "t": 488.321,
+                  "clock": "2026-10-02T12:32:08.274+02:00"
+                },
+                {
+                  "source": "pdf_report",
+                  "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+                  "locator": "page 65",
+                  "t": 488.321,
+                  "clock": "2026-10-02T12:32:08.274+02:00"
+                },
+                {
+                  "source": "blf",
+                  "file": "RealOCWorking_TDS_21026.blf",
+                  "locator": "object 11095",
+                  "t": 488.321814,
+                  "clock": "2026-10-02T12:32:08.275+02:00"
+                },
+                {
+                  "source": "pdf_report",
+                  "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+                  "locator": "page 65",
+                  "t": 488.321,
+                  "clock": "2026-10-02T12:32:08.274+02:00"
+                }
+              ],
+              "introduced": false
+            }
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "test_case": "TC_NPRO.295.00522.01",
+          "category": "test_aborted",
+          "role": "cause",
+          "verdict": "inconclusive",
+          "contains": "stopped by the user"
+        }
+      ],
+      "check": {
+        "as_expected": true,
+        "problems": []
+      }
+    },
+    {
+      "number": "13",
+      "key": "configuration_mismatch",
+      "title": "Configuration mismatch (real)",
+      "detection": "Spec value invalid for BL5, test case version report vs. Test_Description",
+      "sources": "Test_Description, PDF",
+      "data": "real",
+      "capture": null,
+      "edit": [],
+      "outcome": "warning",
+      "failure": {
+        "category": "configuration_mismatch",
+        "area": "Configuration / test specification",
+        "severity": "warning",
+        "t": null,
+        "clock": null,
+        "test_case": "TC_NPRO.295.02288.01",
+        "summary": "Test_Description step 2 does not match SCI-TDS BL5: BTP[44] = 0x02 is not a valid BL5 grundstellbar",
+        "evidence": [
+          {
+            "source": "test_spec",
+            "file": "TC_NPRO.295.02288.01_xcel.txt",
+            "locator": "row 1",
+            "t": null,
+            "clock": null
+          }
+        ]
+      },
+      "results": [
+        {
+          "test_case": "TC_NPRO.295.02283.01",
+          "report_verdict": "pass",
+          "verdict": "pass",
+          "verdict_differs": false,
+          "symptom": null,
+          "cause": null,
+          "findings": [
+            {
+              "category": "configuration_mismatch",
+              "area": "Configuration / test specification",
+              "severity": "warning",
+              "t": null,
+              "clock": null,
+              "test_case": "TC_NPRO.295.02283.01",
+              "summary": "Test case version 5 in the report, 7 in the Test_Description",
+              "evidence": [
+                {
+                  "source": "pdf_report",
+                  "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+                  "locator": "page 2",
+                  "t": null,
+                  "clock": null
+                },
+                {
+                  "source": "test_spec",
+                  "file": "TC_NPRO.295.02283.01_xcel.txt",
+                  "locator": "row 1",
+                  "t": null,
+                  "clock": null
+                }
+              ],
+              "introduced": false
+            }
+          ]
+        },
+        {
+          "test_case": "TC_NPRO.295.02288.01",
+          "report_verdict": "fail",
+          "verdict": "fail",
+          "verdict_differs": false,
+          "symptom": {
+            "category": "precondition_not_reached",
+            "t": 300.287888,
+            "summary": "Precondition not reached: target Belegung/Grundstellbarkeit 2/0 (Test_Description), actual 3/0"
+          },
+          "cause": {
+            "category": "device_disturbed",
+            "t": 186.953046,
+            "summary": "34W1 became disturbed (Belegungszustand 3) 102 ms after an occupied report with Achszählfüllstand 0x0000; reset possible for 50 s but no AZG/AZGH sent"
+          },
+          "findings": [
+            {
+              "category": "incorrect_length",
+              "area": "SCI-TDS protocol",
+              "severity": "error",
+              "t": 180.287372,
+              "clock": "2026-10-02T12:27:00.241+02:00",
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "Test_Description step 2 expects a 48-byte MELDUNG_GFMA_BELEGUNGSZUSTAND, the device sends 47 bytes: the step cannot pass",
+              "evidence": [
+                {
+                  "source": "test_spec",
+                  "file": "TC_NPRO.295.02288.01_xcel.txt",
+                  "locator": "row 1",
+                  "t": 180.287372,
+                  "clock": "2026-10-02T12:27:00.241+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 380 telegram 2",
+                  "t": 180.287372,
+                  "clock": "2026-10-02T12:27:00.241+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "device_disturbed",
+              "area": "Field element / test bench state",
+              "severity": "error",
+              "t": 186.953046,
+              "clock": "2026-10-02T12:27:06.906+02:00",
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "34W1 became disturbed (Belegungszustand 3) 102 ms after an occupied report with Achszählfüllstand 0x0000; reset possible for 50 s but no AZG/AZGH sent",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 423 telegram 1",
+                  "t": 186.850936,
+                  "clock": "2026-10-02T12:27:06.804+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 425 telegram 1",
+                  "t": 186.953046,
+                  "clock": "2026-10-02T12:27:06.906+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "precondition_not_reached",
+              "area": "Field element / test bench state",
+              "severity": "error",
+              "t": 300.287888,
+              "clock": "2026-10-02T12:29:00.241+02:00",
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "Precondition not reached: target Belegung/Grundstellbarkeit 2/0 (Test_Description), actual 3/0",
+              "evidence": [
+                {
+                  "source": "pdf_report",
+                  "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+                  "locator": "page 56",
+                  "t": 300.287888,
+                  "clock": "2026-10-02T12:29:00.241+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "RealOCWorking_TDS_21026.pcapng",
+                  "locator": "frame 837 telegram 1",
+                  "t": 248.861888,
+                  "clock": "2026-10-02T12:28:08.815+02:00"
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "configuration_mismatch",
+              "area": "Configuration / test specification",
+              "severity": "warning",
+              "t": null,
+              "clock": null,
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "Test_Description step 2 does not match SCI-TDS BL5: BTP[44] = 0x02 is not a valid BL5 grundstellbar",
+              "evidence": [
+                {
+                  "source": "test_spec",
+                  "file": "TC_NPRO.295.02288.01_xcel.txt",
+                  "locator": "row 1",
+                  "t": null,
+                  "clock": null
+                }
+              ],
+              "introduced": false
+            },
+            {
+              "category": "configuration_mismatch",
+              "area": "Configuration / test specification",
+              "severity": "warning",
+              "t": null,
+              "clock": null,
+              "test_case": "TC_NPRO.295.02288.01",
+              "summary": "Test case version 5 in the report, 4 in the Test_Description",
+              "evidence": [
+                {
+                  "source": "pdf_report",
+                  "file": "Real_SCI-TDS_2026-10-02_12-24-11.pdf",
+                  "locator": "page 11",
+                  "t": null,
+                  "clock": null
+                },
+                {
+                  "source": "test_spec",
+                  "file": "TC_NPRO.295.02288.01_xcel.txt",
+                  "locator": "row 1",
+                  "t": null,
+                  "clock": null
+                }
+              ],
+              "introduced": false
+            }
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "test_case": "TC_NPRO.295.02288.01",
+          "category": "configuration_mismatch",
+          "role": "finding",
+          "verdict": null,
+          "contains": "not a valid BL5 grundstellbar"
+        },
+        {
+          "test_case": "TC_NPRO.295.02283.01",
+          "category": "configuration_mismatch",
+          "role": "finding",
+          "verdict": null,
+          "contains": "version 5 in the report, 7"
+        }
+      ],
+      "check": {
+        "as_expected": true,
+        "problems": []
+      }
+    },
+    {
+      "number": "14",
+      "key": "command_rejected",
+      "title": "Command rejected",
+      "detection": "Meldung Kommando abgewiesen (0x0006) with its reason and the command it answers; the test relied on the command (preparation)",
+      "sources": "pcapng",
+      "data": "synthetic",
+      "capture": "S14_command_rejected.pcapng",
+      "edit": [
+        "frame 135: Meldung Kommando abgewiesen (technisch) 301 ms after the preparatory AZGH"
+      ],
+      "outcome": "failure",
+      "failure": {
+        "category": "command_rejected",
+        "area": "SCI-TDS protocol",
+        "severity": "error",
+        "t": 64.848472,
+        "clock": "2026-10-02T12:25:04.803+02:00",
+        "test_case": "TC_NPRO.295.02283.01",
+        "summary": "KOMMANDO_AZGH rejected (technisch)",
+        "evidence": [
+          {
+            "source": "pcapng",
+            "file": "S14_command_rejected.pcapng",
+            "locator": "frame 133 telegram 1",
+            "t": 64.547741,
+            "clock": "2026-10-02T12:25:04.502+02:00"
+          },
+          {
+            "source": "pcapng",
+            "file": "S14_command_rejected.pcapng",
+            "locator": "frame 135 telegram 1",
+            "t": 64.848472,
+            "clock": "2026-10-02T12:25:04.803+02:00"
+          }
+        ]
+      },
+      "results": [
+        {
+          "test_case": "TC_NPRO.295.02283.01",
+          "report_verdict": "pass",
+          "verdict": "fail",
+          "verdict_differs": true,
+          "symptom": {
+            "category": "command_rejected",
+            "t": 64.848472,
+            "summary": "KOMMANDO_AZGH rejected (technisch)"
+          },
+          "cause": {
+            "category": "command_rejected",
+            "t": 64.848472,
+            "summary": "KOMMANDO_AZGH rejected (technisch)"
+          },
+          "findings": [
+            {
+              "category": "command_rejected",
+              "area": "SCI-TDS protocol",
+              "severity": "error",
+              "t": 64.848472,
+              "clock": "2026-10-02T12:25:04.803+02:00",
+              "test_case": "TC_NPRO.295.02283.01",
+              "summary": "KOMMANDO_AZGH rejected (technisch)",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "S14_command_rejected.pcapng",
+                  "locator": "frame 133 telegram 1",
+                  "t": 64.547741,
+                  "clock": "2026-10-02T12:25:04.502+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "S14_command_rejected.pcapng",
+                  "locator": "frame 135 telegram 1",
+                  "t": 64.848472,
+                  "clock": "2026-10-02T12:25:04.803+02:00"
+                }
+              ],
+              "introduced": true
+            }
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "test_case": "TC_NPRO.295.02283.01",
+          "category": "command_rejected",
+          "role": "cause",
+          "verdict": "fail",
+          "contains": "KOMMANDO_AZGH rejected (technisch)"
+        }
+      ],
+      "check": {
+        "as_expected": true,
+        "problems": []
+      }
+    },
+    {
+      "number": "14n",
+      "key": "command_rejected_allowed",
+      "title": "Command rejected in a negative test",
+      "detection": "Rejection of the trigger command of a test that only forbids telegrams: reported, not a failure",
+      "sources": "pcapng, Test_Description",
+      "data": "synthetic",
+      "capture": "S14n_command_rejected_allowed.pcapng",
+      "edit": [
+        "frame 326: Meldung Kommando abgewiesen (betrieblich) 299 ms after the AZGH of the test step"
+      ],
+      "outcome": "warning",
+      "failure": {
+        "category": "command_rejected",
+        "area": "SCI-TDS protocol",
+        "severity": "warning",
+        "t": 132.615594,
+        "clock": "2026-10-02T12:26:12.570+02:00",
+        "test_case": "TC_NPRO.295.02284.01",
+        "summary": "KOMMANDO_AZGH rejected (betrieblich); allowed answer, the test only forbids telegrams after this command",
+        "evidence": [
+          {
+            "source": "pcapng",
+            "file": "S14n_command_rejected_allowed.pcapng",
+            "locator": "frame 324 telegram 1",
+            "t": 132.316387,
+            "clock": "2026-10-02T12:26:12.271+02:00"
+          },
+          {
+            "source": "pcapng",
+            "file": "S14n_command_rejected_allowed.pcapng",
+            "locator": "frame 326 telegram 1",
+            "t": 132.615594,
+            "clock": "2026-10-02T12:26:12.570+02:00"
+          }
+        ]
+      },
+      "results": [
+        {
+          "test_case": "TC_NPRO.295.02284.01",
+          "report_verdict": "pass",
+          "verdict": "pass",
+          "verdict_differs": false,
+          "symptom": null,
+          "cause": null,
+          "findings": [
+            {
+              "category": "command_rejected",
+              "area": "SCI-TDS protocol",
+              "severity": "warning",
+              "t": 132.615594,
+              "clock": "2026-10-02T12:26:12.570+02:00",
+              "test_case": "TC_NPRO.295.02284.01",
+              "summary": "KOMMANDO_AZGH rejected (betrieblich); allowed answer, the test only forbids telegrams after this command",
+              "evidence": [
+                {
+                  "source": "pcapng",
+                  "file": "S14n_command_rejected_allowed.pcapng",
+                  "locator": "frame 324 telegram 1",
+                  "t": 132.316387,
+                  "clock": "2026-10-02T12:26:12.271+02:00"
+                },
+                {
+                  "source": "pcapng",
+                  "file": "S14n_command_rejected_allowed.pcapng",
+                  "locator": "frame 326 telegram 1",
+                  "t": 132.615594,
+                  "clock": "2026-10-02T12:26:12.570+02:00"
+                }
+              ],
+              "introduced": true
+            }
+          ]
+        }
+      ],
+      "expected": [
+        {
+          "test_case": "TC_NPRO.295.02284.01",
+          "category": "command_rejected",
+          "role": "finding",
+          "verdict": "pass",
+          "contains": "allowed answer"
+        }
+      ],
+      "check": {
+        "as_expected": true,
+        "problems": []
+      }
+    },
+    {
+      "number": "15",
+      "key": "clock_alignment_real",
+      "title": "Source clock offset (real)",
+      "detection": "Offset pcapng → CANoe time from identical frames; spread and drift",
+      "sources": "pcapng, BLF",
+      "data": "real",
+      "capture": null,
+      "edit": [],
+      "outcome": "check",
+      "failure": null,
+      "results": [],
+      "expected": [],
+      "check": {
+        "as_expected": true,
+        "problems": []
+      }
+    },
+    {
+      "number": "15s",
+      "key": "clock_step",
+      "title": "Source clock mismatch",
+      "detection": "Offset between pcapng and BLF changes by 20 ms during the run",
+      "sources": "pcapng, BLF",
+      "data": "synthetic",
+      "capture": "S15s_clock_step.pcapng",
+      "edit": [
+        "timestamps of 1791 frames from 139.5 s on shifted by +20 ms (clock step in the capturing PC)"
+      ],
+      "outcome": "warning",
+      "failure": {
+        "category": "time_alignment",
+        "area": "Data quality: source alignment",
+        "severity": "warning",
+        "t": null,
+        "clock": null,
+        "test_case": null,
+        "summary": "pcapng offset varies by 20.0 ms (frame_match)",
+        "evidence": []
+      },
+      "results": [],
+      "expected": [
+        {
+          "test_case": null,
+          "category": "time_alignment",
+          "role": "finding",
+          "verdict": null,
+          "contains": "offset varies by 20.0 ms"
+        }
+      ],
+      "check": {
+        "as_expected": true,
+        "problems": []
+      }
+    }
+  ]
+}

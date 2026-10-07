@@ -94,3 +94,80 @@ def test_cli_on_a_synthetic_capture(tmp_path, capsys):
     md = (tmp_path / "report.md").read_text(encoding="utf-8")
     assert "Test Result:       FAILED (report: passed) (TC_NPRO.295.02284.01)" in md
     assert "unexpected_response" in md and path.name in md
+
+
+def test_json_export(result, tmp_path):
+    import json
+
+    from trace_analyzer.report import write_json
+    from trace_analyzer.synthetic.runner import run_all
+    from trace_analyzer.synthetic.scenarios import SCENARIOS
+
+    scenarios = run_all(CFG, tmp_path, [s for s in SCENARIOS if s.number in ("3s", "7", "10", "14n")])
+    doc = json.loads(write_json(result, tmp_path / "report.json", scenarios=scenarios).read_text(encoding="utf-8"))
+    assert (doc["schema"], doc["schema_version"]) == ("trace-analyzer.report", 1)
+    assert "test_cases" not in doc
+    assert doc["summary"]["verdicts"] == {"pass": 2, "fail": 2, "inconclusive": 1}
+
+    ids = {"TC_NPRO.295.02283.01", "TC_NPRO.295.02284.01", "TC_NPRO.295.02288.01", "TC_NPRO.295.00525.01",
+           "TC_NPRO.295.00522.01"}
+    for item in (*doc["findings"], *(x for v in doc["timeline"].values() for x in v)):
+        assert item["test_case"] in ids | {None}
+    cause = next(f for f in doc["findings"] if f["role"] == "cause" and f["test_case"] == "TC_NPRO.295.02288.01")
+    assert cause["category"] == "device_disturbed" and cause["t"] == pytest.approx(186.953, abs=1e-3)
+    assert cause["evidence"][1]["clock"].startswith("2026-10-02T12:27:06.906")
+
+    states = [(s["t"], s["belegung"]) for s in doc["timeline"]["gfma_states"]]
+    assert len(states) == 12 and (pytest.approx(186.953, abs=1e-3), 3) in states
+    assert len(doc["timeline"]["telegrams"]) == 45 and len(doc["timeline"]["sessions"]) == 5
+
+    by_number = {s["number"]: s for s in doc["scenarios"]}
+    assert {n: s["outcome"] for n, s in by_number.items()} == {"3s": "failure", "7": "ruled_out", "10": "failure",
+                                                               "14n": "warning"}
+    assert all(s["check"]["as_expected"] for s in doc["scenarios"])
+    s3 = by_number["3s"]
+    assert s3["failure"]["category"] == "unexpected_response" and s3["failure"]["evidence"][1]["locator"] == \
+        "frame 326 telegram 1"
+    (r,) = s3["results"]
+    assert (r["report_verdict"], r["verdict"], r["verdict_differs"]) == ("pass", "fail", True)
+    assert r["cause"]["category"] == "unexpected_response"
+    assert [f["category"] for f in r["findings"] if f["introduced"]] == ["unexpected_response"]
+    assert by_number["7"]["failure"] is None
+    assert doc["summary"]["scenarios"]["outcome"] == {"failure": 2, "warning": 1, "ruled_out": 1, "check": 0}
+
+
+def test_cli_json(tmp_path):
+    assert main(["--out", str(tmp_path), "--format", "json", "--test-case", "02288"]) == 0
+    import json
+    doc = json.loads((tmp_path / "report.json").read_text(encoding="utf-8"))
+    assert {f["test_case"] for f in doc["findings"]} <= {"TC_NPRO.295.02288.01", None} and "scenarios" not in doc
+
+
+def test_flat_json(result, tmp_path):
+    import json
+
+    from trace_analyzer.report import write_flat_json
+
+    doc = json.loads(write_flat_json(result, tmp_path / "data-anlysis-report.json").read_text(encoding="utf-8"))
+    assert list(doc)[:9] == ["analysis_id", "device_id", "timestamp", "analysis_type", "result_status", "summary",
+                             "trace_messages", "failure_findings", "data_comparisons"]
+    assert (doc["device_id"], doc["timestamp"], doc["result_status"]) == (
+        "DETHMM AZA34##0001", "2026-10-02T10:23:59.953Z", "FAILED")
+    assert doc["summary"].startswith("2 of 5 test cases failed.")
+
+    messages = {m["message_id"]: m for m in doc["trace_messages"]}
+    assert len(messages) == 45
+    assert (messages["frame-425-1"]["status"], messages["frame-425-1"]["error_reason"]) == ("FAILED", "Device Disturbed")
+    assert messages["frame-380-2"]["error_reason"] == "Message Length Error"
+    assert messages["frame-11-1"]["status"] == "OK"
+
+    length = next(f for f in doc["failure_findings"] if f["result"] == "Message Length Error")
+    assert (length["message_id"], length["expected_length"], length["actual_length"]) == ("frame-380-2", 48, 47)
+    assert all(f["message_id"] is None or f["message_id"] in messages for f in doc["failure_findings"])
+
+    rows = {(c["field"], c["test_case"]): c for c in doc["data_comparisons"]}
+    state = rows[("GFM-A state for the precondition", "TC_NPRO.295.02288.01")]
+    assert (state["expected"], state["actual"], state["result"]) == (
+        "2/0 (belegt, nicht grundstellbar)", "3/0 (gestört, nicht grundstellbar)", "Error")
+    assert rows[("RaSTA message gap", None)]["result"] == "OK"
+    assert {c["result"] for c in doc["data_comparisons"]} == {"OK", "Error", "Warning"}

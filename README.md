@@ -50,7 +50,7 @@ also as HTML.
 ```bash
 python3.11 -m venv .venv
 .venv/bin/pip install -e ".[dev]"
-.venv/bin/python analyze.py                    # → output/report.md, output/report.html
+.venv/bin/python analyze.py                    # → output/report.md, report.html, report.json
 open output/report.html
 ```
 
@@ -70,22 +70,28 @@ against the NeuPro Lua dissectors:
 ## Usage
 
 ```bash
-.venv/bin/python analyze.py [--config config/config.yaml] [--out DIR] [--format md html]
-                            [--test-case ID ...] [--name report]
+.venv/bin/python analyze.py [--config config/config.yaml] [--out DIR] [--format md html json]
+                            [--test-case ID ...] [--name report] [--with-scenarios]
 ```
 
 | Option | Meaning |
 |---|---|
 | `--config` | configuration file (default `config/config.yaml`) |
 | `--out` | output directory (default `output/`) |
-| `--format` | `md`, `html` or both (default both) |
+| `--format` | any of `md`, `html`, `json` (default all three) |
 | `--test-case` | only test cases whose name contains ID; repeatable (`--test-case 02288`) |
 | `--name` | report file name without extension (default `report`) |
+| `--with-scenarios` | also run the 15 scenarios and add their results to the JSON |
+| `--pcapng`, `--no-blf-ethernet` | analyze another capture, e.g. a synthetic one (with `--no-blf-ethernet`) |
 
 The command prints a verdict table and writes two reports:
 
 - `report.md`, with one timeline SVG per test case next to it,
-- `report.html`, self-contained (no external resources), in light and dark.
+- `report.html`, self-contained (no external resources), in light and dark,
+- `report.json`, all data (findings with evidence, timeline, and with `--with-scenarios` each scenario's failure) for visualization in
+  other tools; `--with-scenarios` adds the scenario results,
+- `data-anlysis-report.json`, the same run as a flat dashboard response (status, summary, trace messages,
+  failure findings, expected vs. actual comparisons). Both formats: [docs/report_json.md](docs/report_json.md).
 
 After `pip install -e .`, `trace-analyzer` runs the same command. Exit code 2 means a bad configuration or no
 matching test case.
@@ -169,7 +175,7 @@ Tests that need the confidential input data are skipped when it is missing.
 ## Demo
 
 - [docs/demo.md](docs/demo.md): a 10-minute walkthrough.
-- `scripts/demo.sh`: runs the walkthrough end to end.
+- `scripts/demo.sh`: runs the walkthrough end to end; writes `output/demo/report.json` with everything.
 - [docs/presentation.html](docs/presentation.html): the slides.
 
 ## Layout
@@ -202,6 +208,7 @@ TDS_Task/                 input data (not committed, confidential)
 | [docs/architecture.md](docs/architecture.md) | pipeline, data model, alignment, rules, diagnosis, report, design decisions |
 | [docs/scenarios.md](docs/scenarios.md) | the 15 scenarios, synthetic captures, results |
 | [docs/review.md](docs/review.md) | what to review, open questions, feedback |
+| [docs/report_json.md](docs/report_json.md) | the JSON export, for frontend / visualization developers |
 
 ## Limitations
 

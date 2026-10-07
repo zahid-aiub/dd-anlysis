@@ -1,4 +1,4 @@
-"""Markdown and HTML reports: per test case the result, detected failure, root cause, evidence and a timeline."""
+"""Reports: Markdown and HTML (per test case result, failure, cause, evidence, timeline) and JSON (all data)."""
 
 from pathlib import Path
 
@@ -7,11 +7,15 @@ from jinja2 import Environment, PackageLoader, select_autoescape
 from trace_analyzer.pipeline import AnalysisResult
 
 from .build import CaseReport, RunReport, area, build_report, confidence_label
+from .export import to_json, write_json
+from .flat import FILE_NAME as FLAT_FILE_NAME
+from .flat import to_flat_json, write_flat_json
 from .timeline import legend_svg, timeline_svg
 
-__all__ = ["CaseReport", "RunReport", "build_report", "render", "write_reports"]
+__all__ = ["CaseReport", "RunReport", "build_report", "render", "to_flat_json", "to_json", "write_flat_json",
+           "write_json", "write_reports"]
 
-FORMATS = ("md", "html")
+FORMATS = ("md", "html", "json")
 
 
 def _environment(result: AnalysisResult, html: bool) -> Environment:
@@ -43,8 +47,12 @@ def render(result: AnalysisResult, report: RunReport, fmt: str) -> str:
 
 
 def write_reports(result: AnalysisResult, out_dir: Path, formats: tuple[str, ...] = FORMATS,
-                  test_ids: list[str] | None = None, name: str = "report") -> list[Path]:
-    """Write report.md (with one timeline SVG per test case) and/or report.html to `out_dir`."""
+                  test_ids: list[str] | None = None, name: str = "report", scenarios=None) -> list[Path]:
+    """Write report.md (with one timeline SVG per test case), report.html and/or report.json plus
+    data-anlysis-report.json to `out_dir`.
+
+    `scenarios` (results of `synthetic.runner.run_all`) are added to the JSON.
+    """
     out_dir = Path(out_dir)
     out_dir.mkdir(parents=True, exist_ok=True)
     report = build_report(result, test_ids)
@@ -53,6 +61,10 @@ def write_reports(result: AnalysisResult, out_dir: Path, formats: tuple[str, ...
         if fmt not in FORMATS:
             raise ValueError(f"unknown report format {fmt!r}; use one of {FORMATS}")
         path = out_dir / f"{name}.{fmt}"
+        if fmt == "json":
+            written.append(write_json(result, path, test_ids, scenarios))
+            written.append(write_flat_json(result, out_dir / FLAT_FILE_NAME))   # flat summary for dashboards
+            continue
         path.write_text(render(result, report, fmt), encoding="utf-8")
         written.append(path)
         if fmt == "md":

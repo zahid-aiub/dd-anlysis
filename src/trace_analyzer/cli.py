@@ -2,6 +2,7 @@
 
     python analyze.py --config config/config.yaml [--out output] [--format md html] [--test-case 02288]
     python analyze.py --pcapng data/synthetic/S03s_unexpected_response.pcapng --no-blf-ethernet
+    python analyze.py --format json --with-scenarios       # one JSON file with everything, for visualization
 """
 
 import argparse
@@ -36,6 +37,8 @@ def main(argv: list[str] | None = None) -> int:
                         "e.g. a synthetic scenario from data/synthetic/")
     parser.add_argument("--no-blf-ethernet", action="store_true",
                         help="use the BLF only for its CANoe objects (needed with an edited pcapng)")
+    parser.add_argument("--with-scenarios", action="store_true",
+                        help="also run the 15 analysis scenarios and add their results to the JSON report")
     args = parser.parse_args(argv)
 
     try:
@@ -55,9 +58,16 @@ def main(argv: list[str] | None = None) -> int:
     if args.test_cases and not any(any(t in d.test_case.name for t in args.test_cases) for d in result.diagnoses):
         print(f"error: no test case matches {args.test_cases}", file=sys.stderr)
         return 2
-    paths = write_reports(result, args.out or cfg["output"]["dir"], tuple(args.format), args.test_cases, args.name)
+    scenarios = None
+    if args.with_scenarios:
+        from trace_analyzer.synthetic.runner import run_all
+        scenarios = run_all(cfg)
+    paths = write_reports(result, args.out or cfg["output"]["dir"], tuple(args.format), args.test_cases, args.name,
+                          scenarios)
     print(summary(result))
-    print("\nwritten:", *(f"  {p}" for p in paths if p.suffix in (".md", ".html")), sep="\n")
+    if scenarios is not None:
+        print(f"\nscenarios: {sum(r.passed for r in scenarios)}/{len(scenarios)} as expected")
+    print("\nwritten:", *(f"  {p}" for p in paths if p.suffix in (".md", ".html", ".json")), sep="\n")
     return 0
 
 
