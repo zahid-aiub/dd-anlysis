@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trace failure analysis · TC_NPRO.295.02284.01</title>
+<style>
+:root { color-scheme: light; --page:#f9f9f7; --surface:#fcfcfb; --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781;
+  --line:#e1e0d9; --ring:rgba(11,11,11,0.10); --good:#0ca30c; --good-text:#006300; --warning:#fab219;
+  --critical:#d03b3b; --code:#f0efec; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { color-scheme: dark; --page:#0d0d0d;
+  --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7; --line:#2c2c2a; --ring:rgba(255,255,255,0.10);
+  --good-text:#0ca30c; --code:#242422; } }
+:root[data-theme="dark"] { color-scheme: dark; --page:#0d0d0d; --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7;
+  --line:#2c2c2a; --ring:rgba(255,255,255,0.10); --good-text:#0ca30c; --code:#242422; }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--page); color: var(--ink); font: 14px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+main { max-width: 1040px; margin: 0 auto; padding: 32px 20px 64px; }
+a { color: inherit; text-decoration-color: var(--muted); text-underline-offset: 2px; }
+h1 { font-size: 24px; margin: 0 0 4px; } h2 { font-size: 19px; margin: 40px 0 12px; } h3 { font-size: 15px; margin: 20px 0 8px; }
+.meta, .note { color: var(--ink-2); margin: 0; }
+.card { background: var(--surface); border: 1px solid var(--ring); border-radius: 10px; padding: 18px 20px; margin: 12px 0; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { text-align: left; vertical-align: top; padding: 6px 10px 6px 0; border-bottom: 1px solid var(--line); }
+th { color: var(--ink-2); font-weight: 600; }
+.num, td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.badge { display: inline-flex; gap: 6px; align-items: center; font-weight: 600; white-space: nowrap; }
+.badge::before { display: inline-grid; place-items: center; width: 16px; height: 16px; border-radius: 50%;
+  color: #fff; font-size: 11px; line-height: 1; }
+.badge.pass::before { content: "✓"; background: var(--good); }
+.badge.fail::before { content: "✕"; background: var(--critical); }
+.badge.inconclusive::before, .badge.error::before, .badge.none::before { content: "?"; background: var(--muted); }
+.result { display: grid; grid-template-columns: max-content 1fr; gap: 6px 18px; margin: 0; }
+.result dt { color: var(--ink-2); } .result dd { margin: 0; }
+.sev { white-space: nowrap; } .sev::before { content: ""; display: inline-block; width: 8px; height: 8px;
+  border-radius: 50%; margin-right: 6px; vertical-align: 1px; background: var(--muted); }
+.sev.error::before { background: var(--critical); } .sev.warning::before { background: var(--warning); }
+code, .ev { font: 12px/1.4 ui-monospace, SFMono-Regular, Menlo, monospace; }
+.ev { color: var(--ink-2); }
+ul.evidence { margin: 4px 0 0; padding-left: 18px; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 6px 0 0; list-style: none; }
+.chips li { background: var(--code); border-radius: 999px; padding: 2px 10px; font-size: 12px; color: var(--ink-2); }
+details summary { cursor: pointer; color: var(--ink-2); margin: 12px 0 6px; }
+.timeline { margin: 14px 0 4px; }
+.timeline svg { display: block; max-width: 100%; height: auto; }
+</style>
+</head>
+<body>
+<main>
+<h1>Trace failure analysis</h1>
+<p class="meta">CANoe configuration <code>ZE_RealOC_Stimulation.cfg</code> · CANoe.CAN.Ethernet.BasicEthernet 20.0.195 /pro</p>
+<p class="meta">Measurement start 2026-10-02 12:23:59 +0200 · report generated 2026-10-07 23:04</p>
+<p class="note">All times are CANoe measurement time in seconds; wall-clock times are test bench local time.</p>
+
+<h2>Summary</h2>
+<div class="card scroll"><table>
+<thead><tr><th>Test case</th><th>Report</th><th>Analyzer</th><th>Detected failure</th><th>Root cause</th><th>Confidence</th></tr></thead>
+<tbody>
+<tr>
+<td><a href="#tc_npro-295-02284-01">TC_NPRO.295.02284.01(F)</a></td>
+<td><span class="badge pass">pass</span></td>
+<td><span class="badge fail">fail</span></td>
+<td>MELDUNG_GFMA_BELEGUNGSZUSTAND received 299 ms after KOMMANDO_AZGH; step 2 requires it NOT to be sent</td>
+<td>MELDUNG_GFMA_BELEGUNGSZUSTAND received 299 ms after KOMMANDO_AZGH; step 2 requires it NOT to be sent</td>
+<td>high (0.90)</td>
+</tr>
+</tbody></table></div>
+
+
+<section id="tc_npro-295-02284-01">
+<h2>TC_NPRO.295.02284.01(F)</h2>
+<div class="card">
+<dl class="result">
+<dt>Test result</dt><dd><span class="badge fail">FAILED (report: passed)</span></dd>
+<dt>Detected failure</dt><dd><span class="num">132.616 s</span> · MELDUNG_GFMA_BELEGUNGSZUSTAND received 299 ms after KOMMANDO_AZGH; step 2 requires it NOT to be sent</dd>
+
+<dt>Category</dt><dd>SCI-TDS protocol <span class="ev">(unexpected_response)</span></dd>
+
+<dt>Confidence</dt><dd>high (0.90); evidence from pcapng</dd>
+
+<dt>Test window</dt><dd>91.548 s – 139.515 s</dd>
+<dt>Target state</dt><dd>1/0 (Belegung/Grundstellbarkeit) · Test_Description: OC: Normal operation; BP: GFM-A is in the state &#34;GFM-A free and not primeable&#34;</dd>
+</dl>
+<div class="timeline scroll"><svg class="tl" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 276" width="100%" role="img" aria-label="Timeline of TC_NPRO.295.02284.01(F)"><style>
+svg.tl { --surface:#fcfcfb; --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781; --grid:#e1e0d9; --axis:#c3c2b7;
+  --s1:#2a78d6; --s2:#eb6834; --good:#0ca30c; --warning:#fab219; --serious:#ec835a; --critical:#d03b3b;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+@media (prefers-color-scheme: dark) { :root:where(:not([data-theme="light"])) svg.tl {
+  --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7; --grid:#2c2c2a; --axis:#383835; --s1:#3987e5; --s2:#d95926; } }
+:root[data-theme="dark"] svg.tl { --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7; --grid:#2c2c2a; --axis:#383835;
+  --s1:#3987e5; --s2:#d95926; }
+svg.tl .bg { fill: var(--surface); }
+svg.tl .grid { stroke: var(--grid); stroke-width: 1; }
+svg.tl .axis { stroke: var(--axis); stroke-width: 1; }
+svg.tl .lane-label { fill: var(--ink-2); font-size: 12px; }
+svg.tl .tick, svg.tl .level { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+svg.tl .label { fill: var(--ink); font-size: 11px; }
+svg.tl .label-2 { fill: var(--ink-2); font-size: 10px; }
+svg.tl .state { fill: none; stroke: var(--s1); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+svg.tl .wash { fill: var(--s1); opacity: 0.12; }
+svg.tl .session { fill: var(--s1); opacity: 0.22; }
+svg.tl .dot { stroke: var(--surface); stroke-width: 2; }
+svg.tl .s1 { fill: var(--s1); } svg.tl .s2 { fill: var(--s2); }
+svg.tl .good { fill: var(--good); } svg.tl .fail { fill: var(--critical); } svg.tl .none { fill: var(--muted); }
+svg.tl .warning { fill: var(--warning); } svg.tl .serious { fill: var(--serious); }
+svg.tl .critical { fill: var(--critical); } svg.tl .info { fill: var(--muted); }
+svg.tl .rule-cause { stroke: var(--critical); stroke-width: 1.5; }
+svg.tl .rule-symptom { stroke: var(--serious); stroke-width: 1.5; }
+svg.tl .hit { fill: transparent; }
+</style><rect class="bg" x="0" y="0" width="960" height="276"/><line class="grid" x1="303.3" y1="40" x2="303.3" y2="242"/><text class="tick" x="303.3" y="257" text-anchor="middle">100</text><line class="grid" x1="463.4" y1="40" x2="463.4" y2="242"/><text class="tick" x="463.4" y="257" text-anchor="middle">110</text><line class="grid" x1="623.5" y1="40" x2="623.5" y2="242"/><text class="tick" x="623.5" y="257" text-anchor="middle">120</text><line class="grid" x1="783.7" y1="40" x2="783.7" y2="242"/><text class="tick" x="783.7" y="257" text-anchor="middle">130</text><line class="axis" x1="168" y1="242" x2="936" y2="242"/><text class="tick" x="936" y="272" text-anchor="end">CANoe measurement time (s)</text><line class="grid" x1="168" y1="68.0" x2="936" y2="68.0"/><text class="lane-label" x="12" y="58.0">Findings</text><line class="grid" x1="168" y1="96.0" x2="936" y2="96.0"/><text class="lane-label" x="12" y="86.0">Test steps (report)</text><line class="grid" x1="168" y1="124.0" x2="936" y2="124.0"/><text class="lane-label" x="12" y="114.0">ZE → AZ telegrams</text><line class="grid" x1="168" y1="152.0" x2="936" y2="152.0"/><text class="lane-label" x="12" y="142.0">AZ → ZE telegrams</text><line class="grid" x1="168" y1="180.0" x2="936" y2="180.0"/><text class="lane-label" x="12" y="170.0">RaSTA connection</text><line class="grid" x1="168" y1="242.0" x2="936" y2="242.0"/><text class="lane-label" x="12" y="196.0">GFM-A state</text><text class="level" x="160" y="233.0" text-anchor="end">frei</text><text class="level" x="160" y="215.0" text-anchor="end">belegt</text><text class="level" x="160" y="197.0" text-anchor="end">gestört</text><g><title>Grundstellbar (reset possible)</title><rect class="wash" x="825.5" y="182" width="110.5" height="58"/></g><text class="label-2" x="829.5" y="236.0">resettable</text><path class="state" d="M168.0,229.0H820.7V229.0H825.5V229.0H936.0"/><g><title>132.313 s  GFM-A 34W1: frei, Grundstellbarkeit 0, Achszählfüllstand 0x0000  (S03s_unexpected_response.pcapng frame 323 telegram 2)</title><circle class="hit" cx="820.7" cy="229.0" r="9"/><circle class="dot s1" cx="820.7" cy="229.0" r="3.5"/></g><g><title>132.616 s  GFM-A 34W1: frei, Grundstellbarkeit 1, Achszählfüllstand 0x0000  (S03s_unexpected_response.pcapng frame 326 telegram 1)</title><circle class="hit" cx="825.5" cy="229.0" r="9"/><circle class="dot s1" cx="825.5" cy="229.0" r="3.5"/></g><g><title>RaSTA session 3: 131.549 – 139.316 s, reason 0</title><rect class="session" x="808.5" y="160.0" width="124.4" height="12" rx="4"/></g><text class="label-2" x="814.5" y="170.0">session 3</text><g><title>131.709 s  KOMMANDO_BTP_VERSIONSABGLEICH (44 bytes)  S03s_unexpected_response.pcapng frame 318 telegram 1</title><circle class="hit" cx="811.0" cy="110.0" r="9"/><circle class="dot s1" cx="811.0" cy="110.0" r="4"/></g><g><title>132.011 s  KOMMANDO_AUFRUESTANFORDERUNG (43 bytes)  S03s_unexpected_response.pcapng frame 321 telegram 1</title><circle class="hit" cx="815.9" cy="110.0" r="9"/><circle class="dot s1" cx="815.9" cy="110.0" r="4"/></g><g><title>132.316 s  KOMMANDO_AZGH (43 bytes)  S03s_unexpected_response.pcapng frame 324 telegram 1</title><circle class="hit" cx="820.7" cy="110.0" r="9"/><circle class="dot s1" cx="820.7" cy="110.0" r="4"/></g><text class="label-2" x="827.7" y="104.0">AZGH</text><g><title>132.011 s  MELDUNG_BTP_VERSIONSABGLEICH (62 bytes)  S03s_unexpected_response.pcapng frame 320 telegram 1</title><circle class="hit" cx="815.8" cy="138.0" r="9"/><circle class="dot s1" cx="815.8" cy="138.0" r="4"/></g><g><title>132.313 s  MELDUNG_AUFRUESTBEGINN (43 bytes)  S03s_unexpected_response.pcapng frame 323 telegram 1</title><circle class="hit" cx="820.7" cy="138.0" r="9"/><circle class="dot s1" cx="820.7" cy="138.0" r="4"/></g><g><title>132.313 s  MELDUNG_GFMA_BELEGUNGSZUSTAND (47 bytes)  S03s_unexpected_response.pcapng frame 323 telegram 2</title><circle class="hit" cx="820.7" cy="138.0" r="9"/><circle class="dot s1" cx="820.7" cy="138.0" r="4"/></g><g><title>132.313 s  MELDUNG_AUFRUESTENDE (43 bytes)  S03s_unexpected_response.pcapng frame 323 telegram 3</title><circle class="hit" cx="820.7" cy="138.0" r="9"/><circle class="dot s1" cx="820.7" cy="138.0" r="4"/></g><g><title>132.616 s  MELDUNG_GFMA_BELEGUNGSZUSTAND (47 bytes)  S03s_unexpected_response.pcapng frame 326 telegram 1</title><circle class="hit" cx="825.5" cy="138.0" r="9"/><circle class="dot s1" cx="825.5" cy="138.0" r="4"/></g><g><title>132.314 s  Preparation Init: BTP-Verbindung wurde erfolgreich aufgebaut  [pass]</title><circle class="hit" cx="820.7" cy="82.0" r="9"/><circle class="dot good" cx="820.7" cy="82.0" r="4"/></g><g><title>132.314 s  Preparation Init: Vorbereitung abgeschlossen: Belegungszustand=1, Grundstellungsfaehigkeit=0.  [pass]</title><circle class="hit" cx="820.7" cy="82.0" r="9"/><circle class="dot good" cx="820.7" cy="82.0" r="4"/></g><g><title>132.314 s  Preparation Init: BTP-Verbinding ist offen  [pass]</title><circle class="hit" cx="820.7" cy="82.0" r="9"/><circle class="dot good" cx="820.7" cy="82.0" r="4"/></g><g><title>132.314 s  Preparation Init: GFMA hat erwarteten Belegungszustand 1  [pass]</title><circle class="hit" cx="820.7" cy="82.0" r="9"/><circle class="dot good" cx="820.7" cy="82.0" r="4"/></g><g><title>132.314 s  Preparation Init: GFMA hat erwartete Grundstellungsfaehigkeit 0  [pass]</title><circle class="hit" cx="820.7" cy="82.0" r="9"/><circle class="dot good" cx="820.7" cy="82.0" r="4"/></g><g><title>132.315 s  Main Part 1: Validiere BTP-Nachricht  [pass]</title><circle class="hit" cx="820.7" cy="82.0" r="9"/><circle class="dot good" cx="820.7" cy="82.0" r="4"/></g><g><title>132.815 s  Main Part 2: AZG/AZGH-Antwort geprueft: 0 erwartete Belegungsmeldungen innerhalb von 500 ms.  [pass]</title><circle class="hit" cx="828.7" cy="82.0" r="9"/><circle class="dot good" cx="828.7" cy="82.0" r="4"/></g><g><title>132.815 s  Main Part 3: BTP-Verbinding ist offen  [pass]</title><circle class="hit" cx="828.7" cy="82.0" r="9"/><circle class="dot good" cx="828.7" cy="82.0" r="4"/></g><g><title>132.815 s  Main Part 3: GFMA hat erwarteten Belegungszustand 1  [pass]</title><circle class="hit" cx="828.7" cy="82.0" r="9"/><circle class="dot good" cx="828.7" cy="82.0" r="4"/></g><g><title>132.815 s  Main Part 3: GFMA hat erwartete Grundstellungsfaehigkeit 0  [pass]</title><circle class="hit" cx="828.7" cy="82.0" r="9"/><circle class="dot good" cx="828.7" cy="82.0" r="4"/></g><g><title>139.315 s  Completion Warten: Hintergrundueberpruefung ohne Vorfall abgeschlossen  [pass]</title><circle class="hit" cx="932.8" cy="82.0" r="9"/><circle class="dot good" cx="932.8" cy="82.0" r="4"/></g><g><title>139.315 s  Completion Cleanup: Cleanup abgeschlossen: GFM-A 0 frei und nicht grundstellbar.  [pass]</title><circle class="hit" cx="932.8" cy="82.0" r="9"/><circle class="dot good" cx="932.8" cy="82.0" r="4"/></g><g><title>131.548 s  Preparation 1: Waited for 40000.000 ms</title><rect class="hit" x="804.4" y="73.0" width="8" height="18"/><rect class="none" x="807.9" y="77.0" width="1" height="10"/></g><g><title>131.548 s  Preparation Init: RaSTA und BTP Verbindung wird aufgebaut</title><rect class="hit" x="804.4" y="73.0" width="8" height="18"/><rect class="none" x="807.9" y="77.0" width="1" height="10"/></g><g><title>132.314 s  Preparation Init: Manuelle Vorbereitung: Raeder ein=0, aus=0 (Bedienvorgabe; keine simulierten Zaehler schreiben).</title><rect class="hit" x="816.7" y="73.0" width="8" height="18"/><rect class="none" x="820.2" y="77.0" width="1" height="10"/></g><g><title>132.314 s  Preparation Init: Sollzustand: Belegungszustand=1, Grundstellbarkeit=0.</title><rect class="hit" x="816.7" y="73.0" width="8" height="18"/><rect class="none" x="820.2" y="77.0" width="1" height="10"/></g><g><title>132.314 s  Preparation Init: GFM-A innerhalb von 120000 ms mit dem Metallobjekt manuell freifahren. Beim geforderten Sollzustand geht der Test automatisch weiter. Kein AZG/AZGH am Panel senden.</title><rect class="hit" x="816.7" y="73.0" width="8" height="18"/><rect class="none" x="820.2" y="77.0" width="1" height="10"/></g><g><title>132.314 s  Preparation Init: Pruefe Vorbedingung: Verbindungsstatus und GFM-A-Zustand</title><rect class="hit" x="816.7" y="73.0" width="8" height="18"/><rect class="none" x="820.2" y="77.0" width="1" height="10"/></g><g><title>132.314 s  Main Part 1: Sende 'Kommando AchszaehlgrundstellungHilfsbedienung'</title><rect class="hit" x="816.7" y="73.0" width="8" height="18"/><rect class="none" x="820.2" y="77.0" width="1" height="10"/></g><g><title>132.815 s  Main Part 2: AZG/AZGH-Empfang im Prueffenster (500 ms): SCI-Monitor=0, dekodierte GFM-A-Meldungen=0.</title><rect class="hit" x="824.7" y="73.0" width="8" height="18"/><rect class="none" x="828.2" y="77.0" width="1" height="10"/></g><g><title>132.815 s  Main Part 3: Pruefe Nachbedingung: Verbindungsstatus und GFM-A-Zustand</title><rect class="hit" x="824.7" y="73.0" width="8" height="18"/><rect class="none" x="828.2" y="77.0" width="1" height="10"/></g><g><title>132.815 s  Completion Warten: Hintergrundueberpruefung bis alle Timer abgelaufen sind</title><rect class="hit" x="824.7" y="73.0" width="8" height="18"/><rect class="none" x="828.2" y="77.0" width="1" height="10"/></g><g><title>139.315 s  Completion : Waited for 6500 ms.</title><rect class="hit" x="928.8" y="73.0" width="8" height="18"/><rect class="none" x="932.3" y="77.0" width="1" height="10"/></g><g><title>139.315 s  Completion Cleanup: Nachbereitung ausserhalb der Testschritte; bestehendes Testurteil bleibt erhalten.</title><rect class="hit" x="928.8" y="73.0" width="8" height="18"/><rect class="none" x="932.3" y="77.0" width="1" height="10"/></g><g><title>139.315 s  Completion Cleanup: Cleanup GFM-A 0: Zustand=1, Grundstellbarkeit=0; Ziel frei/nicht grundstellbar.</title><rect class="hit" x="928.8" y="73.0" width="8" height="18"/><rect class="none" x="932.3" y="77.0" width="1" height="10"/></g><g><title>139.315 s  Completion Reset: RaSTA- und BTP-Verbindung werden abgebaut</title><rect class="hit" x="928.8" y="73.0" width="8" height="18"/><rect class="none" x="932.3" y="77.0" width="1" height="10"/></g><g><title>132.616 s  [cause, error] unexpected_response: MELDUNG_GFMA_BELEGUNGSZUSTAND received 299 ms after KOMMANDO_AZGH; step 2 requires it NOT to be sent</title><circle class="hit" cx="825.5" cy="54.0" r="9"/><circle class="dot critical" cx="825.5" cy="54.0" r="5"/></g><line class="rule-cause" x1="825.5" y1="36" x2="825.5" y2="242"/><text class="label" x="820.5" y="32" text-anchor="end">cause = symptom · unexpected_response · 132.616 s</text></svg><svg class="tl" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 24" width="100%" role="img" aria-label="Legend"><style>
+svg.tl { --surface:#fcfcfb; --ink:#0b0b0b; --ink-2:#52514e; --muted:#898781; --grid:#e1e0d9; --axis:#c3c2b7;
+  --s1:#2a78d6; --s2:#eb6834; --good:#0ca30c; --warning:#fab219; --serious:#ec835a; --critical:#d03b3b;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif; }
+@media (prefers-color-scheme: dark) { :root:where(:not([data-theme="light"])) svg.tl {
+  --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7; --grid:#2c2c2a; --axis:#383835; --s1:#3987e5; --s2:#d95926; } }
+:root[data-theme="dark"] svg.tl { --surface:#1a1a19; --ink:#ffffff; --ink-2:#c3c2b7; --grid:#2c2c2a; --axis:#383835;
+  --s1:#3987e5; --s2:#d95926; }
+svg.tl .bg { fill: var(--surface); }
+svg.tl .grid { stroke: var(--grid); stroke-width: 1; }
+svg.tl .axis { stroke: var(--axis); stroke-width: 1; }
+svg.tl .lane-label { fill: var(--ink-2); font-size: 12px; }
+svg.tl .tick, svg.tl .level { fill: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+svg.tl .label { fill: var(--ink); font-size: 11px; }
+svg.tl .label-2 { fill: var(--ink-2); font-size: 10px; }
+svg.tl .state { fill: none; stroke: var(--s1); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+svg.tl .wash { fill: var(--s1); opacity: 0.12; }
+svg.tl .session { fill: var(--s1); opacity: 0.22; }
+svg.tl .dot { stroke: var(--surface); stroke-width: 2; }
+svg.tl .s1 { fill: var(--s1); } svg.tl .s2 { fill: var(--s2); }
+svg.tl .good { fill: var(--good); } svg.tl .fail { fill: var(--critical); } svg.tl .none { fill: var(--muted); }
+svg.tl .warning { fill: var(--warning); } svg.tl .serious { fill: var(--serious); }
+svg.tl .critical { fill: var(--critical); } svg.tl .info { fill: var(--muted); }
+svg.tl .rule-cause { stroke: var(--critical); stroke-width: 1.5; }
+svg.tl .rule-symptom { stroke: var(--serious); stroke-width: 1.5; }
+svg.tl .hit { fill: transparent; }
+</style><rect class="bg" x="0" y="0" width="960" height="24"/><circle class="dot s1" cx="16" cy="12" r="4"/><text class="label-2" x="25" y="16">telegram / GFM-A report</text><circle class="dot s2" cx="180.6" cy="12" r="4"/><text class="label-2" x="189.6" y="16">manual panel action</text><circle class="dot good" cx="320.4" cy="12" r="4"/><text class="label-2" x="329.4" y="16">step passed</text><circle class="dot fail" cx="410.59999999999997" cy="12" r="4"/><text class="label-2" x="419.59999999999997" y="16">step failed / error finding</text><circle class="dot warning" cx="600.0" cy="12" r="4"/><text class="label-2" x="609.0" y="16">warning finding</text><rect class="wash" x="711.0" y="6" width="16" height="12"/><text class="label-2" x="732.0" y="16">resettable</text><line class="rule-cause" x1="801.0" y1="4" x2="801.0" y2="20"/><text class="label-2" x="807.0" y="16">cause</text><line class="rule-symptom" x1="853.0" y1="4" x2="853.0" y2="20"/><text class="label-2" x="859.0" y="16">symptom</text></svg></div>
+</div>
+
+
+<h3>Evidence for the cause <span class="ev">(unexpected_response)</span></h3>
+<ul class="evidence"><li class="ev">pcapng: S03s_unexpected_response.pcapng frame 324 telegram 1 at 132.316 s (12:26:12.271)</li><li class="ev">pcapng: S03s_unexpected_response.pcapng frame 326 telegram 1 at 132.616 s (12:26:12.570)</li></ul>
+
+
+
+
+<h3>Checked and ruled out</h3>
+<ul class="chips"><li>missing_message</li><li>wrong_order</li><li>invalid_payload</li><li>incorrect_length</li><li>timeout</li><li>connection_interruption</li><li>configuration_mismatch</li><li>sequence_error</li><li>command_rejected</li><li>device_disturbed</li><li>cascade_failure</li></ul>
+
+<details><summary>Events in the test window (37)</summary>
+<div class="scroll"><table>
+<thead><tr><th>Time</th><th>Clock</th><th>Event</th><th>Evidence</th></tr></thead>
+<tbody><tr>
+<td class="num">131.548 s</td><td class="num">12:26:11.502</td>
+<td>Preparation 1: Waited for 40000.000 ms</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 8</td></tr><tr>
+<td class="num">131.548 s</td><td class="num">12:26:11.502</td>
+<td>Preparation Init: RaSTA und BTP Verbindung wird aufgebaut</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 8</td></tr><tr>
+<td class="num">131.549 s</td><td class="num">12:26:11.503</td>
+<td>RaSTA connection request (TX)</td>
+<td class="ev">S03s_unexpected_response.pcapng frame 315</td></tr><tr>
+<td class="num">131.707 s</td><td class="num">12:26:11.661</td>
+<td>RaSTA connection response (RX)</td>
+<td class="ev">S03s_unexpected_response.pcapng frame 316</td></tr><tr>
+<td class="num">131.709 s</td><td class="num">12:26:11.663</td>
+<td>ZE → AZ KOMMANDO_BTP_VERSIONSABGLEICH (44 bytes) btp_version=1</td>
+<td class="ev">S03s_unexpected_response.pcapng frame 318 telegram 1</td></tr><tr>
+<td class="num">132.011 s</td><td class="num">12:26:11.965</td>
+<td>AZ → ZE MELDUNG_BTP_VERSIONSABGLEICH (62 bytes) ergebnis=2, btp_version=1, checksum_length=16</td>
+<td class="ev">S03s_unexpected_response.pcapng frame 320 telegram 1</td></tr><tr>
+<td class="num">132.011 s</td><td class="num">12:26:11.965</td>
+<td>ZE → AZ KOMMANDO_AUFRUESTANFORDERUNG (43 bytes)</td>
+<td class="ev">S03s_unexpected_response.pcapng frame 321 telegram 1</td></tr><tr>
+<td class="num">132.313 s</td><td class="num">12:26:12.267</td>
+<td>AZ → ZE MELDUNG_AUFRUESTBEGINN (43 bytes)</td>
+<td class="ev">S03s_unexpected_response.pcapng frame 323 telegram 1</td></tr><tr>
+<td class="num">132.313 s</td><td class="num">12:26:12.267</td>
+<td>AZ → ZE MELDUNG_GFMA_BELEGUNGSZUSTAND (47 bytes) 1/0/0x0000 (Belegung/Grundstellbarkeit/Achszählfüllstand)</td>
+<td class="ev">S03s_unexpected_response.pcapng frame 323 telegram 2</td></tr><tr>
+<td class="num">132.313 s</td><td class="num">12:26:12.267</td>
+<td>AZ → ZE MELDUNG_AUFRUESTENDE (43 bytes)</td>
+<td class="ev">S03s_unexpected_response.pcapng frame 323 telegram 3</td></tr><tr>
+<td class="num">132.314 s</td><td class="num">12:26:12.268</td>
+<td><span class="badge pass">pass</span> Preparation Init: BTP-Verbindung wurde erfolgreich aufgebaut</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 9</td></tr><tr>
+<td class="num">132.314 s</td><td class="num">12:26:12.268</td>
+<td>Preparation Init: Manuelle Vorbereitung: Raeder ein=0, aus=0 (Bedienvorgabe; keine simulierten Zaehler schreiben).</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 9</td></tr><tr>
+<td class="num">132.314 s</td><td class="num">12:26:12.268</td>
+<td>Preparation Init: Sollzustand: Belegungszustand=1, Grundstellbarkeit=0.</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 9</td></tr><tr>
+<td class="num">132.314 s</td><td class="num">12:26:12.268</td>
+<td>Preparation Init: GFM-A innerhalb von 120000 ms mit dem Metallobjekt manuell freifahren. Beim geforderten Sollzustand geht der Test automatisch weiter. Kein AZG/AZGH am Panel senden.</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 9</td></tr><tr>
+<td class="num">132.314 s</td><td class="num">12:26:12.268</td>
+<td><span class="badge pass">pass</span> Preparation Init: Vorbereitung abgeschlossen: Belegungszustand=1, Grundstellungsfaehigkeit=0.</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 9</td></tr><tr>
+<td class="num">132.314 s</td><td class="num">12:26:12.268</td>
+<td>Preparation Init: Pruefe Vorbedingung: Verbindungsstatus und GFM-A-Zustand</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 9</td></tr><tr>
+<td class="num">132.314 s</td><td class="num">12:26:12.268</td>
+<td><span class="badge pass">pass</span> Preparation Init: BTP-Verbinding ist offen</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 9</td></tr><tr>
+<td class="num">132.314 s</td><td class="num">12:26:12.268</td>
+<td><span class="badge pass">pass</span> Preparation Init: GFMA hat erwarteten Belegungszustand 1</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 9</td></tr><tr>
+<td class="num">132.314 s</td><td class="num">12:26:12.268</td>
+<td><span class="badge pass">pass</span> Preparation Init: GFMA hat erwartete Grundstellungsfaehigkeit 0</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 9</td></tr><tr>
+<td class="num">132.314 s</td><td class="num">12:26:12.268</td>
+<td>Main Part 1: Sende &#39;Kommando AchszaehlgrundstellungHilfsbedienung&#39;</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 9</td></tr><tr>
+<td class="num">132.315 s</td><td class="num">12:26:12.269</td>
+<td><span class="badge pass">pass</span> Main Part 1: Validiere BTP-Nachricht</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 9</td></tr><tr>
+<td class="num">132.316 s</td><td class="num">12:26:12.271</td>
+<td>ZE → AZ KOMMANDO_AZGH (43 bytes)</td>
+<td class="ev">S03s_unexpected_response.pcapng frame 324 telegram 1</td></tr><tr>
+<td class="num">132.616 s</td><td class="num">12:26:12.570</td>
+<td>AZ → ZE MELDUNG_GFMA_BELEGUNGSZUSTAND (47 bytes) 1/1/0x0000 (Belegung/Grundstellbarkeit/Achszählfüllstand)</td>
+<td class="ev">S03s_unexpected_response.pcapng frame 326 telegram 1</td></tr><tr>
+<td class="num">132.815 s</td><td class="num">12:26:12.769</td>
+<td>Main Part 2: AZG/AZGH-Empfang im Prueffenster (500 ms): SCI-Monitor=0, dekodierte GFM-A-Meldungen=0.</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 10</td></tr><tr>
+<td class="num">132.815 s</td><td class="num">12:26:12.769</td>
+<td><span class="badge pass">pass</span> Main Part 2: AZG/AZGH-Antwort geprueft: 0 erwartete Belegungsmeldungen innerhalb von 500 ms.</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 10</td></tr><tr>
+<td class="num">132.815 s</td><td class="num">12:26:12.769</td>
+<td>Main Part 3: Pruefe Nachbedingung: Verbindungsstatus und GFM-A-Zustand</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 10</td></tr><tr>
+<td class="num">132.815 s</td><td class="num">12:26:12.769</td>
+<td><span class="badge pass">pass</span> Main Part 3: BTP-Verbinding ist offen</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 10</td></tr><tr>
+<td class="num">132.815 s</td><td class="num">12:26:12.769</td>
+<td><span class="badge pass">pass</span> Main Part 3: GFMA hat erwarteten Belegungszustand 1</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 10</td></tr><tr>
+<td class="num">132.815 s</td><td class="num">12:26:12.769</td>
+<td><span class="badge pass">pass</span> Main Part 3: GFMA hat erwartete Grundstellungsfaehigkeit 0</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 10</td></tr><tr>
+<td class="num">132.815 s</td><td class="num">12:26:12.769</td>
+<td>Completion Warten: Hintergrundueberpruefung bis alle Timer abgelaufen sind</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 11</td></tr><tr>
+<td class="num">139.315 s</td><td class="num">12:26:19.269</td>
+<td>Completion: Waited for 6500 ms.</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 11</td></tr><tr>
+<td class="num">139.315 s</td><td class="num">12:26:19.269</td>
+<td><span class="badge pass">pass</span> Completion Warten: Hintergrundueberpruefung ohne Vorfall abgeschlossen</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 11</td></tr><tr>
+<td class="num">139.315 s</td><td class="num">12:26:19.269</td>
+<td>Completion Cleanup: Nachbereitung ausserhalb der Testschritte; bestehendes Testurteil bleibt erhalten.</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 11</td></tr><tr>
+<td class="num">139.315 s</td><td class="num">12:26:19.269</td>
+<td>Completion Cleanup: Cleanup GFM-A 0: Zustand=1, Grundstellbarkeit=0; Ziel frei/nicht grundstellbar.</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 11</td></tr><tr>
+<td class="num">139.315 s</td><td class="num">12:26:19.269</td>
+<td><span class="badge pass">pass</span> Completion Cleanup: Cleanup abgeschlossen: GFM-A 0 frei und nicht grundstellbar.</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 11</td></tr><tr>
+<td class="num">139.315 s</td><td class="num">12:26:19.269</td>
+<td>Completion Reset: RaSTA- und BTP-Verbindung werden abgebaut</td>
+<td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf page 11</td></tr><tr>
+<td class="num">139.316 s</td><td class="num">12:26:19.270</td>
+<td>RaSTA disconnection request (TX), reason 0</td>
+<td class="ev">S03s_unexpected_response.pcapng frame 371</td></tr></tbody>
+</table></div>
+</details>
+</section>
+
+
+
+<h2>Findings outside the test cases</h2>
+<div class="card scroll"><table>
+<thead><tr><th>Severity</th><th>Time</th><th>Category</th><th>Finding</th></tr></thead>
+<tbody><tr>
+<td><span class="sev info">info</span></td>
+<td class="num">3.461 s</td><td>manual_intervention</td><td>Manual connectButton from the CANoe panel</td></tr><tr>
+<td><span class="sev info">info</span></td>
+<td class="num">8.510 s</td><td>manual_intervention</td><td>Manual disconnectButton from the CANoe panel</td></tr><tr>
+<td><span class="sev warning">warning</span></td>
+<td class="num">–</td><td>time_alignment</td><td>gfma_status: pcapng and canoe_log differ by up to 0.8 ms, 1 unmatched</td></tr><tr>
+<td><span class="sev warning">warning</span></td>
+<td class="num">–</td><td>time_alignment</td><td>gfma_status: pcapng and blf differ by up to 0.8 ms, 1 unmatched</td></tr></tbody>
+</table></div>
+
+
+<h2>Sources and alignment</h2>
+<div class="card scroll"><table>
+<thead><tr><th>Source</th><th>File</th><th>Time base</th></tr></thead>
+<tbody><tr><td>pcapng</td><td class="ev">S03s_unexpected_response.pcapng</td><td>rasta_timestamp, offset -1790936639.954624 s, spread 0.463 ms, 1090 samples</td></tr><tr><td>BLF</td><td class="ev">RealOCWorking_TDS_21026.blf</td><td>native measurement time</td></tr><tr><td>PDF report</td><td class="ev">Real_SCI-TDS_2026-10-02_12-24-11.pdf</td><td>native measurement time</td></tr><tr><td>CANoe log</td><td class="ev">TDS_Report_21026.txt</td><td>native measurement time</td></tr><tr><td>Test_Description</td><td class="ev">Test_Description/</td><td>native measurement time</td></tr></tbody>
+</table>
+<ul class="evidence"><li>gfma_status: pcapng vs. canoe_log, 12 matched, max difference 0.829 ms, 1 unmatched</li><li>gfma_status: pcapng vs. blf, 12 matched, max difference 0.826 ms, 1 unmatched</li><li>test_case_start: pdf_report vs. blf, 5 matched, max difference 0.000 ms, 0 unmatched</li><li>network merge: 0 identical frames in pcapng and -, 0 recorded differently, 0 only in pcapng, 0 only in -</li></ul>
+</div>
+</main>
+</body>
+</html>

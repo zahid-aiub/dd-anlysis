@@ -17,9 +17,7 @@ LUA.zip
 project-task.docx
 TDS_Task_Analysis_Checklist.pdf
 
-# Generated output
-output/*
-!output/.gitkeep
+# Generated output is committed (reports of the RealOC run, internal); OS clutter is not
 
 .DS_Store
 

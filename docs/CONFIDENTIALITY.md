@@ -8,7 +8,7 @@ Rules for this project:
 
 - Do not upload any of these files to public websites, online PCAP/BLF/PDF converters or public AI tools.
 - Do not push them to a public repository. `.gitignore` already excludes `TDS_Task/`, `*.pcapng`, `*.blf`,
-  `*.lua`, `LUA.zip` and generated `output/`.
+  `*.lua` and `LUA.zip`. The generated reports in `output/` are committed.
 - Synthetic test data in `data/synthetic/` is derived from the real capture and contains real element IDs
   (e.g. `34W1`, `DETHMM ZE 35##0001`), so it is treated as confidential as well.
 - Reports generated in `output/`, and the example report in `docs/example_report/`, quote real telegrams and

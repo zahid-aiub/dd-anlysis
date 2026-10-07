@@ -195,7 +195,7 @@ tests/                    pytest suite and the Phase 1 ground truth
 data/synthetic/           generated scenario captures (pcapng not committed)
 docs/                     documentation, architecture diagram, example report, demo
 scripts/                  demo script
-output/                   generated reports (not committed)
+output/                   generated reports of the RealOC run (report.*, data-anlysis-report.json, demo/)
 TDS_Task/                 input data (not committed, confidential)
 ```
 
